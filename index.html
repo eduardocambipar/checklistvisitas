@@ -566,6 +566,15 @@
   .cond.cond-plain{margin-top:0; padding:0; border-left:none;}
   .invalid-group{outline:2px solid var(--required); outline-offset:4px; border-radius:12px;}
   .seg.invalid-group{border-radius:999px;}
+  .thumb select{border:none!important; border-top:1px solid var(--border)!important; border-radius:0!important; font-size:12px!important; padding:6px 9px!important; background:var(--surface);}
+  .thumb select.invalid{background:color-mix(in srgb, var(--required) 12%, var(--surface));}
+  .thumb-actions{display:flex; border-top:1px solid var(--border);}
+  .thumb-actions button{flex:1; border:none; background:var(--surface-muted); color:var(--text-faint); font-size:12px; font-weight:700; padding:6px; cursor:pointer;}
+  .thumb-actions button + button{border-left:1px solid var(--border);}
+  .thumb-actions button:hover{color:var(--lime-deep);}
+  .thumb-actions button[data-del-photo]:hover{color:var(--required);}
+  .thumb.retrato{outline:2px solid var(--required); outline-offset:-2px;}
+  .thumb-warn{background:var(--required); color:#fff; font-size:11px; font-weight:700; text-align:center; padding:4px;}
 
 </style>
 </head>
@@ -821,6 +830,12 @@ document.addEventListener('change', function(e){
   var t = e.target;
   if(t.name && (t.type === 'radio' || t.type === 'checkbox')) updateConds(t.name);
   if(t.matches('[data-photo-key]')) handlePhotos(t);
+  if(t.matches('[data-tipo]')){
+    var kk = t.getAttribute('data-tipo'), pp = t.closest('.thumb').getAttribute('data-pid');
+    (S.photos[kk]||[]).forEach(function(p){ if(p.id === pp) p.tipo = t.value; });
+    if(t.value) t.classList.remove('invalid');
+    agendarSalvar();
+  }
   if(t.matches('[data-people-pick]')){ var k = t.getAttribute('data-people-pick'); S.people[k][t.value] = t.checked; updateDssCount(); }
   if(t.classList.contains('invalid') && t.value) t.classList.remove('invalid');
 });
@@ -832,30 +847,54 @@ document.addEventListener('input', function(e){
 });
 
 /* ---------------- photos ---------------- */
-function compress(file){
+var CHECKLIST_KEYS = ['assinEpi', 'assinDss'];
+function desenhar(img, max, girar){
+  var w = img.naturalWidth || img.width, h = img.naturalHeight || img.height, r = Math.min(1, max/Math.max(w,h));
+  w = Math.round(w*r); h = Math.round(h*r);
+  var c = document.createElement('canvas'), ctx;
+  if(girar){ c.width = h; c.height = w; ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0,0,c.width,c.height); ctx.translate(c.width, 0); ctx.rotate(Math.PI/2); ctx.drawImage(img, 0, 0, w, h); }
+  else { c.width = w; c.height = h; ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0,0,w,h); ctx.drawImage(img, 0, 0, w, h); }
+  return c.toDataURL('image/jpeg', 0.78);
+}
+function compress(file, key){
   return new Promise(function(res, rej){
     var url = URL.createObjectURL(file); var img = new Image();
     img.onload = function(){
-      var max = 1400, w = img.naturalWidth, h = img.naturalHeight, r = Math.min(1, max/Math.max(w,h));
-      w = Math.round(w*r); h = Math.round(h*r);
-      var c = document.createElement('canvas'); c.width = w; c.height = h;
-      var ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0,0,w,h); ctx.drawImage(img,0,0,w,h);
-      URL.revokeObjectURL(url); res(c.toDataURL('image/jpeg', 0.74));
+      var doc = CHECKLIST_KEYS.indexOf(key) >= 0, max = doc ? 1900 : 1400;
+      var out = desenhar(img, max, false);
+      URL.revokeObjectURL(url); res({ dataUrl: out, retrato: img.naturalHeight > img.naturalWidth });
     };
     img.onerror = function(){ URL.revokeObjectURL(url); rej(new Error('img')); };
     img.src = url;
   });
 }
+function girarFoto(key, pid){
+  var p = (S.photos[key] || []).filter(function(x){ return x.id === pid; })[0]; if(!p) return;
+  var img = new Image();
+  img.onload = function(){ p.dataUrl = desenhar(img, Math.max(img.naturalWidth, img.naturalHeight), true); p.retrato = img.naturalWidth > img.naturalHeight; delete p.thumb; renderThumbs(key); agendarSalvar(); };
+  img.src = p.dataUrl;
+}
 var DEF_CAP = { assinEpi: 'Checklist de EPI assinado', assinDss: 'Lista de presença assinada' };
+var GERAL_TIPOS = ['Visão geral da área', 'Situação específica'];
+function nomeEquip(key){
+  var b = $('#equipContainer > .equip[data-id="'+key+'"]'); if(!b) return '';
+  var sel = $('select[data-k="tipo"]', b), tipo = sel ? (sel.value === 'Outro' ? v('tipoOutro', b) : sel.value) : '';
+  return [tipo, v('ident', b)].filter(Boolean).join(' ');
+}
 async function handlePhotos(input){
   var key = input.getAttribute('data-photo-key');
   var files = Array.prototype.slice.call(input.files || []);
   input.value = '';
   S.photos[key] = S.photos[key] || [];
+  var girou = 0;
   for(var i=0;i<files.length;i++){
-    try{ var d = await compress(files[i]); S.photos[key].push({ id: uid('p'), dataUrl: d, caption: DEF_CAP[key] || '' }); }
+    try{
+      var r = await compress(files[i], key); if(r.retrato && CHECKLIST_KEYS.indexOf(key) >= 0) girou++;
+      S.photos[key].push({ id: uid('p'), dataUrl: r.dataUrl, retrato: r.retrato, caption: DEF_CAP[key] || nomeEquip(key), tipo: key === 'geral' ? '' : undefined });
+    }
     catch(e){ toast('Não foi possível ler uma das imagens.'); }
   }
+  if(girou) toast('Checklist precisa estar em paisagem: use o botão Girar ou fotografe com o celular deitado.');
   renderThumbs(key); agendarSalvar();
   var pf = $('[data-thumbs="'+key+'"]'); if(pf && pf.closest('.photo-field')) pf.closest('.photo-field').classList.remove('invalid-group');
 }
@@ -863,7 +902,12 @@ function renderThumbs(key){
   var box = $('[data-thumbs="'+key+'"]'); if(!box) return;
   var list = S.photos[key] || [];
   box.innerHTML = list.map(function(p){
-    return '<div class="thumb" data-pid="'+p.id+'"><img src="'+p.dataUrl+'" alt=""><input type="text" placeholder="Legenda (obrigatória)" value="'+esc(p.caption)+'" data-cap="'+key+'"><button type="button" data-del-photo="'+key+'">Remover</button></div>';
+    var sel = key !== 'geral' ? '' : '<select data-tipo="'+key+'"><option value="">O que a foto mostra?</option>' +
+      GERAL_TIPOS.map(function(t){ return '<option'+(p.tipo === t ? ' selected' : '')+'>'+t+'</option>'; }).join('') + '</select>';
+    var aviso = (p.retrato && CHECKLIST_KEYS.indexOf(key) >= 0) ? '<div class="thumb-warn">Gire para paisagem</div>' : '';
+    return '<div class="thumb'+(aviso ? ' retrato' : '')+'" data-pid="'+p.id+'"><img src="'+p.dataUrl+'" alt="">' + aviso + sel +
+      '<input type="text" placeholder="Legenda (obrigatória)" value="'+esc(p.caption)+'" data-cap="'+key+'">' +
+      '<div class="thumb-actions"><button type="button" data-rot-photo="'+key+'">Girar</button><button type="button" data-del-photo="'+key+'">Remover</button></div></div>';
   }).join('');
   var cnt = $('[data-count="'+key+'"]'); if(cnt){ cnt.hidden = !list.length; cnt.textContent = list.length + (list.length === 1 ? ' foto' : ' fotos'); }
 }
@@ -1015,6 +1059,7 @@ document.addEventListener('click', function(e){
     delete S.pads[id]; delete S.people.proc[id]; delete S.people.dss[id];
     blk.remove(); renumber(parent); renderPeople();
   }
+  else if(t.hasAttribute('data-rot-photo')){ girarFoto(t.getAttribute('data-rot-photo'), t.closest('.thumb').getAttribute('data-pid')); }
   else if(t.hasAttribute('data-del-photo')){
     var key = t.getAttribute('data-del-photo'), pid = t.closest('.thumb').getAttribute('data-pid');
     S.photos[key] = (S.photos[key]||[]).filter(function(p){ return p.id !== pid; }); renderThumbs(key); agendarSalvar();
@@ -1181,6 +1226,13 @@ function validate(){
   // legendas das fotos
   var semLegenda = $$('.thumb input[data-cap]').filter(function(i){ return !i.value.trim(); });
   semLegenda.forEach(function(i){ marcar(i); });
+  $$('.thumb select[data-tipo]').forEach(function(sl){ if(!sl.value) marcar(sl); });
+  CHECKLIST_KEYS.forEach(function(k){
+    if((S.photos[k] || []).some(function(p){ return p.retrato; })){
+      var inp = $('input[data-photo-key="'+k+'"]'); if(inp && visivel(inp)) marcar(inp.closest('.photo-field'), true);
+      toast('Fotografe os checklists em paisagem (celular deitado) ou use o botão Girar.');
+    }
+  });
   if(bad.length){
     bad.sort(function(x, y){ return x.getBoundingClientRect().top - y.getBoundingClientRect().top; });
     var el = bad[0], top = el.getBoundingClientRect().top + window.scrollY - 200;
@@ -1240,7 +1292,8 @@ function collectPhotos(p){
   push(p.proc.photos, 'Procedimentos'); push(p.dss.photos, 'DSS / treinamento'); push(p.ronda.photos, 'Ronda');
   p.equips.forEach(function(e){ push(e.photos, e.tipo + (e.ident ? ' ' + e.ident : '')); });
   p.occs.forEach(function(o){ push(o.photos, OCC[o.origin].label); });
-  push(p.seg.photos, 'Segurança'); push(p.geral, 'Geral');
+  push(p.seg.photos, 'Segurança');
+  (p.geral || []).forEach(function(ph){ out.push({ src: ph.thumb || ph.dataUrl, caption: ph.caption, label: ph.tipo || 'Registro complementar' }); });
   return out;
 }
 function subjectOf(p){ return 'Relatório de Visita Operacional | ' + p.id.cliente + (p.id.operacao ? ' – ' + p.id.operacao : '') + ' | ' + fmtDate(p.id.data); }
@@ -1389,14 +1442,16 @@ function renderReport(p, opts){
       for(var ai=0; ai<cellsA.length; ai+=2){ rowsA.push('<tr data-brk>' + cellsA[ai] + (cellsA[ai+1] || '<td width="50%" style="width:50%;"></td>') + '</tr>'); }
       anexo += TBL + rowsA.join('') + '</table>';
     }
-    docs.forEach(function(d){
-      anexo += '<div data-brk style="margin:10px 0 22px;"><div style="font-size:13px;font-weight:bold;color:'+INK+';font-family:'+F+';margin-bottom:8px;">'+esc(d.caption || 'Documento assinado')+'</div>' +
-        '<img src="'+d.dataUrl+'" width="620" alt="'+esc(d.caption || 'Documento assinado')+'" style="display:block;width:620px;max-width:100%;height:auto;border:1px solid '+LINE+';"></div>';
+    docs.forEach(function(d, di){
+      var corpo = (di === 0 ? anexo : '') +
+        '<div style="font-size:13px;font-weight:bold;color:'+INK+';font-family:'+F+';margin:0 0 8px;">'+esc(d.caption || 'Documento assinado')+'</div>' +
+        '<img src="'+d.dataUrl+'" width="960" alt="'+esc(d.caption || 'Documento assinado')+'" style="display:block;width:100%;max-width:960px;height:auto;border:1px solid '+LINE+';">';
+      out.push('<table data-blk data-newpage role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;background:#FFFFFF;'+(di === 0 ? 'border-top:5px solid '+C.lime+';' : '')+'"><tr><td style="padding:'+(di === 0 ? '26px' : '14px')+' 32px 22px;">' + corpo + '</td></tr></table>');
     });
-    out.push('<table data-blk data-newpage role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;background:#FFFFFF;border-top:5px solid '+C.lime+';"><tr><td style="padding:26px 32px 18px;">' + anexo + '</td></tr></table>');
+    if(!docs.length) out.push('<table data-blk data-newpage role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;background:#FFFFFF;border-top:5px solid '+C.lime+';"><tr><td style="padding:26px 32px 18px;">' + anexo + '</td></tr></table>');
   }
 
-  out.push('<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;background:#FFFFFF;"><tr><td style="padding:14px 32px;border-top:1px solid '+LINE+';font-family:'+F+';font-size:11px;color:'+FAINT+';">Enviado por '+esc(p.id.responsavel)+' em '+new Date(p.submittedAt).toLocaleString('pt-BR')+' &nbsp;|&nbsp; Ambipar, Reporte e Checklist de Visitas</td></tr></table>');
+  out.push('<table data-footer role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;background:#FFFFFF;"><tr><td style="padding:14px 32px;border-top:1px solid '+LINE+';font-family:'+F+';font-size:11px;color:'+FAINT+';">Enviado por '+esc(p.id.responsavel)+' em '+new Date(p.submittedAt).toLocaleString('pt-BR')+' &nbsp;|&nbsp; Ambipar, Reporte e Checklist de Visitas</td></tr></table>');
 
   return '<div style="background:#F3F4EC;padding:20px 0;margin:0;"><table role="presentation" width="1040" align="center" cellpadding="0" cellspacing="0" border="0" style="width:1040px;margin:0 auto;border-collapse:collapse;background:#FFFFFF;"><tr><td>' +
     out.join('') + '</td></tr></table></div>';
@@ -1452,24 +1507,23 @@ async function buildPdfBlob(){
     var W = 297, M = 6, CW = W - 2*M, PH = 210, CH = PH - 2*M;
     setStatus('Montando o PDF…');
     var root = host.firstElementChild;
-    var canvas = await window.html2canvas(root, { scale: 2, backgroundColor: '#F1F2E8', useCORS: true, logging: false });
-    var hostTop = root.getBoundingClientRect().top, ratio = canvas.height / root.getBoundingClientRect().height;
-    // pontos seguros de quebra: início de cada bloco e de cada linha marcada (fotos, plano de ação)
-    var cuts = $$('[data-blk], [data-brk]', root).map(function(el){ return Math.round((el.getBoundingClientRect().top - hostTop) * ratio); });
-    cuts.push(canvas.height); cuts = cuts.filter(function(v, i, arr){ return v > 0 && arr.indexOf(v) === i; }).sort(function(x, y){ return x - y; });
-    var forced = $$('[data-newpage]', root).map(function(el){ return Math.round((el.getBoundingClientRect().top - hostTop) * ratio); });
-    var pxPerMm = canvas.width / CW, pagePx = Math.floor(CH * pxPerMm), start = 0, page = 0;
-    while(start < canvas.height - 4){
-      var limit = start + pagePx, end = start;
-      cuts.forEach(function(c){ if(c > start && c <= limit) end = c; });
-      forced.forEach(function(f){ if(f > start + 4 && f <= limit && f < end) end = f; });
-      if(end === start) end = Math.min(limit, canvas.height);
-      var part = document.createElement('canvas'); part.width = canvas.width; part.height = end - start;
-      var pctx = part.getContext('2d'); pctx.fillStyle = '#FFFFFF'; pctx.fillRect(0, 0, part.width, part.height);
-      pctx.drawImage(canvas, 0, start, canvas.width, end - start, 0, 0, canvas.width, end - start);
-      if(page > 0) pdf.addPage();
-      pdf.addImage(part.toDataURL('image/jpeg', 0.9), 'JPEG', M, M, CW, (end - start) / pxPerMm);
-      start = end; page++;
+    var blocos = $$('[data-blk]', root), y = M, page = 0;
+    for(var i = 0; i < blocos.length; i++){
+      setStatus('Montando o PDF… ' + Math.round((i / blocos.length) * 100) + '%');
+      var cv = await window.html2canvas(blocos[i], { scale: 2, backgroundColor: '#FFFFFF', useCORS: true, logging: false });
+      if(!cv.width || !cv.height) continue;
+      var wmm = CW, hmm = cv.height * CW / cv.width;
+      if(hmm > CH){ var sc = CH / hmm; hmm = CH; wmm = CW * sc; }          // bloco maior que a página: reduz para caber inteiro
+      if(page > 0 || y > M){ if(y + hmm > PH - M + 0.4){ pdf.addPage(); y = M; } }
+      pdf.addImage(cv.toDataURL('image/jpeg', 0.92), 'JPEG', M + (CW - wmm) / 2, y, wmm, hmm);
+      y += hmm + 3; page++;
+    }
+    var rodape = $('[data-footer]', root), txt = rodape ? rodape.innerText.replace(/\s+/g, ' ').trim() : '';
+    var total = pdf.internal.getNumberOfPages();
+    for(var pg = 1; pg <= total; pg++){
+      pdf.setPage(pg); pdf.setFontSize(7); pdf.setTextColor(140, 143, 120);
+      if(txt) pdf.text(txt, M, PH - 3);
+      pdf.text('página ' + pg + ' de ' + total, W - M, PH - 3, { align: 'right' });
     }
     return pdf.output('blob');
   } finally { host.remove(); }
