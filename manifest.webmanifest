@@ -1,0 +1,16 @@
+{
+  "name": "Checklist Operacional | Ambipar",
+  "short_name": "Checklist",
+  "description": "Reporte e checklist de visitas operacionais.",
+  "start_url": "./checklist_visitas.html",
+  "scope": "./",
+  "display": "browser",
+  "background_color": "#F3F4EC",
+  "theme_color": "#DEFF00",
+  "lang": "pt-BR",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
