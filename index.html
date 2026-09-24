@@ -586,6 +586,18 @@
   .thumb-actions button[data-del-photo]:hover{color:var(--required);}
   .thumb.retrato{outline:2px solid var(--required); outline-offset:-2px;}
   .thumb-warn{background:var(--required); color:#fff; font-size:11px; font-weight:700; text-align:center; padding:4px;}
+  .anchor-nav button.clear-nav{
+    color:#fff;
+    background:
+      linear-gradient(135deg, rgba(255,255,255,.45) 0%, rgba(255,255,255,.08) 32%, rgba(255,255,255,0) 58%),
+      color-mix(in srgb, var(--required) 88%, transparent);
+    border-color:color-mix(in srgb, var(--required) 92%, transparent);
+    box-shadow:0 6px 16px -10px rgba(140,20,20,.5), inset 0 1px 0 rgba(255,255,255,.45), inset 0 -4px 8px -5px rgba(60,0,0,.25);
+  }
+  .anchor-nav button.clear-nav:hover{
+    background:linear-gradient(135deg, rgba(255,255,255,.5) 0%, rgba(255,255,255,.1) 32%, rgba(255,255,255,0) 58%), var(--required);
+    border-color:var(--required);
+  }
 
 </style>
 </head>
@@ -608,6 +620,7 @@
   </div>
 
   <nav class="anchor-nav" id="anchorNav">
+    <button type="button" class="clear-nav" id="clearBtn">Limpar formulário</button>
     <button type="button" data-target="sec-id">Identificação</button>
     <button type="button" data-target="sec-equipe">Equipe e EPIs</button>
     <button type="button" data-target="sec-proc">Procedimentos e DSS</button>
@@ -1731,7 +1744,7 @@ $('#copySubjectBtn').addEventListener('click', async function(){
   var inp = $('#subjectInput'); try{ await navigator.clipboard.writeText(inp.value); }catch(e){ inp.select(); try{ document.execCommand('copy'); }catch(_){} }
   toast('Assunto copiado.');
 });
-$('#newBtn').addEventListener('click', function(){
+function limparFormulario(){
   if(!confirm('Limpar o formulário para uma nova visita?')) return;
   $('#mainForm').reset(); S.photos = {}; S.people = {proc:{}, dss:{}}; S.pads = {};
   apagarRascunho(); if($('#sigContainer')) $('#sigContainer').innerHTML = '';
@@ -1742,7 +1755,9 @@ $('#newBtn').addEventListener('click', function(){
   addColab(); addEquip(); $('#reportPanel').hidden = true; $('#submitStatus').textContent = '';
   var td = new Date(); $('[data-k="data"]').value = td.getFullYear() + '-' + String(td.getMonth()+1).padStart(2,'0') + '-' + String(td.getDate()).padStart(2,'0');
   window.scrollTo({ top: 0, behavior: reduced() ? 'auto' : 'smooth' });
-});
+}
+$('#newBtn').addEventListener('click', limparFormulario);
+$('#clearBtn').addEventListener('click', limparFormulario);
 
 
 /* ---------------- rascunho automático (IndexedDB, no próprio aparelho) ---------------- */
