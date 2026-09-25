@@ -7,6 +7,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#DEFF00">
 <meta name="apple-mobile-web-app-title" content="Checklist">
 <meta name="application-name" content="Checklist Operacional">
@@ -785,13 +786,14 @@
     <p class="q-desc" style="max-width:none;" id="reportIntro">Copie o e-mail e cole direto no Outlook — fotos, tabelas e cores vão junto. Ou baixe o PDF para anexar.</p>
     <div class="subject-row"><input type="text" id="subjectInput" readonly aria-label="Assunto do e-mail"><button type="button" class="ghost-btn" id="copySubjectBtn">Copiar assunto</button></div>
     <div class="report-actions" style="margin-top:12px;">
-      <button type="button" class="download-btn" id="emlBtn" hidden>
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Abrir no Outlook com fotos e PDF</button>
+      <button type="button" class="download-btn" id="mailBtn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Enviar por e-mail</button>
+      <button type="button" class="ghost-btn" id="emlBtn" hidden>Versão com fotos e PDF anexados (.eml)</button>
       <button type="button" class="ghost-btn" id="copyEmailBtn">
         Copiar e-mail formatado</button>
       <button type="button" class="ghost-btn" id="pdfBtn" hidden>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>Baixar PDF</button>
-      <button type="button" class="ghost-btn" id="outlookBtn">Abrir Outlook Web (sem anexos)</button>
+      <button type="button" class="ghost-btn" id="outlookBtn">Abrir no Outlook Web</button>
       <button type="button" class="ghost-btn" id="htmlBtn" hidden>Baixar e-mail (.html)</button>
       <button type="button" class="ghost-btn" id="newBtn">Nova visita</button>
     </div>
@@ -1553,17 +1555,20 @@ function renderCompacto(p){
   // fotos
   var fotosHtml = '';
   if(photos.length){
-    var PER = 9, larg = Math.floor(100 / PER);
-    var cels = photos.slice(0, 18).map(function(ph){
-      return '<td width="'+larg+'%" style="width:'+larg+'%;padding:0 4px 6px 0;vertical-align:top;"><img src="'+(ph.src)+'" width="140" alt="" style="display:block;width:100%;height:auto;border:0;">' +
-        '<div style="font-size:8px;color:'+MUTED+';margin-top:3px;font-family:'+F+';line-height:1.25;">'+esc(ph.caption || ph.label)+'</div></td>';
+    var PER = photos.length <= 4 ? 2 : photos.length <= 9 ? 3 : 4, larg = Math.floor(100 / PER);
+    var cels = photos.map(function(ph){
+      return '<td width="'+larg+'%" style="width:'+larg+'%;padding:0 10px 14px 0;vertical-align:top;"><img src="'+(ph.src)+'" alt="" style="display:block;width:100%;height:auto;border:0;">' +
+        '<div style="font-size:11px;color:'+INK+';font-weight:bold;margin-top:5px;font-family:'+F+';line-height:1.3;">'+esc(ph.caption || ph.label)+'</div>' +
+        (ph.caption ? '<div style="font-size:10px;color:'+MUTED+';font-family:'+F+';">'+esc(ph.label)+'</div>' : '') + '</td>';
     });
     var linhas = [];
     for(var i = 0; i < cels.length; i += PER){
       var r = cels.slice(i, i + PER); while(r.length < PER) r.push('<td width="'+larg+'%" style="width:'+larg+'%;"></td>');
       linhas.push('<tr>' + r.join('') + '</tr>');
     }
-    fotosHtml = tit('Registros da visita') + TBL + linhas.join('') + '</table>';
+    fotosHtml = '<div style="font-size:8.5px;letter-spacing:1px;color:'+FAINT+';font-family:'+F+';">REGISTROS DA VISITA</div>' +
+      '<div style="font-size:15px;font-weight:bold;color:'+INK+';font-family:'+F+';margin:2px 0 12px;">'+esc(p.id.cliente)+' – '+esc(p.id.operacao)+' &nbsp;|&nbsp; '+esc(fmtDate(p.id.data))+' &nbsp;|&nbsp; '+photos.length+(photos.length === 1 ? ' foto' : ' fotos')+'</div>' +
+      TBL + linhas.join('') + '</table>';
   }
 
   // mão de obra
@@ -1629,8 +1634,7 @@ function renderCompacto(p){
   var rodape = '<div style="border-top:1px solid '+LINE+';margin-top:8px;padding-top:6px;font-family:'+F+';font-size:8px;color:'+FAINT+';">Enviado por '+esc(p.id.responsavel)+' em '+new Date(p.submittedAt).toLocaleString('pt-BR')+' &nbsp;|&nbsp; Ambipar, Reporte e Checklist de Visitas</div>';
 
   var corpo = cab +
-    '<div style="height:12px;line-height:12px;font-size:0;">&nbsp;</div>' + fotosHtml +
-    '<div style="height:10px;line-height:10px;font-size:0;">&nbsp;</div>' +
+    '<div style="height:12px;line-height:12px;font-size:0;">&nbsp;</div>' +
     TBL + '<tr><td width="32%" style="width:32%;vertical-align:top;padding-right:16px;">' + colabHtml + '</td>' +
       '<td width="30%" style="width:30%;vertical-align:top;padding-right:16px;">' + equipHtml + '</td>' +
       '<td width="38%" style="width:38%;vertical-align:top;">' + planoHtml + '</td></tr></table>' +
@@ -1642,6 +1646,7 @@ function renderCompacto(p){
 
   var blocos = ['<table data-blk role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;background:#FFFFFF;border-top:4px solid '+C.lime+';"><tr><td style="padding:16px 20px;">' + corpo + '</td></tr></table>'];
 
+  if(fotosHtml) blocos.push('<table data-blk role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;background:#FFFFFF;border-top:4px solid '+C.lime+';"><tr><td style="padding:16px 20px;">' + fotosHtml + '</td></tr></table>');
   var docs = [].concat((p.assin && p.assin.epi) || [], (p.assin && p.assin.dss) || []);
   docs.forEach(function(d){
     blocos.push('<table data-blk role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;background:#FFFFFF;border-top:4px solid '+C.lime+';"><tr><td style="padding:16px 20px;">' +
@@ -1650,7 +1655,7 @@ function renderCompacto(p){
       '<img src="'+d.dataUrl+'" width="1360" alt="'+esc(d.caption || 'Documento assinado')+'" style="display:block;width:100%;height:auto;border:1px solid '+LINE+';"></td></tr></table>');
   });
 
-  return '<div style="background:#FFFFFF;width:1400px;">' + blocos.join('') + '</div>';
+  return '<div style="background:#FFFFFF;width:100%;">' + blocos.join('') + '</div>';
 }
 
 /* ---------------- export: copy / pdf / html ---------------- */
@@ -1703,6 +1708,19 @@ async function buildPdfBlob(){
     var W = 297, M = 6, CW = W - 2*M, PH = 210, CH = PH - 2*M;
     setStatus('Montando o PDF…');
     var root = host.firstElementChild;
+    // ajusta a largura do desenho para o bloco principal ter a mesma proporção da folha e ocupá-la inteira
+    var alvo = CW / CH, principal = $('[data-blk]', root);
+    if(principal){
+      var larg = 1400;
+      for(var it = 0; it < 4; it++){
+        host.style.width = larg + 'px';
+        var r0 = principal.getBoundingClientRect();
+        if(!r0.height) break;
+        var prop = r0.width / r0.height;
+        if(Math.abs(prop - alvo) < 0.02) break;
+        larg = Math.max(900, Math.min(1800, larg * Math.sqrt(alvo / prop)));
+      }
+    }
     var blocos = $$('[data-blk]', root), y = M, page = 0;
     for(var i = 0; i < blocos.length; i++){
       setStatus('Montando o PDF… ' + Math.round((i / blocos.length) * 100) + '%');
@@ -1908,25 +1926,35 @@ $('#mainForm').addEventListener('submit', async function(ev){
 $('#copyEmailBtn').addEventListener('click', copyEmail);
 $('#pdfBtn').addEventListener('click', makePdf);
 $('#emlBtn').addEventListener('click', makeEml);
+function resumoEmail(){
+  var p = current.payload, acts = collectActions(p), L = [];
+  L.push(p.id.cliente + ' — ' + p.id.operacao);
+  L.push('Visita de ' + fmtDate(p.id.data) + ', das ' + (p.id.inicio || '?') + ' às ' + (p.id.termino || '?') + '. Responsável: ' + p.id.responsavel + '.');
+  L.push('');
+  L.push('Resumo: ' + acts.length + ' itens no plano de ação, ' + p.colabs.length + ' colaboradores, ' + p.equips.length + ' equipamentos.');
+  if(p.prox.data) L.push('Próxima visita: ' + fmtDate(p.prox.data) + '.');
+  if(acts.length){
+    L.push(''); L.push('Plano de ação:');
+    acts.forEach(function(a){ L.push('- [' + (a.crit || 'sem criticidade') + '] ' + a.desc + (a.prov ? ' | ' + a.prov : '') + (a.resp ? ' | ' + a.resp : '') + (a.prazo ? ' | até ' + fmtDate(a.prazo) : '')); });
+  }
+  L.push(''); L.push('Relatório completo em PDF em anexo.');
+  return L.join('\n');
+}
+$('#mailBtn').addEventListener('click', function(){
+  if(!current) return;
+  var corpo = resumoEmail();
+  if(corpo.length > 1800) corpo = corpo.slice(0, 1800) + '\n…';
+  var url = 'mailto:' + encodeURIComponent(CONFIG.emailPara || '') +
+    '?subject=' + encodeURIComponent(current.subject) +
+    (CONFIG.emailCc ? '&cc=' + encodeURIComponent(CONFIG.emailCc) : '') +
+    '&body=' + encodeURIComponent(corpo);
+  window.location.href = url;
+  setStatus('E-mail aberto no seu aplicativo de e-mail, com assunto, data e resumo prontos. Anexe o PDF antes de enviar.');
+});
 $('#outlookBtn').addEventListener('click', function(){
   if(!current) return;
-  var p = current.payload, acts = collectActions(p);
-  var linhas = [];
-  linhas.push(p.id.cliente + ' — ' + p.id.operacao);
-  linhas.push('Visita de ' + fmtDate(p.id.data) + ', das ' + (p.id.inicio || '?') + ' às ' + (p.id.termino || '?') + '.');
-  linhas.push('Responsável: ' + p.id.responsavel);
-  linhas.push('');
-  linhas.push('Resumo: ' + acts.length + ' itens no plano de ação, ' + p.colabs.length + ' colaboradores, ' + p.equips.length + ' equipamentos.');
-  if(p.prox.data) linhas.push('Próxima visita: ' + fmtDate(p.prox.data));
-  if(acts.length){
-    linhas.push('');
-    linhas.push('Plano de ação:');
-    acts.forEach(function(a){ linhas.push('- [' + (a.crit || 'sem criticidade') + '] ' + a.desc + (a.prov ? ' | Providência: ' + a.prov : '') + (a.resp ? ' | ' + a.resp : '') + (a.prazo ? ' | até ' + fmtDate(a.prazo) : '')); });
-  }
-  linhas.push('');
-  linhas.push('(Relatório completo, com fotos e PDF, no e-mail gerado pelo botão "Abrir no Outlook com fotos e PDF".)');
   var url = 'https://outlook.office.com/mail/deeplink/compose?to=' + encodeURIComponent(CONFIG.emailPara || '') +
-    '&subject=' + encodeURIComponent(current.subject) + '&body=' + encodeURIComponent(linhas.join('\n'));
+    '&subject=' + encodeURIComponent(current.subject) + '&body=' + encodeURIComponent(resumoEmail());
   window.open(url, '_blank', 'noopener');
   setStatus('Outlook Web aberto com o resumo em texto. Fotos e PDF só vão pelo botão com anexos.');
 });
