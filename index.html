@@ -786,8 +786,8 @@
     <div class="subject-row"><input type="text" id="subjectInput" readonly aria-label="Assunto do e-mail"><button type="button" class="ghost-btn" id="copySubjectBtn">Copiar assunto</button></div>
     <div class="report-actions" style="margin-top:12px;">
       <button type="button" class="download-btn" id="mailBtn">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Enviar por e-mail</button>
-      <button type="button" class="ghost-btn" id="emlBtn" hidden>Versão com fotos e PDF anexados (.eml)</button>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Enviar por e-mail com fotos e PDF</button>
+      <button type="button" class="ghost-btn" id="emlBtn" hidden>Só baixar o e-mail (.eml)</button>
       <button type="button" class="ghost-btn" id="copyEmailBtn">
         Copiar e-mail formatado</button>
       <button type="button" class="ghost-btn" id="pdfBtn" hidden>
@@ -1960,18 +1960,32 @@ function urlMailto(){
     (CONFIG.emailCc ? '&cc=' + encodeURIComponent(CONFIG.emailCc) : '') +
     '&body=' + encodeURIComponent(resumoCurto());
 }
-$('#mailBtn').addEventListener('click', function(){
+async function enviarEmail(){
   if(!current) return;
-  var url = urlMailto();
-  var a = document.createElement('a');
-  a.href = url; a.target = '_self'; a.style.display = 'none';
-  document.body.appendChild(a); a.click();
-  setTimeout(function(){ a.remove(); }, 500);
-  var st = $('#actionStatus');
-  st.innerHTML = 'E-mail aberto com assunto, data e resumo prontos: é só anexar o PDF e enviar. ' +
-    'Não abriu? Então este aparelho não tem aplicativo de e-mail padrão — ' +
-    '<a href="' + url.replace(/"/g, '&quot;') + '" style="color:inherit;">toque aqui</a> ou use o botão “Abrir no Outlook Web”.';
-});
+  var btn = $('#mailBtn'), st = $('#actionStatus');
+  btn.disabled = true;
+  try{
+    setStatus('Montando o e-mail com fotos e PDF…');
+    var eml = await buildEml();
+    var nome = fileBase() + '.eml';
+    var arquivo = new File([eml], nome, { type: 'message/rfc822' });
+    // celular: folha de compartilhamento abre o Outlook já com a mensagem
+    if(navigator.canShare && navigator.canShare({ files: [arquivo] })){
+      try{
+        await navigator.share({ files: [arquivo], title: current.subject, text: resumoCurto() });
+        setStatus('Escolha o Outlook na lista: a mensagem abre com assunto, data, fotos e PDF prontos.');
+        return;
+      }catch(err){ if(err && err.name === 'AbortError'){ setStatus('Envio cancelado.'); return; } }
+    }
+    // computador: baixa o e-mail pronto e abre no aplicativo padrão
+    await saveFile(nome, eml);
+    var url = urlMailto();
+    st.innerHTML = 'E-mail gerado. Abra o arquivo <b>' + esc(nome) + '</b> que acabou de baixar: o Outlook abre a mensagem já com assunto, data, fotos e PDF, faltando só clicar em Enviar. ' +
+      'Prefere uma mensagem simples, sem anexos? <a href="' + url.replace(/"/g, '&quot;') + '" style="color:inherit;">abrir agora</a>.';
+  }catch(e){ console.error(e); setStatus('Não foi possível montar o e-mail.'); }
+  finally{ btn.disabled = false; }
+}
+$('#mailBtn').addEventListener('click', enviarEmail);
 $('#outlookBtn').addEventListener('click', function(){
   if(!current) return;
   var url = 'https://outlook.office.com/mail/deeplink/compose?to=' + encodeURIComponent(CONFIG.emailPara || '') +
