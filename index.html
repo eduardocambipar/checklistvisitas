@@ -7,7 +7,6 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#DEFF00">
 <meta name="apple-mobile-web-app-title" content="Checklist">
 <meta name="application-name" content="Checklist Operacional">
@@ -1940,16 +1939,38 @@ function resumoEmail(){
   L.push(''); L.push('Relatório completo em PDF em anexo.');
   return L.join('\n');
 }
-$('#mailBtn').addEventListener('click', function(){
-  if(!current) return;
-  var corpo = resumoEmail();
-  if(corpo.length > 1800) corpo = corpo.slice(0, 1800) + '\n…';
-  var url = 'mailto:' + encodeURIComponent(CONFIG.emailPara || '') +
+function resumoCurto(){
+  var p = current.payload, acts = collectActions(p), L = [];
+  L.push(p.id.cliente + ' — ' + p.id.operacao);
+  L.push('Visita de ' + fmtDate(p.id.data) + ', das ' + (p.id.inicio || '?') + ' às ' + (p.id.termino || '?') + '. Responsável: ' + p.id.responsavel + '.');
+  L.push('Resumo: ' + acts.length + ' itens no plano de ação, ' + p.colabs.length + ' colaboradores, ' + p.equips.length + ' equipamentos.');
+  if(p.prox.data) L.push('Próxima visita: ' + fmtDate(p.prox.data) + '.');
+  var urg = acts.filter(function(a){ return a.crit === 'Crítica' || a.crit === 'Alta'; });
+  if(urg.length){
+    L.push(''); L.push('Prioridades:');
+    urg.slice(0, 5).forEach(function(a){ L.push('- [' + a.crit + '] ' + a.desc.slice(0, 110) + (a.prazo ? ' (até ' + fmtDate(a.prazo) + ')' : '')); });
+  }
+  L.push(''); L.push('Relatório completo em PDF em anexo.');
+  var txt = L.join('\n');
+  return txt.length > 800 ? txt.slice(0, 800) + '\n…' : txt;   // mailto tem limite de tamanho no Windows
+}
+function urlMailto(){
+  return 'mailto:' + encodeURIComponent(CONFIG.emailPara || '') +
     '?subject=' + encodeURIComponent(current.subject) +
     (CONFIG.emailCc ? '&cc=' + encodeURIComponent(CONFIG.emailCc) : '') +
-    '&body=' + encodeURIComponent(corpo);
-  window.location.href = url;
-  setStatus('E-mail aberto no seu aplicativo de e-mail, com assunto, data e resumo prontos. Anexe o PDF antes de enviar.');
+    '&body=' + encodeURIComponent(resumoCurto());
+}
+$('#mailBtn').addEventListener('click', function(){
+  if(!current) return;
+  var url = urlMailto();
+  var a = document.createElement('a');
+  a.href = url; a.target = '_self'; a.style.display = 'none';
+  document.body.appendChild(a); a.click();
+  setTimeout(function(){ a.remove(); }, 500);
+  var st = $('#actionStatus');
+  st.innerHTML = 'E-mail aberto com assunto, data e resumo prontos: é só anexar o PDF e enviar. ' +
+    'Não abriu? Então este aparelho não tem aplicativo de e-mail padrão — ' +
+    '<a href="' + url.replace(/"/g, '&quot;') + '" style="color:inherit;">toque aqui</a> ou use o botão “Abrir no Outlook Web”.';
 });
 $('#outlookBtn').addEventListener('click', function(){
   if(!current) return;
