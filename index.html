@@ -598,11 +598,27 @@
     background:linear-gradient(135deg, rgba(255,255,255,.5) 0%, rgba(255,255,255,.1) 32%, rgba(255,255,255,0) 58%), var(--required);
     border-color:var(--required);
   }
+  .clear-fab{bottom:88px; color:#fff;
+    background:
+      radial-gradient(circle at 30% 22%, rgba(255,255,255,.45) 0%, rgba(255,255,255,.08) 38%, rgba(255,255,255,0) 62%),
+      color-mix(in srgb, var(--required) 92%, transparent);
+    border-color:color-mix(in srgb, var(--required) 95%, transparent);
+    box-shadow:0 10px 30px -12px rgba(150,20,20,.5), inset 0 1px 0 rgba(255,255,255,.4), inset 0 -8px 12px -8px rgba(60,0,0,.3);
+  }
+  .scroll-bottom-fab svg{transition:transform .2s ease;}
+  .scroll-bottom-fab.para-cima svg{transform:rotate(180deg);}
+  @media (prefers-reduced-motion: reduce){.scroll-bottom-fab svg{transition:none;}}
 
 </style>
 </head>
 <body>
 
+<button type="button" class="scroll-bottom-fab clear-fab" id="clearBtn" aria-label="Limpar formulário" title="Limpar formulário">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v6M14 11v6"/></svg>
+</button>
+<button type="button" class="scroll-bottom-fab clear-fab" id="clearBtn" aria-label="Limpar formulário" title="Limpar formulário">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v6M14 11v6"/></svg>
+</button>
 <button type="button" class="scroll-bottom-fab" id="scrollBottomBtn" aria-label="Ir para o final da página">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16M5 13l7 7 7-7"/></svg>
 </button>
@@ -620,7 +636,6 @@
   </div>
 
   <nav class="anchor-nav" id="anchorNav">
-    <button type="button" class="clear-nav" id="clearBtn">Limpar formulário</button>
     <button type="button" data-target="sec-id">Identificação</button>
     <button type="button" data-target="sec-equipe">Equipe e EPIs</button>
     <button type="button" data-target="sec-proc">Procedimentos e DSS</button>
@@ -917,6 +932,7 @@ async function handlePhotos(input){
   for(var i=0;i<files.length;i++){
     try{
       var r = await compress(files[i], key); if(r.retrato && CHECKLIST_KEYS.indexOf(key) >= 0) girou++;
+      // fotos de equipamento já entram com o nome do equipamento na legenda
       S.photos[key].push({ id: uid('p'), dataUrl: r.dataUrl, retrato: r.retrato, caption: DEF_CAP[key] || nomeEquip(key), tipo: key === 'geral' ? '' : undefined });
     }
     catch(e){ toast('Não foi possível ler uma das imagens.'); }
@@ -931,9 +947,10 @@ function renderThumbs(key){
   box.innerHTML = list.map(function(p){
     var sel = key !== 'geral' ? '' : '<select data-tipo="'+key+'"><option value="">O que a foto mostra?</option>' +
       GERAL_TIPOS.map(function(t){ return '<option'+(p.tipo === t ? ' selected' : '')+'>'+t+'</option>'; }).join('') + '</select>';
+    var eq = !!$('#equipContainer > .equip[data-id="'+key+'"]');
     var aviso = (p.retrato && CHECKLIST_KEYS.indexOf(key) >= 0) ? '<div class="thumb-warn">Gire para paisagem</div>' : '';
     return '<div class="thumb'+(aviso ? ' retrato' : '')+'" data-pid="'+p.id+'"><img src="'+p.dataUrl+'" alt="">' + aviso + sel +
-      '<input type="text" placeholder="Legenda (obrigatória)" value="'+esc(p.caption)+'" data-cap="'+key+'">' +
+      '<input type="text" placeholder="'+(eq ? esc(nomeEquip(key) || 'Legenda (opcional)') : 'Legenda (obrigatória)')+'" value="'+esc(p.caption)+'" data-cap="'+key+'">' +
       '<div class="thumb-actions"><button type="button" data-rot-photo="'+key+'">Girar</button><button type="button" data-del-photo="'+key+'">Remover</button></div></div>';
   }).join('');
   var cnt = $('[data-count="'+key+'"]'); if(cnt){ cnt.hidden = !list.length; cnt.textContent = list.length + (list.length === 1 ? ' foto' : ' fotos'); }
@@ -1034,7 +1051,8 @@ function addEquip(presetId){
       '<div class="cond" data-cond-for="'+id+'-prob" data-show-when="Sim"><div class="sub-label">Problema identificado</div><textarea data-k="probDesc" placeholder="O que foi observado"></textarea>' +
       '<div class="sub-label">Criticidade</div>'+chipsHtml('crit',['Baixa','Média','Alta','Crítica'],'radio',id+'-crit',critCls) +
       '<div class="row2" style="margin-top:12px;"><div><div class="sub-label" style="margin-top:0">Foi aberta solicitação de manutenção?</div>'+seg(id+'-solic',['Sim','Não','Não se aplica'])+'</div>' +
-      '<div><div class="sub-label" style="margin-top:0">Nº da OS / chamado</div><input type="text" data-k="os" placeholder="Opcional"></div></div></div></div>' +
+      '<div><div class="sub-label" style="margin-top:0">Nº da OS / chamado</div><input type="text" data-k="os" placeholder="Opcional"></div></div>' +
+      '<div class="sub-label">Possível data para resolução</div><input type="date" data-k="prazoEquip" style="max-width:240px"><div class="hint">Opcional — preencha se já houver previsão.</div></div></div>' +
     '<div class="q">'+head('','Observações sobre operação e equipamento')+'<textarea data-k="obs"></textarea></div>' +
     photoField(id, 'Fotos do equipamento', '');
   c.appendChild(el);
@@ -1176,7 +1194,8 @@ function buildPayload(){
     equips: radio('equipVerif') !== 'Sim' ? [] : $$('#equipContainer > .equip').map(function(b){
       var id = b.getAttribute('data-id'), tipo = v('tipo', b);
       return { key:id, tipo: tipo === 'Outro' ? (v('tipoOutro', b) || 'Outro') : tipo, ident: v('ident', b), estado: $('[data-estado-box]', b).hasAttribute('data-touched') ? +$('[data-estado-box] input', b).value : '', nr: radio(id+'-nr'), nrQual: v('nrQual', b),
-               manutProg: radio(id+'-manutProg'), prob: radio(id+'-prob'), probDesc: v('probDesc', b), crit: radio(id+'-crit'), solic: radio(id+'-solic'), os: v('os', b), obs: v('obs', b), photos: photosOf(id) };
+               manutProg: radio(id+'-manutProg'), prob: radio(id+'-prob'), probDesc: v('probDesc', b), crit: radio(id+'-crit'), solic: radio(id+'-solic'), os: v('os', b), obs: v('obs', b), prazo: v('prazoEquip', b),
+               photos: photosOf(id).map(function(ph){ return { id: ph.id, dataUrl: ph.dataUrl, thumb: ph.thumb, caption: ph.caption || nomeEquip(id) }; }) };
     }).filter(function(e){ return e.tipo || e.ident; }),
     cli: { r: radio('cli'), participantes: v('cliParticipantes'), recl: radio('cliRecl'), solic: radio('cliSolic'), comp: radio('cliComp'), acomp: radio('cliAcomp'), acompDesc: v('cliAcompDesc') },
     seg: { inseg: radio('segInseg'), desvio: radio('segDesvio'), melhoria: radio('segMelhoria'), pontos: v('segPontos'), photos: photosOf('seg') },
@@ -1219,7 +1238,7 @@ function validate(){
   $$('input[type=text], input[type=date], input[type=time], textarea, select', form).forEach(function(el){
     if(!visivel(el) || el.hasAttribute('data-cap')) return;
     var k = el.getAttribute('data-k') || '';
-    if(k === 'procOutros' || k === 'dssOutros') return;                       // nomes extras, fora da lista
+    if(k === 'procOutros' || k === 'dssOutros' || k === 'prazoEquip') return;  // campos opcionais
     if(k === 'nrQual'){ var b1 = el.closest('.equip'); if(radio(b1.getAttribute('data-id') + '-nr') !== 'Sim') return; }
     if(k === 'os'){ var b2 = el.closest('.equip'); if(radio(b2.getAttribute('data-id') + '-solic') !== 'Sim') return; }
     if(!String(el.value).trim()) marcar(el);
@@ -1251,7 +1270,8 @@ function validate(){
     if(!(S.photos[par[0]] || []).length) marcar(inp.closest('.photo-field'), true);
   });
   // legendas das fotos
-  var semLegenda = $$('.thumb input[data-cap]').filter(function(i){ return !i.value.trim(); });
+  var idsEquip = $$('#equipContainer > .equip').map(function(e){ return e.getAttribute('data-id'); });
+  var semLegenda = $$('.thumb input[data-cap]').filter(function(i){ return !i.value.trim() && idsEquip.indexOf(i.getAttribute('data-cap')) < 0; });
   semLegenda.forEach(function(i){ marcar(i); });
   $$('.thumb select[data-tipo]').forEach(function(sl){ if(!sl.value) marcar(sl); });
   CHECKLIST_KEYS.forEach(function(k){
@@ -1305,7 +1325,7 @@ function collectActions(p){
   p.equips.forEach(function(e){ if(e.prob === 'Sim'){
     var en = estadoNum(e.estado); var crit = e.crit || (en && en <= 2 ? 'Alta' : en === 3 ? 'Média' : '');
     acts.push({ tipo:'Equipamento com problema', sec:'Equipamentos', crit: crit, desc: (e.tipo + (e.ident ? ' ('+e.ident+')' : '') + (e.probDesc ? ': ' + e.probDesc : '')),
-      acao:'', prov: e.solic === 'Sim' ? 'Solicitação de manutenção aberta' + (e.os ? ' — OS ' + e.os : '') : (e.solic === 'Não' ? 'Abrir solicitação de manutenção' : ''), resp:'', prazo:'' }); } });
+      acao:'', prov: e.solic === 'Sim' ? 'Solicitação de manutenção aberta' + (e.os ? ' — OS ' + e.os : '') : (e.solic === 'Não' ? 'Abrir solicitação de manutenção' : ''), resp:'', prazo: e.prazo || '' }); } });
   p.colabs.forEach(function(c){ if(c.epiPend === 'Sim'){
     acts.push({ tipo:'Pendência de EPI', sec:'Equipe e EPIs', crit:'Média', desc: c.nome + (c.epiSit.length ? ' — ' + c.epiSit.join(', ').toLowerCase() : '') + (c.epiDesc ? ': ' + c.epiDesc : ''), acao:'', prov: c.epiProv, resp:'', prazo:'' }); }
     if(c.uniProb === 'Sim'){ acts.push({ tipo:'Problema com uniforme', sec:'Equipe e EPIs', crit:'Baixa', desc: c.nome + (c.uniDesc ? ': ' + c.uniDesc : ''), acao:'', prov:'', resp:'', prazo:'' }); }
@@ -1866,8 +1886,19 @@ $$('[data-photos-slot]').forEach(function(slot){
 function setTopbarH(){ document.documentElement.style.setProperty('--topbar-h', $('.topbar').offsetHeight + 'px'); }
 setTopbarH(); window.addEventListener('resize', setTopbarH);
 var fab = $('#scrollBottomBtn');
-fab.addEventListener('click', function(){ window.scrollTo({ top: document.documentElement.scrollHeight, behavior: reduced() ? 'auto' : 'smooth' }); });
-window.addEventListener('scroll', function(){ fab.hidden = (window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 200; }, { passive: true });
+function noFim(){ return (window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 200; }
+function atualizarFab(){
+  var fim = noFim();
+  fab.classList.toggle('para-cima', fim);
+  fab.setAttribute('aria-label', fim ? 'Voltar ao início da página' : 'Ir para o final da página');
+  fab.setAttribute('title', fim ? 'Voltar ao início' : 'Ir para o final');
+}
+fab.addEventListener('click', function(){
+  window.scrollTo({ top: noFim() ? 0 : document.documentElement.scrollHeight, behavior: reduced() ? 'auto' : 'smooth' });
+});
+window.addEventListener('scroll', atualizarFab, { passive: true });
+window.addEventListener('resize', atualizarFab);
+atualizarFab();
 
 function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
 async function hasClaude(){ for(var i=0;i<25;i++){ if(window.claude && typeof window.claude.use === 'function') return true; await sleep(120); } return false; }
