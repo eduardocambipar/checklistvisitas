@@ -614,10 +614,7 @@
 <body>
 
 <button type="button" class="scroll-bottom-fab clear-fab" id="clearBtn" aria-label="Limpar formulário" title="Limpar formulário">
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v6M14 11v6"/></svg>
-</button>
-<button type="button" class="scroll-bottom-fab clear-fab" id="clearBtn" aria-label="Limpar formulário" title="Limpar formulário">
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v6M14 11v6"/></svg>
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg>
 </button>
 <button type="button" class="scroll-bottom-fab" id="scrollBottomBtn" aria-label="Ir para o final da página">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16M5 13l7 7 7-7"/></svg>
@@ -679,8 +676,8 @@
     <div class="card section-title"><div><h2>Procedimentos, orientações e DSS</h2><p>Repasse de procedimentos e diálogos de segurança com a equipe local.</p></div><span class="idx">3 de 11</span></div>
     
 <div class="card">
-  <div class="q"><div class="q-inline"><div class="q-head"><span class="q-num">3.1</span><span class="q-title">Foi realizado repasse de procedimentos/orientações com a equipe local?</span></div><div class="seg" role="radiogroup"><label><input type="radio" name="proc" value="Sim"><span>Sim</span></label><label><input type="radio" name="proc" value="Não"><span>Não</span></label></div></div><div class="cond" data-cond-for="proc" data-show-when="Sim"><div class="sub-label">Quais procedimentos ou orientações foram abordados?</div><textarea data-k="procQuais" placeholder="Descreva os procedimentos/orientações"></textarea><div class="sub-label">Colaboradores envolvidos</div><div data-people="proc"></div><div class="sub-label">Outros envolvidos (fora da lista)</div><input type="text" data-k="procOutros" placeholder="Nomes separados por vírgula"><div class="err-msg">Campo obrigatório</div><div data-photos-slot="proc"></div></div></div>
-  <div class="q" style="padding-bottom:2px;"><div class="q-inline"><div class="q-head"><span class="q-num">3.2</span><span class="q-title">Foi realizado DSS e/ou treinamento com a equipe local?</span></div><div class="seg" role="radiogroup"><label><input type="radio" name="dss" value="Sim"><span>Sim</span></label><label><input type="radio" name="dss" value="Não"><span>Não</span></label></div></div><div class="cond" data-cond-for="dss" data-show-when="Sim"><div class="sub-label">Tipo</div><div class="chips"><label class="chip"><input type="radio" data-k="dssTipo" name="dssTipo" value="DSS"><span>DSS</span></label><label class="chip"><input type="radio" data-k="dssTipo" name="dssTipo" value="Treinamento"><span>Treinamento</span></label><label class="chip"><input type="radio" data-k="dssTipo" name="dssTipo" value="Integração"><span>Integração</span></label><label class="chip"><input type="radio" data-k="dssTipo" name="dssTipo" value="Reciclagem"><span>Reciclagem</span></label></div><div class="sub-label">Tema abordado</div><input type="text" data-k="dssTema" placeholder="Ex.: Uso correto de EPIs na prensa"><div class="err-msg">Campo obrigatório</div><div class="sub-label">Colaboradores participantes</div><div data-people="dss"></div><div class="sub-label">Outros participantes (fora da lista)</div><input type="text" data-k="dssOutros" placeholder="Nomes separados por vírgula"><div class="err-msg">Campo obrigatório</div><div class="auto-note" data-dss-count></div><div data-photos-slot="dss"></div></div></div>
+  <div class="q"><div class="q-inline"><div class="q-head"><span class="q-num">3.1</span><span class="q-title">Foi realizado repasse de procedimentos/orientações com a equipe local?</span></div><div class="seg" role="radiogroup"><label><input type="radio" name="proc" value="Sim"><span>Sim</span></label><label><input type="radio" name="proc" value="Não"><span>Não</span></label><label><input type="radio" name="proc" value="Não se aplica"><span>Não se aplica</span></label></div></div><div class="cond" data-cond-for="proc" data-show-when="Sim"><div class="sub-label">Quais procedimentos ou orientações foram abordados?</div><textarea data-k="procQuais" placeholder="Descreva os procedimentos/orientações"></textarea><div class="sub-label">Colaboradores envolvidos</div><div data-people="proc"></div><div class="sub-label">Outros envolvidos (fora da lista)</div><input type="text" data-k="procOutros" placeholder="Nomes separados por vírgula"><div class="err-msg">Campo obrigatório</div><div data-photos-slot="proc"></div></div></div>
+  <div class="q" style="padding-bottom:2px;"><div class="q-inline"><div class="q-head"><span class="q-num">3.2</span><span class="q-title">Foi realizado DSS e/ou treinamento com a equipe local?</span></div><div class="seg" role="radiogroup"><label><input type="radio" name="dss" value="Sim"><span>Sim</span></label><label><input type="radio" name="dss" value="Não"><span>Não</span></label><label><input type="radio" name="dss" value="Não se aplica"><span>Não se aplica</span></label></div></div><div class="cond" data-cond-for="dss" data-show-when="Sim"><div class="sub-label">Tipo</div><div class="chips"><label class="chip"><input type="radio" data-k="dssTipo" name="dssTipo" value="DSS"><span>DSS</span></label><label class="chip"><input type="radio" data-k="dssTipo" name="dssTipo" value="Treinamento"><span>Treinamento</span></label><label class="chip"><input type="radio" data-k="dssTipo" name="dssTipo" value="Integração"><span>Integração</span></label><label class="chip"><input type="radio" data-k="dssTipo" name="dssTipo" value="Reciclagem"><span>Reciclagem</span></label></div><div class="sub-label">Tema abordado</div><input type="text" data-k="dssTema" placeholder="Ex.: Uso correto de EPIs na prensa"><div class="err-msg">Campo obrigatório</div><div class="sub-label">Colaboradores participantes</div><div data-people="dss"></div><div class="sub-label">Outros participantes (fora da lista)</div><input type="text" data-k="dssOutros" placeholder="Nomes separados por vírgula"><div class="err-msg">Campo obrigatório</div><div class="auto-note" data-dss-count></div><div data-photos-slot="dss"></div></div></div>
 </div>
   </div><div class="section-wrap" id="sec-ronda">
     <div class="card section-title"><div><h2>Acompanhamento da operação e ronda</h2><p>Registre cada anormalidade ou oportunidade como um item separado — todos vão para o plano de ação.</p></div><span class="idx">4 de 11</span></div>
@@ -789,11 +786,12 @@
     <div class="subject-row"><input type="text" id="subjectInput" readonly aria-label="Assunto do e-mail"><button type="button" class="ghost-btn" id="copySubjectBtn">Copiar assunto</button></div>
     <div class="report-actions" style="margin-top:12px;">
       <button type="button" class="download-btn" id="emlBtn" hidden>
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Baixar e-mail com fotos anexadas (.eml)</button>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Abrir no Outlook com fotos e PDF</button>
       <button type="button" class="ghost-btn" id="copyEmailBtn">
         Copiar e-mail formatado</button>
       <button type="button" class="ghost-btn" id="pdfBtn" hidden>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>Baixar PDF</button>
+      <button type="button" class="ghost-btn" id="outlookBtn">Abrir Outlook Web (sem anexos)</button>
       <button type="button" class="ghost-btn" id="htmlBtn" hidden>Baixar e-mail (.html)</button>
       <button type="button" class="ghost-btn" id="newBtn">Nova visita</button>
     </div>
@@ -1271,7 +1269,14 @@ function validate(){
   });
   // legendas das fotos
   var idsEquip = $$('#equipContainer > .equip').map(function(e){ return e.getAttribute('data-id'); });
-  var semLegenda = $$('.thumb input[data-cap]').filter(function(i){ return !i.value.trim() && idsEquip.indexOf(i.getAttribute('data-cap')) < 0; });
+  var semLegenda = $$('.thumb input[data-cap]').filter(function(i){
+    if(i.value.trim()) return false;
+    var k = i.getAttribute('data-cap');
+    if(idsEquip.indexOf(k) >= 0) return false;                                     // foto de equipamento: legenda vem do nome
+    var sl = $('select[data-tipo]', i.closest('.thumb'));
+    if(sl && sl.value === 'Visão geral da área') return false;                     // visão geral dispensa legenda
+    return true;
+  });
   semLegenda.forEach(function(i){ marcar(i); });
   $$('.thumb select[data-tipo]').forEach(function(sl){ if(!sl.value) marcar(sl); });
   CHECKLIST_KEYS.forEach(function(k){
@@ -1346,6 +1351,7 @@ function collectPhotos(p){
 function subjectOf(p){ return 'Relatório de Visita Operacional | ' + p.id.cliente + (p.id.operacao ? ' – ' + p.id.operacao : '') + ' | ' + fmtDate(p.id.data); }
 
 var GRAD = { 1:['#C4314B','#FFFFFF'], 2:['#EB8B55','#14150D'], 3:['#E2B53E','#14150D'], 4:['#9DB64A','#14150D'], 5:['#4F6B00','#FFFFFF'] };
+function tagChip(t, F, LINE, MUTED){ return '<span style="display:inline-block;margin:0 4px 4px 0;padding:2px 9px;border-radius:999px;font-size:10.5px;font-weight:bold;background:#F2F4E6;color:'+MUTED+';border:1px solid '+LINE+';font-family:'+F+';">'+esc(t)+'</span>'; }
 function gradPill(level, text){ var g = GRAD[level]; return '<span style="display:inline-block;padding:4px 11px;border-radius:999px;background:'+g[0]+';color:'+g[1]+';font-size:12px;font-weight:bold;white-space:nowrap;">'+esc(text)+'</span>'; }
 function situacaoColab(c){
   var sit = (c.epiSit || []).map(function(x){ return x.toLowerCase(); });
@@ -1394,7 +1400,7 @@ function renderReport(p, opts){
     '</tr></table></td></tr></table>' +
     '<div style="height:18px;line-height:18px;font-size:0;">&nbsp;</div>' + TBL + '<tr>' +
       meta('Horário', esc((p.id.inicio||'–') + ' – ' + (p.id.termino||'–'))) + meta('Responsável pela visita', esc(p.id.responsavel)) +
-      meta('Unidade', esc(p.id.unidade)) + meta('Escopo', esc(p.id.escopo.join(', '))) +
+      meta('Unidade', esc(p.id.unidade)) + meta('Escopo', (p.id.escopo || []).map(function(t){ return tagChip(t, F, LINE, MUTED); }).join('')) +
     '<td></td></tr></table></td></tr></table>');
 
   // ---------- fotos ----------
@@ -1415,7 +1421,7 @@ function renderReport(p, opts){
       p.colabs.map(function(c){
         var st = situacaoColab(c), sit = st ? gradPill(st.level, st.text) : dash;
         return '<tr><td style="'+td+'">'+esc(c.nome)+'<div style="color:'+MUTED+';font-size:11.5px;">'+[esc(c.funcao), esc(turnoTxt(c))].filter(Boolean).join(' · ')+'</div></td>' +
-          '<td style="'+td+'color:'+MUTED+';">'+(esc(c.epis.join(', ')) || dash)+'</td><td style="'+td+'">'+sit+'</td></tr>';
+          '<td style="'+td+'">'+(c.epis.length ? c.epis.map(function(t){ return tagChip(t, F, LINE, MUTED); }).join('') : dash)+'</td><td style="'+td+'">'+sit+'</td></tr>';
       }).join('') + '</table>';
   }
   if(p.equips.length){
@@ -1504,6 +1510,149 @@ function renderReport(p, opts){
     out.join('') + '</td></tr></table></div>';
 }
 
+/* ---------- layout compacto: relatório inteiro em uma página (PDF paisagem) ---------- */
+function renderCompacto(p){
+  var acts = collectActions(p), photos = collectPhotos(p);
+  var nCrit = acts.filter(function(a){ return a.crit === 'Crítica' || a.crit === 'Alta'; }).length;
+  var eqProb = p.equips.filter(function(e){ return e.prob === 'Sim'; }).length;
+  var epiPend = p.colabs.filter(function(c){ return c.epiPend === 'Sim'; }).length;
+  var F = C.font, INK = '#14150D', MUTED = '#6B6E55', FAINT = '#A3A68A', LINE = '#E7E9D9', RED = '#B42318';
+  var CRITC = { 'Crítica': RED, 'Alta': '#B54708', 'Média': '#8A6A00', 'Baixa': '#5C6B00' };
+  var TBL = '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">';
+  var th = 'padding:0 6px 4px 0;font-size:8.5px;color:'+FAINT+';text-align:left;font-weight:normal;font-family:'+F+';border-bottom:1px solid '+LINE+';';
+  var td = 'padding:5px 6px 5px 0;font-size:9.5px;color:'+INK+';border-bottom:1px solid '+LINE+';vertical-align:top;font-family:'+F+';line-height:1.35;';
+  var dash = '<span style="color:'+FAINT+';">–</span>';
+  function tit(t){ return '<div style="font-size:11px;font-weight:bold;color:'+INK+';font-family:'+F+';margin:0 0 6px;">'+t+'</div>'; }
+  function tag(t, bg, fg){ return '<span style="display:inline-block;margin:0 3px 3px 0;padding:2px 7px;border-radius:999px;font-size:8.5px;font-weight:bold;background:'+(bg||'#F2F4E6')+';color:'+(fg||MUTED)+';border:1px solid '+(bg ? bg : LINE)+';">'+esc(t)+'</span>'; }
+  function tags(arr, bg, fg){ return (arr && arr.length) ? arr.map(function(t){ return tag(t, bg, fg); }).join('') : dash; }
+  function pillG(level, text){ var g = GRAD[level]; return '<span style="display:inline-block;padding:2px 8px;border-radius:999px;background:'+g[0]+';color:'+g[1]+';font-size:9px;font-weight:bold;white-space:nowrap;">'+esc(text)+'</span>'; }
+  function nota(label, texto){ return texto ? '<div style="margin:0 0 6px;font-family:'+F+';"><span style="font-size:8.5px;color:'+FAINT+';">'+label+': </span><span style="font-size:9.5px;color:'+INK+';line-height:1.35;">'+nl(texto)+'</span></div>' : ''; }
+
+  // cabeçalho
+  function stat(num, label, alerta){
+    return '<td style="padding:0 22px 0 0;vertical-align:top;font-family:'+F+';white-space:nowrap;"><div style="font-size:19px;font-weight:bold;line-height:1;color:'+INK+';">'+num+'</div><div style="font-size:8.5px;color:'+MUTED+';margin-top:3px;">'+label+(alerta ? '<br><span style="color:'+RED+';">'+alerta+'</span>' : '')+'</div></td>';
+  }
+  function meta(label, val){ return val ? '<td style="padding:0 20px 0 0;vertical-align:top;font-family:'+F+';"><div style="font-size:8.5px;color:'+FAINT+';">'+label+'</div><div style="font-size:9.5px;color:'+INK+';margin-top:1px;">'+val+'</div></td>' : ''; }
+  var cab = TBL + '<tr><td style="vertical-align:top;width:34%;">' +
+      '<img src="'+window.__LOGO__+'" width="78" alt="Ambipar" style="display:block;width:78px;height:auto;border:0;">' +
+      '<div style="font-size:17px;font-weight:bold;color:'+INK+';margin-top:8px;font-family:'+F+';">'+esc(p.id.cliente)+'</div>' +
+      '<div style="font-size:10px;color:'+MUTED+';font-family:'+F+';">'+esc(p.id.operacao)+'</div></td>' +
+    '<td align="right" style="vertical-align:top;"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>' +
+      stat(acts.length, 'ações no plano', nCrit ? nCrit + ' urgentes' : '') +
+      stat(p.colabs.length, 'colaboradores', epiPend ? epiPend + ' c/ pendência de EPI' : '') +
+      stat(p.equips.length, 'equipamentos', eqProb ? eqProb + ' com problema' : '') +
+      '<td style="padding:0;vertical-align:top;font-family:'+F+';white-space:nowrap;border-left:1px solid '+LINE+';padding-left:22px;"><div style="font-size:24px;font-weight:bold;line-height:1;color:'+INK+';">'+esc(fmtDate(p.id.data))+'</div><div style="font-size:8.5px;color:'+MUTED+';margin-top:3px;">data da visita</div></td>' +
+    '</tr></table></td></tr></table>' +
+    '<div style="height:10px;line-height:10px;font-size:0;">&nbsp;</div>' + TBL + '<tr>' +
+      meta('Horário', esc((p.id.inicio||'–') + ' – ' + (p.id.termino||'–'))) +
+      meta('Responsável pela visita', esc(p.id.responsavel)) +
+      meta('Unidade', esc(p.id.unidade)) +
+      '<td style="vertical-align:top;font-family:'+F+';"><div style="font-size:8.5px;color:'+FAINT+';">Escopo do serviço</div><div style="margin-top:2px;">'+tags(p.id.escopo)+'</div></td>' +
+    '</tr></table>';
+
+  // fotos
+  var fotosHtml = '';
+  if(photos.length){
+    var PER = 9, larg = Math.floor(100 / PER);
+    var cels = photos.slice(0, 18).map(function(ph){
+      return '<td width="'+larg+'%" style="width:'+larg+'%;padding:0 4px 6px 0;vertical-align:top;"><img src="'+(ph.src)+'" width="140" alt="" style="display:block;width:100%;height:auto;border:0;">' +
+        '<div style="font-size:8px;color:'+MUTED+';margin-top:3px;font-family:'+F+';line-height:1.25;">'+esc(ph.caption || ph.label)+'</div></td>';
+    });
+    var linhas = [];
+    for(var i = 0; i < cels.length; i += PER){
+      var r = cels.slice(i, i + PER); while(r.length < PER) r.push('<td width="'+larg+'%" style="width:'+larg+'%;"></td>');
+      linhas.push('<tr>' + r.join('') + '</tr>');
+    }
+    fotosHtml = tit('Registros da visita') + TBL + linhas.join('') + '</table>';
+  }
+
+  // mão de obra
+  var colabHtml = tit('Mão de obra') + TBL + '<tr><th style="'+th+'width:40%;">Colaborador</th><th style="'+th+'width:35%;">EPIs conformes</th><th style="'+th+'width:25%;">Situação</th></tr>' +
+    (p.colabs.length ? p.colabs.map(function(c){
+      var st = situacaoColab(c), sit = st ? pillG(st.level, st.text) : dash;
+      return '<tr><td style="'+td+'">'+esc(c.nome)+'<div style="color:'+MUTED+';font-size:8.5px;">'+[esc(c.funcao), esc(turnoTxt(c))].filter(Boolean).join(' · ')+'</div></td>' +
+        '<td style="'+td+'">'+tags(c.epis)+'</td><td style="'+td+'">'+sit+'</td></tr>';
+    }).join('') : '<tr><td colspan="3" style="'+td+'color:'+FAINT+';">Sem colaboradores registrados</td></tr>') + '</table>';
+
+  // equipamentos
+  var equipHtml = tit('Equipamentos') + TBL + '<tr><th style="'+th+'width:34%;">Equipamento</th><th style="'+th+'width:26%;">Estado</th><th style="'+th+'width:40%;">Observação</th></tr>' +
+    (p.equips.length ? p.equips.map(function(e){
+      var en = estadoNum(e.estado), est = en ? pillG(en, ESTADOS[en]) : dash;
+      var obs = e.prob === 'Sim' ? '<b style="color:'+RED+';">'+(nl(e.probDesc) || 'Problema identificado')+'</b>' + (e.os ? '<div style="color:'+MUTED+';">OS '+esc(e.os)+'</div>' : '')
+        : (e.obs ? esc(e.obs) : '<span style="color:'+MUTED+';">Sem problema</span>');
+      return '<tr><td style="'+td+'">'+esc(e.tipo)+'<div style="color:'+MUTED+';font-size:8.5px;">'+[esc(e.ident), e.nrQual ? 'NR ' + esc(e.nrQual) : ''].filter(Boolean).join(' · ')+'</div></td>' +
+        '<td style="'+td+'">'+est+'</td><td style="'+td+'">'+obs+'</td></tr>';
+    }).join('') : '<tr><td colspan="3" style="'+td+'color:'+FAINT+';">Verificação de equipamentos não realizada</td></tr>') + '</table>';
+
+  // plano de ação
+  var planoHtml = tit('Plano de ação') + TBL + '<tr><th style="'+th+'width:11%;">Criticidade</th><th style="'+th+'width:37%;">O que foi identificado</th><th style="'+th+'width:28%;">Providência</th><th style="'+th+'width:14%;">Responsável</th><th style="'+th+'width:10%;">Prazo</th></tr>' +
+    (acts.length ? acts.map(function(a){
+      return '<tr><td style="'+td+'white-space:nowrap;color:'+(CRITC[a.crit] || MUTED)+';font-weight:bold;">● '+esc(a.crit || '–')+'</td>' +
+        '<td style="'+td+'">'+nl(a.desc)+'<div style="color:'+MUTED+';font-size:8.5px;">'+esc(a.tipo)+'</div></td>' +
+        '<td style="'+td+'">'+(esc(a.prov) || '<span style="color:'+FAINT+';">A definir</span>')+'</td>' +
+        '<td style="'+td+'">'+(esc(a.resp) || dash)+'</td><td style="'+td+'white-space:nowrap;">'+(fmtDate(a.prazo) || dash)+'</td></tr>';
+    }).join('') : '<tr><td colspan="5" style="'+td+'color:'+FAINT+';">Nenhum item registrado</td></tr>') + '</table>';
+
+  // checklist
+  var checks = [
+    ck('EPIs e uniformes', p.epiVerif), ck('Procedimentos', p.proc.r), ck('DSS / treinamento', p.dss.r),
+    ck('Ronda', p.ronda.r), p.ronda.r === 'Sim' ? ck('Operação normal', p.ronda.normal, 'Não|Parcialmente') : null,
+    ck('Equipamentos', p.equipVerif), ck('Alinhamento com cliente', p.cli.r),
+    p.cli.r === 'Sim' ? ck('Reclamações', p.cli.recl, 'Sim') : null,
+    ck('Condições inseguras', p.seg.inseg, 'Sim'), ck('Desvios', p.seg.desvio, 'Sim'),
+    ck('Alinhamento liderança', p.eq.lider), ck('Alinhamento operação', p.eq.oper),
+    ck('Problemas de equipe', p.eq.prob, 'Sim'), ck('Treinamento necessário', p.eq.trein, 'Sim')
+  ].filter(Boolean);
+  var meio = Math.ceil(checks.length / 2);
+  function colCheck(lista){
+    return TBL + lista.map(function(r){
+      return '<tr><td style="padding:3px 6px 3px 0;font-size:9px;color:'+MUTED+';font-family:'+F+';border-bottom:1px solid '+LINE+';">'+r[0]+'</td>' +
+        '<td align="right" style="padding:3px 0;font-size:9px;font-family:'+F+';border-bottom:1px solid '+LINE+';white-space:nowrap;color:'+(r[3] ? RED : MUTED)+';'+(r[3] ? 'font-weight:bold;' : '')+'">'+esc(r[2])+'</td></tr>';
+    }).join('') + '</table>';
+  }
+  var checkHtml = tit('Checklist') + TBL + '<tr><td width="50%" style="width:50%;vertical-align:top;padding-right:10px;">' + colCheck(checks.slice(0, meio)) + '</td><td width="50%" style="width:50%;vertical-align:top;">' + colCheck(checks.slice(meio)) + '</td></tr></table>';
+
+  // observações
+  var obs = '';
+  if(p.dss.r === 'Sim') obs += nota(p.dss.tipo || 'DSS', p.dss.tema + (p.dss.participantes.length ? ' (' + p.dss.participantes.length + ' participantes)' : ''));
+  if(p.proc.r === 'Sim') obs += nota('Procedimentos', p.proc.quais);
+  if(p.ronda.r === 'Sim') obs += nota('Operação', [p.ronda.areas, p.ronda.normalObs, p.ronda.orientDesc].filter(Boolean).join(' '));
+  if(p.cli.r === 'Sim') obs += nota('Cliente', [p.cli.participantes, p.cli.acompDesc].filter(Boolean).join(' '));
+  obs += nota('Segurança', p.seg.pontos);
+  obs += nota('Equipe', [p.eq.pontos, p.eq.trein === 'Sim' ? p.eq.treinDesc : '', p.eq.espec === 'Sim' ? p.eq.especDesc : ''].filter(Boolean).join(' '));
+  var obsHtml = tit('Observações') + (obs || '<span style="font-size:9.5px;color:'+FAINT+';font-family:'+F+';">Sem observações.</span>');
+
+  var proxHtml = tit('Próxima visita') +
+    '<div style="font-size:15px;font-weight:bold;color:'+INK+';font-family:'+F+';">'+(p.prox.data ? fmtDate(p.prox.data) : esc(p.prox.r === 'Não' ? 'Não agendada' : (p.prox.r || '–')))+'</div>' +
+    '<div style="height:6px;line-height:6px;font-size:0;">&nbsp;</div>' + nota('Acompanhar', p.prox.pontos);
+
+  var rodape = '<div style="border-top:1px solid '+LINE+';margin-top:8px;padding-top:6px;font-family:'+F+';font-size:8px;color:'+FAINT+';">Enviado por '+esc(p.id.responsavel)+' em '+new Date(p.submittedAt).toLocaleString('pt-BR')+' &nbsp;|&nbsp; Ambipar, Reporte e Checklist de Visitas</div>';
+
+  var corpo = cab +
+    '<div style="height:12px;line-height:12px;font-size:0;">&nbsp;</div>' + fotosHtml +
+    '<div style="height:10px;line-height:10px;font-size:0;">&nbsp;</div>' +
+    TBL + '<tr><td width="32%" style="width:32%;vertical-align:top;padding-right:16px;">' + colabHtml + '</td>' +
+      '<td width="30%" style="width:30%;vertical-align:top;padding-right:16px;">' + equipHtml + '</td>' +
+      '<td width="38%" style="width:38%;vertical-align:top;">' + planoHtml + '</td></tr></table>' +
+    '<div style="height:12px;line-height:12px;font-size:0;">&nbsp;</div>' +
+    TBL + '<tr><td width="34%" style="width:34%;vertical-align:top;padding-right:16px;border-top:1px solid '+LINE+';padding-top:10px;">' + checkHtml + '</td>' +
+      '<td width="44%" style="width:44%;vertical-align:top;padding-right:16px;border-top:1px solid '+LINE+';padding-top:10px;">' + obsHtml + '</td>' +
+      '<td width="22%" style="width:22%;vertical-align:top;border-top:1px solid '+LINE+';padding-top:10px;">' + proxHtml + '</td></tr></table>' +
+    rodape;
+
+  var blocos = ['<table data-blk role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;background:#FFFFFF;border-top:4px solid '+C.lime+';"><tr><td style="padding:16px 20px;">' + corpo + '</td></tr></table>'];
+
+  var docs = [].concat((p.assin && p.assin.epi) || [], (p.assin && p.assin.dss) || []);
+  docs.forEach(function(d){
+    blocos.push('<table data-blk role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;background:#FFFFFF;border-top:4px solid '+C.lime+';"><tr><td style="padding:16px 20px;">' +
+      '<div style="font-size:8.5px;letter-spacing:1px;color:'+FAINT+';font-family:'+F+';">ANEXO</div>' +
+      '<div style="font-size:13px;font-weight:bold;color:'+INK+';font-family:'+F+';margin:2px 0 8px;">'+esc(d.caption || 'Documento assinado')+' — '+esc(p.id.cliente)+', '+esc(fmtDate(p.id.data))+'</div>' +
+      '<img src="'+d.dataUrl+'" width="1360" alt="'+esc(d.caption || 'Documento assinado')+'" style="display:block;width:100%;height:auto;border:1px solid '+LINE+';"></td></tr></table>');
+  });
+
+  return '<div style="background:#FFFFFF;width:1400px;">' + blocos.join('') + '</div>';
+}
+
 /* ---------------- export: copy / pdf / html ---------------- */
 var current = null, downloads = null;
 function setStatus(t){ $('#actionStatus').textContent = t || ''; }
@@ -1546,8 +1695,8 @@ async function buildPdfBlob(){
   if(!window.jspdf || !window.html2canvas){ setStatus('Gerador de PDF não carregou. Verifique a conexão e recarregue a página.'); return null; }
   setStatus('Montando o PDF…');
   var host = document.createElement('div');
-  host.style.cssText = 'position:absolute;left:-12000px;top:0;width:1040px;background:#fff;';
-  host.innerHTML = current.html; document.body.appendChild(host);
+  host.style.cssText = 'position:absolute;left:-12000px;top:0;width:1400px;background:#fff;';
+  host.innerHTML = renderCompacto(current.payload); document.body.appendChild(host);
   try{
     await Promise.all($$('img', host).map(function(im){ return im.complete ? 0 : new Promise(function(r){ im.onload = im.onerror = r; }); }));
     var pdf = new window.jspdf.jsPDF({ unit:'mm', format:'a4', orientation:'landscape' });
@@ -1759,6 +1908,28 @@ $('#mainForm').addEventListener('submit', async function(ev){
 $('#copyEmailBtn').addEventListener('click', copyEmail);
 $('#pdfBtn').addEventListener('click', makePdf);
 $('#emlBtn').addEventListener('click', makeEml);
+$('#outlookBtn').addEventListener('click', function(){
+  if(!current) return;
+  var p = current.payload, acts = collectActions(p);
+  var linhas = [];
+  linhas.push(p.id.cliente + ' — ' + p.id.operacao);
+  linhas.push('Visita de ' + fmtDate(p.id.data) + ', das ' + (p.id.inicio || '?') + ' às ' + (p.id.termino || '?') + '.');
+  linhas.push('Responsável: ' + p.id.responsavel);
+  linhas.push('');
+  linhas.push('Resumo: ' + acts.length + ' itens no plano de ação, ' + p.colabs.length + ' colaboradores, ' + p.equips.length + ' equipamentos.');
+  if(p.prox.data) linhas.push('Próxima visita: ' + fmtDate(p.prox.data));
+  if(acts.length){
+    linhas.push('');
+    linhas.push('Plano de ação:');
+    acts.forEach(function(a){ linhas.push('- [' + (a.crit || 'sem criticidade') + '] ' + a.desc + (a.prov ? ' | Providência: ' + a.prov : '') + (a.resp ? ' | ' + a.resp : '') + (a.prazo ? ' | até ' + fmtDate(a.prazo) : '')); });
+  }
+  linhas.push('');
+  linhas.push('(Relatório completo, com fotos e PDF, no e-mail gerado pelo botão "Abrir no Outlook com fotos e PDF".)');
+  var url = 'https://outlook.office.com/mail/deeplink/compose?to=' + encodeURIComponent(CONFIG.emailPara || '') +
+    '&subject=' + encodeURIComponent(current.subject) + '&body=' + encodeURIComponent(linhas.join('\n'));
+  window.open(url, '_blank', 'noopener');
+  setStatus('Outlook Web aberto com o resumo em texto. Fotos e PDF só vão pelo botão com anexos.');
+});
 $('#htmlBtn').addEventListener('click', saveHtml);
 $('#copySubjectBtn').addEventListener('click', async function(){
   var inp = $('#subjectInput'); try{ await navigator.clipboard.writeText(inp.value); }catch(e){ inp.select(); try{ document.execCommand('copy'); }catch(_){} }
