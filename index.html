@@ -7,6 +7,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#DEFF00">
 <meta name="apple-mobile-web-app-title" content="Checklist">
 <meta name="application-name" content="Checklist Operacional">
@@ -506,6 +507,8 @@
 
   /* photos */
   .photo-field{margin-top:4px;}
+  .foto-botoes{display:flex; flex-wrap:wrap; gap:8px;}
+  .upload-btn.secundario{background:var(--surface); color:var(--text-muted);}
   .upload-btn input{display:none;}
   .thumbs{display:grid; grid-template-columns:repeat(auto-fill,minmax(132px,1fr)); gap:10px; margin-top:12px;}
   .thumbs:empty{display:none;}
@@ -608,6 +611,14 @@
   .scroll-bottom-fab svg{transition:transform .2s ease;}
   .scroll-bottom-fab.para-cima svg{transform:rotate(180deg);}
   @media (prefers-reduced-motion: reduce){.scroll-bottom-fab svg{transition:none;}}
+  .residuo-lista{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
+  .residuo-lista:empty{display:none;}
+  .residuo-tag{display:inline-flex; align-items:center; gap:5px; padding:4px 6px 4px 9px; border-radius:999px;
+    border:1px solid var(--border-strong); background:var(--surface); font-size:12px; font-weight:600; color:var(--text);}
+  .residuo-tag button{border:none; background:none; color:var(--text-faint); font-size:14px; line-height:1; cursor:pointer; padding:0 2px;}
+  .residuo-tag button:hover{color:var(--required);}
+  .residuo-chip input:checked + span::before{content:none;}
+  .residuo-chip input:checked + span{background:var(--lime); border-color:var(--lime-deep); color:var(--lime-ink);}
   .cacamba-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(168px,1fr)); gap:10px;}
   .cacamba-item{display:flex; align-items:center; gap:8px; border:1px solid var(--border-strong); border-radius:12px; padding:8px 10px; background:var(--surface);}
   .cacamba-cor{width:12px; height:12px; border-radius:3px; flex:0 0 auto;}
@@ -707,9 +718,6 @@
   <div class="q-inline"><div class="q-head"><span class="q-num">5.1</span><span class="q-title">Foi realizada verificação da operação e dos equipamentos?</span></div><div class="seg" role="radiogroup"><label><input type="radio" name="equipVerif" value="Sim"><span>Sim</span></label><label><input type="radio" name="equipVerif" value="Não"><span>Não</span></label></div></div>
 </div>
 
-<div class="card" style="padding-bottom:10px;">
-  <div class="q"><div class="q-head"><span class="q-num">5.2</span><span class="q-title">Caçambas / contentores por tipo de resíduo</span></div><div class="q-desc">Informe quantas caçambas ou contentores existem de cada resíduo. Deixe em branco o que não houver.</div><div class="cacamba-grid"><label class="cacamba-item"><span class="cacamba-cor" style="background:#C62828"></span><span class="cacamba-nome">Plástico</span><input type="number" min="0" step="1" inputmode="numeric" data-k="cacPlastico" placeholder="0"></label><label class="cacamba-item"><span class="cacamba-cor" style="background:#1565C0"></span><span class="cacamba-nome">Papelão</span><input type="number" min="0" step="1" inputmode="numeric" data-k="cacPapelao" placeholder="0"></label><label class="cacamba-item"><span class="cacamba-cor" style="background:#2E7D32"></span><span class="cacamba-nome">Vidro</span><input type="number" min="0" step="1" inputmode="numeric" data-k="cacVidro" placeholder="0"></label><label class="cacamba-item"><span class="cacamba-cor" style="background:#F9A825"></span><span class="cacamba-nome">Metal</span><input type="number" min="0" step="1" inputmode="numeric" data-k="cacMetal" placeholder="0"></label><label class="cacamba-item"><span class="cacamba-cor" style="background:#6D4C41"></span><span class="cacamba-nome">Lixo / rejeito</span><input type="number" min="0" step="1" inputmode="numeric" data-k="cacLixo" placeholder="0"></label><label class="cacamba-item"><span class="cacamba-cor" style="background:#EF6C00"></span><span class="cacamba-nome">Classe I</span><input type="number" min="0" step="1" inputmode="numeric" data-k="cacClasseI" placeholder="0"></label><label class="cacamba-item"><span class="cacamba-cor" style="background:#757575"></span><span class="cacamba-nome">Outros</span><input type="number" min="0" step="1" inputmode="numeric" data-k="cacOutros" placeholder="0"></label></div></div>
-</div>
 <div class="cond cond-plain" data-cond-for="equipVerif" data-show-when="Sim">
 <div id="equipContainer"></div>
 <div class="add-row"><button type="button" class="add-btn" data-add="equip"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg> Adicionar equipamento</button></div>
@@ -862,7 +870,9 @@ function chipsHtml(k, opts, typ, name, cls){ return '<div class="chips">' + opts
 function head(num, title, req, desc){ return '<div class="q-head"><span class="q-num">'+num+'</span><span class="q-title">'+title+(req?' <span class="req">*</span>':'')+'</span></div>' + (desc?'<div class="q-desc">'+desc+'</div>':''); }
 function photoField(key, label, num){
   return '<div class="q">' + head(num||'📷', (label||'Registro fotográfico') + ' <span class="photo-count" data-count="'+key+'" hidden></span>') +
-    '<div class="photo-field"><label class="upload-btn">'+ICON_UP+' Adicionar fotos<input type="file" accept="image/*" multiple data-photo-key="'+key+'"></label>' +
+    '<div class="photo-field"><div class="foto-botoes">' +
+      '<label class="upload-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> Tirar foto agora<input type="file" accept="image/*" capture="environment" data-photo-key="'+key+'"></label>' +
+      '<label class="upload-btn secundario">'+ICON_UP+' Escolher da galeria<input type="file" accept="image/*" multiple data-photo-key="'+key+'"></label></div>' +
     '<div class="thumbs" data-thumbs="'+key+'"></div></div></div>';
 }
 function removeBtn(){ return '<button type="button" class="remove-btn" data-remove>Remover</button>'; }
@@ -1001,9 +1011,21 @@ function iconeReciclagem(cor, tam){
   var t = tam || 11;
   return '<svg width="'+t+'" height="'+t+'" viewBox="0 0 100 100" style="display:block;"><path fill="'+cor+'" fill-rule="evenodd" d="'+RECICLA_PATH+'"/></svg>';
 }
-function cacambas(p){
-  return (p.cacambas || []).filter(function(c){ return c.qtd > 0; });
+function corResiduo(nome){
+  var r = RESIDUOS.filter(function(x){ return x.nome === nome; })[0];
+  return r ? r.cor : '#757575';
 }
+function residuosDaVisita(p){
+  var vistos = {}, out = [];
+  (p.equips || []).forEach(function(e){
+    (e.residuos || []).forEach(function(n){ if(n && !vistos[n]){ vistos[n] = 1; out.push({ nome: n, cor: corResiduo(n) }); } });
+  });
+  return out;
+}
+function totalCacambas(p){
+  return (p.equips || []).filter(function(e){ return e.tipo === 'Caçamba' || e.tipo === 'Contêiner / roll-on' || /ca\u00e7amba|cont[eê]iner/i.test(e.tipo || ''); }).length;
+}
+function cacambas(p){ return residuosDaVisita(p); }
 var TURNOS = ['1º turno', '2º turno', '3º turno', 'Administrativo', '12x36'];
 var TURNO_HORARIO = { '1º turno': ['06:00','14:00'], '2º turno': ['14:00','22:00'], '3º turno': ['22:00','06:00'], 'Administrativo': ['08:00','17:00'], '12x36': ['07:00','19:00'] };
 document.addEventListener('change', function(e){
@@ -1056,6 +1078,38 @@ document.addEventListener('click', function(e){
   var b = e.target.closest('[data-estado-set],[data-estado-reset]'); if(!b) return;
   var box = b.closest('[data-estado-box]'); setEstado(box, b.hasAttribute('data-estado-reset') ? 0 : +b.getAttribute('data-estado-set'));
 });
+var DIMENSOES = ['1,2 m³', '5 m³', '7 m³', '12 m³', '17 m³', '26 m³', '29 m³', '40 m³', 'Outra'];
+var RESIDUO_OPCOES = RESIDUOS.map(function(r){ return r.nome; }).concat(['Não se aplica']);
+function residuoChips(id){
+  return '<select data-residuo-sel="'+id+'"><option value="">Selecione o material</option>' +
+      RESIDUO_OPCOES.map(function(n){ return '<option>'+esc(n)+'</option>'; }).join('') + '</select>' +
+    '<div class="residuo-ocultos" hidden>' + RESIDUO_OPCOES.map(function(n){
+      return '<label><input type="checkbox" data-k="residuos" value="'+esc(n)+'"></label>';
+    }).join('') + '</div>' +
+    '<div class="residuo-lista" data-residuo-lista="'+id+'"></div>' +
+    '<input type="text" data-k="residuoOutro" placeholder="Outro material (opcional)" style="margin-top:8px">';
+}
+function renderResiduos(bloco){
+  var lista = $('[data-residuo-lista]', bloco); if(!lista) return;
+  var marcados = $$('input[data-k="residuos"]:checked', bloco).map(function(i){ return i.value; });
+  lista.innerHTML = marcados.map(function(n){
+    return '<span class="residuo-tag">' + (n === 'Não se aplica' ? '' : iconeReciclagem(corResiduo(n), 13)) + esc(n) +
+      '<button type="button" data-residuo-rm="'+esc(n)+'" aria-label="Remover">×</button></span>';
+  }).join('');
+}
+document.addEventListener('change', function(e){
+  var sel = e.target; if(!sel.matches || !sel.matches('[data-residuo-sel]')) return;
+  var bloco = sel.closest('.equip'), val = sel.value; sel.value = '';
+  if(!val) return;
+  $$('input[data-k="residuos"]', bloco).forEach(function(cb){ if(cb.value === val) cb.checked = true; });
+  renderResiduos(bloco); agendarSalvar();
+});
+document.addEventListener('click', function(e){
+  var btn = e.target.closest && e.target.closest('[data-residuo-rm]'); if(!btn) return;
+  var bloco = btn.closest('.equip'), val = btn.getAttribute('data-residuo-rm');
+  $$('input[data-k="residuos"]', bloco).forEach(function(cb){ if(cb.value === val) cb.checked = false; });
+  renderResiduos(bloco); agendarSalvar();
+});
 var EQUIPS = ['Prensa','Enfardadeira','Compactador','Empilhadeira','Balança','Caçamba','Contêiner / roll-on','Triturador','Esteira','Veículo','Outro'];
 function addEquip(presetId){
   var id = presetId || uid('e'), c = $('#equipContainer'), n = c.children.length + 1;
@@ -1066,8 +1120,13 @@ function addEquip(presetId){
   el.innerHTML =
     '<div class="block-head"><span class="block-badge" data-badge>Equipamento '+n+'</span>'+removeBtn()+'</div>' +
     '<div class="q"><div class="row2"><div>'+head('','Tipo de equipamento',true)+'<select data-k="tipo" name="'+id+'-tipoSel"><option value="">Selecione</option>'+EQUIPS.map(function(f){return '<option>'+f+'</option>';}).join('')+'</select>' +
-      '<input type="text" data-k="tipoOutro" placeholder="Qual equipamento?" style="margin-top:8px;display:none"></div>' +
-    '<div>'+head('','Identificação')+'<input type="text" data-k="ident" placeholder="TAG, placa ou nº de série"></div></div></div>' +
+      '<input type="text" data-k="tipoOutro" placeholder="Qual equipamento?" style="margin-top:8px;display:none">' +
+      '<div class="cond cond-plain" data-cond-for="'+id+'-tipoSel" data-show-when="Caçamba|Contêiner / roll-on" style="margin-top:10px;">' +
+        '<div class="sub-label" style="margin-top:0">Dimensão do contentor</div>' +
+        '<select data-k="dimensao" name="'+id+'-dim"><option value="">Selecione a dimensão</option>'+DIMENSOES.map(function(d){ return '<option>'+d+'</option>'; }).join('')+'</select>' +
+        '<input type="text" data-k="dimensaoOutra" placeholder="Qual dimensão? Ex.: 15 m³" style="margin-top:8px;display:none"></div></div>' +
+    '<div>'+head('','Identificação')+'<input type="text" data-k="ident" placeholder="TAG, placa ou nº de série">' +
+      '<div class="sub-label">Material acomodado / processado</div>'+residuoChips(id)+'</div></div></div>' +
     '<div class="q">'+head('','Estado do equipamento')+rating+'</div>' +
     '<div class="q"><div class="row2"><div>'+head('','Em conformidade com NR?')+seg(id+'-nr',['Sim','Não','N/A'])+'<input type="text" data-k="nrQual" placeholder="Qual NR? Ex.: NR-12" style="margin-top:10px"></div>' +
     '<div>'+head('','Manutenção programada?')+seg(id+'-manutProg',['Sim','Não','N/A'])+'</div></div></div>' +
@@ -1077,11 +1136,18 @@ function addEquip(presetId){
       '<div class="row2" style="margin-top:12px;"><div><div class="sub-label" style="margin-top:0">Foi aberta solicitação de manutenção?</div>'+seg(id+'-solic',['Sim','Não','Não se aplica'])+'</div>' +
       '<div><div class="sub-label" style="margin-top:0">Nº da OS / chamado</div><input type="text" data-k="os" placeholder="Opcional"></div></div>' +
       '<div class="sub-label">Possível data para resolução</div><input type="date" data-k="prazoEquip" style="max-width:240px"><div class="hint">Opcional — preencha se já houver previsão.</div></div></div>' +
+
     '<div class="q">'+head('','Observações sobre operação e equipamento')+'<textarea data-k="obs"></textarea></div>' +
     photoField(id, 'Fotos do equipamento', '');
   c.appendChild(el);
   var sel = $('select[data-k="tipo"]', el), other = $('input[data-k="tipoOutro"]', el);
-  sel.addEventListener('change', function(){ other.style.display = sel.value === 'Outro' ? 'block' : 'none'; });
+  var selDim = $('select[data-k="dimensao"]', el), outraDim = $('input[data-k="dimensaoOutra"]', el);
+  if(selDim) selDim.addEventListener('change', function(){ outraDim.style.display = selDim.value === 'Outra' ? 'block' : 'none'; });
+  sel.addEventListener('change', function(){
+    other.style.display = sel.value === 'Outro' ? 'block' : 'none';
+    var cond = $('[data-cond-for="'+id+'-tipoSel"]', el);
+    if(cond) cond.classList.toggle('show', sel.value === 'Caçamba' || sel.value === 'Contêiner / roll-on');
+  });
   return el;
 }
 function critCls(o){ return 'crit-' + o.toLowerCase().replace('é','e').replace('í','i'); }
@@ -1215,11 +1281,13 @@ function buildPayload(){
     ronda: { r: radio('ronda'), areas: v('rondaAreas'), normal: radio('rondaNormal'), normalObs: v('rondaNormalObs'),
              anorm: radio('rondaAnorm'), melhoria: radio('rondaMelhoria'), orient: radio('rondaOrient'), orientDesc: v('rondaOrientDesc'), photos: photosOf('ronda') },
     equipVerif: radio('equipVerif'),
-    cacambas: RESIDUOS.map(function(r){ return { nome: r.nome, cor: r.cor, qtd: parseInt(v('cac' + r.chave), 10) || 0 }; }),
+
     equips: radio('equipVerif') !== 'Sim' ? [] : $$('#equipContainer > .equip').map(function(b){
       var id = b.getAttribute('data-id'), tipo = v('tipo', b);
       return { key:id, tipo: tipo === 'Outro' ? (v('tipoOutro', b) || 'Outro') : tipo, ident: v('ident', b), estado: $('[data-estado-box]', b).hasAttribute('data-touched') ? +$('[data-estado-box] input', b).value : '', nr: radio(id+'-nr'), nrQual: v('nrQual', b),
                manutProg: radio(id+'-manutProg'), prob: radio(id+'-prob'), probDesc: v('probDesc', b), crit: radio(id+'-crit'), solic: radio(id+'-solic'), os: v('os', b), obs: v('obs', b), prazo: v('prazoEquip', b),
+               residuos: checked('residuos', b).filter(function(x){ return x !== 'Não se aplica'; }).concat(v('residuoOutro', b) ? [v('residuoOutro', b)] : []),
+               dimensao: v('dimensao', b) === 'Outra' ? (v('dimensaoOutra', b) || 'Outra') : v('dimensao', b),
                photos: photosOf(id).map(function(ph){ return { id: ph.id, dataUrl: ph.dataUrl, thumb: ph.thumb, caption: ph.caption || nomeEquip(id) }; }) };
     }).filter(function(e){ return e.tipo || e.ident; }),
     cli: { r: radio('cli'), participantes: v('cliParticipantes'), recl: radio('cliRecl'), solic: radio('cliSolic'), comp: radio('cliComp'), acomp: radio('cliAcomp'), acompDesc: v('cliAcompDesc') },
@@ -1261,9 +1329,9 @@ function validate(){
   function marcar(el, grupo){ el.classList.add(grupo ? 'invalid-group' : 'invalid'); bad.push(el); }
   // campos de texto, data, hora e listas
   $$('input[type=text], input[type=date], input[type=time], textarea, select', form).forEach(function(el){
-    if(!visivel(el) || el.hasAttribute('data-cap')) return;
+    if(!visivel(el) || el.hasAttribute('data-cap') || el.hasAttribute('data-residuo-sel')) return;
     var k = el.getAttribute('data-k') || '';
-    if(k === 'procOutros' || k === 'dssOutros' || k === 'prazoEquip' || k.indexOf('cac') === 0) return;  // campos opcionais
+    if(k === 'procOutros' || k === 'dssOutros' || k === 'prazoEquip' || k === 'residuoOutro' || k === 'dimensaoOutra' || k === 'obs') return;  // campos opcionais
     if(k === 'nrQual'){ var b1 = el.closest('.equip'); if(radio(b1.getAttribute('data-id') + '-nr') !== 'Sim') return; }
     if(k === 'os'){ var b2 = el.closest('.equip'); if(radio(b2.getAttribute('data-id') + '-solic') !== 'Sim') return; }
     if(!String(el.value).trim()) marcar(el);
@@ -1286,6 +1354,11 @@ function validate(){
     var box = $('[data-people="'+par[0]+'"]'); if(!visivel(box)) return;
     var algum = $$('input[data-people-pick]:checked', box).length || v(par[1]).trim();
     if(!algum) marcar(box, true);
+  });
+  // material acomodado em cada equipamento
+  $$('#equipContainer > .equip').forEach(function(b){
+    var sel = $('[data-residuo-sel]', b);
+    if(visivel(sel) && !$$('input[data-k="residuos"]:checked', b).length && !v('residuoOutro', b).trim()) marcar(sel);
   });
   // estado do equipamento
   $$('#equipContainer [data-estado-box]').forEach(function(bx){ if(visivel(bx) && !bx.hasAttribute('data-touched')) marcar(bx, true); });
@@ -1390,10 +1463,7 @@ function situacaoColab(c){
   if(c.epiPend === 'Não') return { level: 5, text: 'Conforme' };
   return null;
 }
-function cacambasEmail(p){
-  var lista = (p.cacambas || []).filter(function(c){ return c.qtd > 0; });
-  return { lista: lista, total: lista.reduce(function(t, c){ return t + c.qtd; }, 0) };
-}
+function cacambasEmail(p){ return { lista: residuosDaVisita(p), total: totalCacambas(p) }; }
 function renderReport(p, opts){
   opts = opts || {};
   var acts = collectActions(p), photos = collectPhotos(p);
@@ -1465,7 +1535,7 @@ function renderReport(p, opts){
         var en = estadoNum(e.estado), est = en ? gradPill(en, ESTADOS[en]) : dash;
         var extra = [e.nr ? 'NR ' + (e.nrQual ? e.nrQual + ' ' : '') + (e.nr === 'Sim' ? 'ok' : e.nr === 'Não' ? 'não conforme' : 'N/A') : ''].filter(Boolean).join('');
         var obs = e.prob === 'Sim' ? flag(e.probDesc || 'Problema identificado', true) + (e.os ? '<div style="color:'+MUTED+';font-size:11.5px;">OS '+esc(e.os)+'</div>' : '') : (e.obs ? esc(e.obs) : '<span style="color:'+MUTED+';">Sem problema</span>');
-        return '<tr><td style="'+td+'">'+esc(e.tipo)+'<div style="color:'+MUTED+';font-size:11.5px;">'+[esc(e.ident), esc(extra)].filter(Boolean).join(' · ')+'</div></td><td style="'+td+'">'+est+'</td><td style="'+td+'">'+obs+'</td></tr>';
+        return '<tr><td style="'+td+'">'+esc(e.tipo)+'<div style="color:'+MUTED+';font-size:11.5px;">'+[esc(e.ident), esc(e.dimensao), esc(extra)].filter(Boolean).join(' · ')+'</div></td><td style="'+td+'">'+est+'</td><td style="'+td+'">'+obs+'</td></tr>';
       }).join('') + '</table>';
   }
   if(colabHtml && equipHtml) out.push(block(TBL + '<tr>' + cell('52%', colabHtml, 'padding-right:28px;') + cell('48%', equipHtml) + '</tr></table>'));
@@ -1576,7 +1646,7 @@ function renderCompacto(p){
     return '<td style="padding:0 20px 0 0;vertical-align:top;font-family:'+F+';white-space:nowrap;"><div style="font-size:19px;font-weight:bold;line-height:1;color:'+INK+';">'+num+'</div><div style="font-size:8.5px;color:'+MUTED+';margin-top:3px;">'+label+(alerta ? '<br><span style="color:'+RED+';">'+alerta+'</span>' : '')+'</div></td>';
   }
   function meta(label, val){ return val ? '<td style="padding:0 18px 0 0;vertical-align:top;font-family:'+F+';"><div style="font-size:8.5px;color:'+FAINT+';">'+label+'</div><div style="font-size:10px;color:'+INK+';margin-top:1px;">'+val+'</div></td>' : ''; }
-  var cac = cacambas(p), totalCac = cac.reduce(function(t, c){ return t + c.qtd; }, 0);
+  var cac = cacambas(p), totalCac = totalCacambas(p);
   function chipRes(c, tam){
     var t = tam || 9;
     return '<span style="display:inline-block;margin:0 6px 4px 0;padding:3px 10px 3px 7px;border-radius:999px;border:1px solid '+BORDA+';font-family:'+F+';font-size:'+t+'px;line-height:1;color:'+INK+';white-space:nowrap;">' +
@@ -1630,7 +1700,8 @@ function renderCompacto(p){
         }
         var obs = e.prob === 'Sim' ? '<span style="color:'+RED+';">' + (nl(e.probDesc) || 'Problema identificado') + '</span>' + (e.obs ? '<br>' + nl(e.obs) : '')
           : (e.obs ? nl(e.obs) : (e.prob === 'Não' ? '<span style="color:'+MUTED+';">Sem problemas</span>' : dash));
-        return '<tr><td style="'+tdRow+'">'+esc(e.tipo)+'<div style="color:'+MUTED+';font-size:8.5px;">'+[esc(e.ident), e.nr ? 'NR ' + esc(e.nrQual || '') + ': ' + e.nr.toLowerCase() : ''].filter(Boolean).join(' · ')+'</div></td>' +
+        return '<tr><td style="'+tdRow+'">'+esc(e.tipo)+'<div style="color:'+MUTED+';font-size:8.5px;">'+[esc(e.ident), esc(e.dimensao), e.nr ? 'NR ' + esc(e.nrQual || '') + ': ' + e.nr.toLowerCase() : ''].filter(Boolean).join(' · ')+'</div>' +
+          ((e.residuos || []).length ? '<div style="margin-top:3px;">' + e.residuos.map(function(n){ return '<span style="display:inline-block;margin:0 5px 2px 0;white-space:nowrap;font-size:8.5px;color:'+MUTED+';font-family:'+F+';">' + iconeReciclagem(corResiduo(n), 9) + ' ' + esc(n) + '</span>'; }).join('') + '</div>' : '') + '</td>' +
           '<td style="'+tdRow+'">'+(en ? pillG(en, ESTADOS[en]) : dash)+'</td>' +
           '<td style="'+tdRow+'">'+(manut.length ? manut.join('<br>') : dash)+'</td>' +
           '<td style="'+tdUlt+'text-align:justify;">'+obs+'</td></tr>';
@@ -2136,7 +2207,8 @@ async function enviarEmail(){
   var btn = $('#mailBtn'), st = $('#actionStatus');
   btn.disabled = true;
   try{
-    var podeCompartilhar = !!(navigator.canShare && navigator.share);
+    var celular = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+    var podeCompartilhar = celular && !!(navigator.canShare && navigator.share);
     if(podeCompartilhar){
       // celular: compartilha o PDF direto para o Outlook, que abre uma mensagem nova com o anexo
       setStatus('Gerando o PDF do relatório…');
@@ -2270,6 +2342,7 @@ async function restaurarRascunho(){
       if(el.tagName === 'SELECT') el.dispatchEvent(new Event('change'));
     });
     $$('#equipContainer > .equip').forEach(function(b){ var box = $('[data-estado-box]', b); if(d.vals[b.getAttribute('data-id') + '|estadoAvaliado']) setEstado(box, +$('input[type=range]', box).value); });
+    $$('#equipContainer > .equip').forEach(renderResiduos);
     S.photos = d.fotos || {}; Object.keys(S.photos).forEach(renderThumbs);
     S.people = d.pessoas || { proc:{}, dss:{} };
     renderPeople();
