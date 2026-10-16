@@ -1,9 +1,10 @@
 /* Service worker do Checklist Operacional — cache para uso em campo sem sinal.
    Ao publicar uma versão nova do formulário, troque o número do CACHE abaixo. */
-var CACHE = 'checklist-v1';
-var PRE = ['./checklist_visitas.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png',
-  'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'];
+var CACHE = 'checklist-v4';
+var PRE = ['./', './index.html', './manifest.webmanifest',
+  './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
+/* As bibliotecas de PDF agora vão embutidas no index.html: nada de CDN externo,
+   o relatório é gerado mesmo sem internet ou atrás do firewall da empresa. */
 
 self.addEventListener('install', function(e){
   e.waitUntil(caches.open(CACHE).then(function(c){
