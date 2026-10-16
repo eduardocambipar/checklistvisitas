@@ -996,9 +996,16 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
   .autosave.on::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--lime-deep);}
   .topbar .autosave{position:absolute; right:18px; top:50%; transform:translateY(-50%); max-width:38%; text-align:right; line-height:1.25;}
   @media (max-width:720px){
-    .topbar{flex-direction:column; gap:6px; padding:14px 16px 10px;}
+    .topbar{flex-direction:column; gap:6px; padding:14px 16px 10px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.4) 0%, rgba(255,255,255,.06) 32%, rgba(255,255,255,0) 58%),
+        color-mix(in srgb, var(--surface) 98%, transparent);}
     .topbar .autosave{position:static; transform:none; max-width:none; text-align:center; font-size:11.5px;}
     .brand-logo{height:40px;}
+    .anchor-nav{padding:8px 20px; margin-left:-20px; margin-right:-20px;
+      background:color-mix(in srgb, var(--surface) 95%, transparent);
+      backdrop-filter:blur(22px) saturate(200%); -webkit-backdrop-filter:blur(22px) saturate(200%);
+      box-shadow:0 12px 16px -14px rgba(20,21,13,.4);}
   }
   .cond.cond-plain{margin-top:0; padding:0; border-left:none;}
   .invalid-group{outline:2px solid var(--required); outline-offset:4px; border-radius:12px;}
@@ -1393,7 +1400,7 @@ function renderThumbs(key){
     var eq = !!$('#equipContainer > .equip[data-id="'+key+'"]');
     var aviso = (p.retrato && CHECKLIST_KEYS.indexOf(key) >= 0) ? '<div class="thumb-warn">Gire para paisagem</div>' : '';
     return '<div class="thumb'+(aviso ? ' retrato' : '')+'" data-pid="'+p.id+'"><img src="'+p.dataUrl+'" alt="">' + aviso + sel +
-      '<input type="text" placeholder="'+(eq ? esc(nomeEquip(key) || 'Legenda (opcional)') : 'Legenda (obrigatória)')+'" value="'+esc(p.caption)+'" data-cap="'+key+'">' +
+      '<input type="text" placeholder="'+(eq ? esc(nomeEquip(key) || 'Legenda (opcional)') : (key === 'assinEpi' ? 'Legenda (opcional)' : 'Legenda (obrigatória)'))+'" value="'+esc(p.caption)+'" data-cap="'+key+'">' +
       '<div class="thumb-actions"><button type="button" data-rot-photo="'+key+'">Girar</button><button type="button" data-del-photo="'+key+'">Remover</button></div></div>';
   }).join('');
   var cnt = $('[data-count="'+key+'"]'); if(cnt){ cnt.hidden = !list.length; cnt.textContent = list.length + (list.length === 1 ? ' foto' : ' fotos'); }
@@ -1754,7 +1761,8 @@ function validate(){
   $$('input[type=text], input[type=date], input[type=time], textarea, select', form).forEach(function(el){
     if(!visivel(el) || el.hasAttribute('data-cap') || el.hasAttribute('data-residuo-sel')) return;
     var k = el.getAttribute('data-k') || '';
-    if(k === 'procOutros' || k === 'dssOutros' || k === 'prazoEquip' || k === 'residuoOutro' || k === 'dimensaoOutra' || k === 'obs') return;  // campos opcionais
+    if(k === 'procOutros' || k === 'dssOutros' || k === 'prazoEquip' || k === 'residuoOutro' || k === 'dimensaoOutra' || k === 'obs'
+       || k === 'segPontos' || k === 'eqPontos' || k === 'proxPontos') return;  // campos opcionais
     if(k === 'nrQual'){ var b1 = el.closest('.equip'); if(radio(b1.getAttribute('data-id') + '-nr') !== 'Sim') return; }
     if(k === 'os'){ var b2 = el.closest('.equip'); if(radio(b2.getAttribute('data-id') + '-solic') !== 'Sim') return; }
     if(!String(el.value).trim()) marcar(el);
@@ -1796,6 +1804,7 @@ function validate(){
     if(i.value.trim()) return false;
     var k = i.getAttribute('data-cap');
     if(idsEquip.indexOf(k) >= 0) return false;                                     // foto de equipamento: legenda vem do nome
+    if(k === 'assinEpi') return false;                                             // checklist de EPI assinado: legenda opcional
     var sl = $('select[data-tipo]', i.closest('.thumb'));
     if(sl && sl.value === 'Visão geral da área') return false;                     // visão geral dispensa legenda
     return true;
@@ -3180,6 +3189,125 @@ function resumoCurto(){
   var txt = L.join('\n');
   return txt.length > 800 ? txt.slice(0, 800) + '\n…' : txt;   // mailto tem limite de tamanho no Windows
 }
+/* Relatório completo em texto puro — vai no CORPO da mensagem no celular,
+   porque o compartilhamento do sistema só entrega arquivo como anexo. */
+function relatorioTexto(){
+  var p = current.payload, acts = collectActions(p), L = [];
+  function sec(t){ L.push(''); L.push('== ' + t + ' =='); }
+  function corta(t, n){ t = String(t || '').replace(/\s+/g, ' ').trim(); return t.length > n ? t.slice(0, n - 1) + '…' : t; }
+  function sn(v){ return v ? v : '—'; }
+
+  L.push('RELATÓRIO DE VISITA OPERACIONAL');
+  L.push(p.id.cliente + ' — ' + p.id.operacao);
+  L.push(fmtDate(p.id.data) + ' · ' + (p.id.inicio || '?') + ' às ' + (p.id.termino || '?'));
+  L.push('');
+  L.push('Responsável: ' + p.id.responsavel);
+  if(p.id.unidade) L.push('Unidade Ambipar: ' + p.id.unidade);
+  if((p.id.escopo || []).length) L.push('Escopo: ' + p.id.escopo.join(', '));
+  if(p.prox.data) L.push('Próxima visita: ' + fmtDate(p.prox.data));
+
+  // ---------- resumo ----------
+  var urg = acts.filter(function(a){ return a.crit === 'Crítica' || a.crit === 'Alta'; });
+  var comProb = p.equips.filter(function(e){ return e.prob === 'Sim'; }).length;
+  var cac = totalCacambas(p), res = residuosDaVisita(p).map(function(r){ return r.nome; });
+  sec('RESUMO');
+  L.push('Plano de ação: ' + acts.length + (urg.length ? ' (' + urg.length + ' urgentes)' : ''));
+  L.push('Colaboradores: ' + p.colabs.length);
+  L.push('Equipamentos: ' + p.equips.length + (comProb ? ' (' + comProb + ' com problema)' : ''));
+  if(cac) L.push('Caçambas / contentores: ' + cac);
+  if(res.length) L.push('Resíduos: ' + res.join(', '));
+
+  // ---------- plano de ação ----------
+  if(acts.length){
+    sec('PLANO DE AÇÃO');
+    acts.forEach(function(a, i){
+      L.push((i + 1) + ') ' + (a.crit ? a.crit.toUpperCase() + ' — ' : '') + corta(a.desc, 220));
+      if(a.acao) L.push('   Ação imediata: ' + corta(a.acao, 180));
+      if(a.prov) L.push('   Providência: ' + corta(a.prov, 180));
+      if(a.resp || a.prazo) L.push('   ' + (a.resp ? 'Responsável: ' + a.resp : 'Responsável: —') + (a.prazo ? ' · Prazo: ' + fmtDate(a.prazo) : ''));
+    });
+  }
+
+  // ---------- mão de obra ----------
+  if(p.colabs.length){
+    sec('MÃO DE OBRA');
+    p.colabs.forEach(function(c, i){
+      var h = (c.turnoIni || c.turnoFim) ? ' (' + (c.turnoIni || '?') + '–' + (c.turnoFim || '?') + ')' : '';
+      L.push((i + 1) + ') ' + c.nome + (c.funcao ? ' — ' + c.funcao : '') + (c.turno ? ' · ' + c.turno + h : ''));
+      if((c.epis || []).length) L.push('   EPIs: ' + c.epis.join(', '));
+      if(c.epiPend === 'Sim') L.push('   PENDÊNCIA DE EPI: ' + [(c.epiSit || []).join(', '), corta(c.epiDesc, 140)].filter(Boolean).join(' — ') + (c.epiProv ? ' | Providência: ' + corta(c.epiProv, 120) : ''));
+      if(c.uniProb === 'Sim') L.push('   UNIFORME: ' + corta(c.uniDesc, 140));
+    });
+  }
+
+  // ---------- equipamentos ----------
+  if(p.equips.length){
+    sec('EQUIPAMENTOS');
+    p.equips.forEach(function(e, i){
+      var est = ESTADOS[estadoNum(e.estado)] || '';
+      L.push((i + 1) + ') ' + e.tipo + (e.ident ? ' ' + e.ident : '') + (e.dimensao ? ' · ' + e.dimensao : '') + (est ? ' — ' + est : ''));
+      if((e.residuos || []).length) L.push('   Material: ' + e.residuos.join(', '));
+      var tec = [];
+      if(e.nr) tec.push('NR: ' + (e.nr === 'Sim' ? (e.nrQual || 'Sim') : e.nr));
+      if(e.manutProg) tec.push('Manutenção programada: ' + e.manutProg);
+      if(tec.length) L.push('   ' + tec.join(' · '));
+      if(e.prob === 'Sim'){
+        L.push('   PROBLEMA' + (e.crit ? ' (' + e.crit + ')' : '') + ': ' + corta(e.probDesc, 200));
+        var man = [];
+        if(e.solic === 'Sim') man.push('Solicitação aberta' + (e.os ? ' — OS ' + e.os : ''));
+        else if(e.solic === 'Não') man.push('Solicitação ainda não aberta');
+        if(e.prazo) man.push('Previsão: ' + fmtDate(e.prazo));
+        if(man.length) L.push('   ' + man.join(' · '));
+      }
+      if(e.obs) L.push('   Obs.: ' + corta(e.obs, 180));
+    });
+  }
+
+  // ---------- checklist ----------
+  var chk = [
+    ['Verificação de EPIs e uniformes', p.epiVerif], ['Repasse de procedimentos', p.proc.r], ['DSS / treinamento', p.dss.r],
+    ['Acompanhamento / ronda', p.ronda.r], p.ronda.r === 'Sim' ? ['Operação normal', p.ronda.normal] : null,
+    ['Verificação de equipamentos', p.equipVerif], ['Alinhamento com o cliente', p.cli.r],
+    p.cli.r === 'Sim' ? ['Reclamações do cliente', p.cli.recl] : null,
+    ['Condições inseguras', p.seg.inseg], ['Desvios de procedimento', p.seg.desvio],
+    ['Alinhamento com liderança', p.eq.lider], ['Alinhamento com operação', p.eq.oper],
+    ['Problemas de equipe', p.eq.prob], ['Necessidade de treinamento', p.eq.trein]
+  ].filter(function(r){ return r && r[1]; });
+  if(chk.length){
+    sec('CHECKLIST DA VISITA');
+    chk.forEach(function(r){ L.push('• ' + r[0] + ': ' + r[1]); });
+  }
+
+  // ---------- observações ----------
+  var obs = [];
+  if(p.proc.r === 'Sim' && p.proc.quais) obs.push('Procedimentos repassados: ' + corta(p.proc.quais, 300) + ((p.proc.envolvidos || []).length ? ' (' + p.proc.envolvidos.length + ' envolvidos)' : ''));
+  if(p.dss.r === 'Sim') obs.push((p.dss.tipo || 'DSS') + ': ' + corta(p.dss.tema, 240) + ((p.dss.participantes || []).length ? ' (' + p.dss.participantes.length + ' participantes)' : ''));
+  if(p.ronda.r === 'Sim'){
+    if(p.ronda.areas) obs.push('Áreas percorridas: ' + corta(p.ronda.areas, 240));
+    if(p.ronda.normal && p.ronda.normal !== 'Sim' && p.ronda.normalObs) obs.push('Operação ' + p.ronda.normal.toLowerCase() + ' dentro do normal: ' + corta(p.ronda.normalObs, 260));
+    if(p.ronda.orient === 'Sim' && p.ronda.orientDesc) obs.push('Orientação imediata: ' + corta(p.ronda.orientDesc, 260));
+  }
+  if(p.cli.r === 'Sim'){
+    if(p.cli.participantes) obs.push('Cliente: ' + corta(p.cli.participantes, 200));
+    if(p.cli.acomp === 'Sim' && p.cli.acompDesc) obs.push('Acompanhamento do cliente: ' + corta(p.cli.acompDesc, 240));
+  }
+  if(p.seg.pontos) obs.push('Segurança: ' + corta(p.seg.pontos, 400));
+  if(p.eq.pontos) obs.push('Equipe e liderança: ' + corta(p.eq.pontos, 400));
+  if(p.eq.trein === 'Sim' && p.eq.treinDesc) obs.push('Treinamento necessário: ' + corta(p.eq.treinDesc, 240));
+  if(p.eq.espec === 'Sim' && p.eq.especDesc) obs.push('Equipe especializada: ' + corta(p.eq.especDesc, 240));
+  if(obs.length){ sec('OBSERVAÇÕES DA VISITA'); obs.forEach(function(t){ L.push('• ' + t); }); }
+
+  if(p.prox.data || p.prox.pontos){
+    sec('PRÓXIMA VISITA');
+    if(p.prox.data) L.push('Data: ' + fmtDate(p.prox.data));
+    if(p.prox.pontos) L.push('Acompanhar: ' + corta(p.prox.pontos, 400));
+  }
+
+  L.push('');
+  L.push('Em anexo: o mesmo relatório em imagem e em PDF, mais as fotos da visita.');
+  L.push('Emitido por ' + p.id.responsavel + ' · ' + p.visitaId);
+  return L.join('\n');
+}
 function urlMailto(){
   return 'mailto:' + encodeURIComponent(CONFIG.emailPara || '') +
     '?subject=' + encodeURIComponent(current.subject) +
@@ -3196,6 +3324,7 @@ async function enviarEmail(){
     if(podeCompartilhar){
       // celular: manda de uma vez a imagem do relatório, o PDF e as fotos da visita
       var base = fileBase(), arquivos = [];
+      var corpoCelular = current.subject + '\n\n' + relatorioTexto();
 
       setStatus('Gerando a imagem do relatório…');
       var png = await imagemRelatorio();
@@ -3218,7 +3347,7 @@ async function enviarEmail(){
         try{ ok = navigator.canShare({ files: lote }); }catch(e){ ok = false; }
         if(ok){
           try{
-            await navigator.share({ files: lote, title: current.subject, text: current.subject + '\n\n' + resumoCurto() });
+            await navigator.share({ files: lote, title: current.subject, text: corpoCelular });
             enviado = true;
           }catch(err){
             if(err && err.name === 'AbortError'){ setStatus('Envio cancelado.'); return; }
@@ -3233,9 +3362,9 @@ async function enviarEmail(){
       }
       if(enviado){
         var nFotos = Math.max(0, lote.length - (png ? 1 : 0) - (pdf ? 1 : 0));
-        setStatus('Escolha o Outlook na lista. Vão juntos: a imagem do relatório, o PDF' +
+        setStatus('Escolha o Outlook na lista. O relatório completo vai escrito no corpo da mensagem; em anexo seguem a imagem, o PDF' +
           (nFotos ? ' e ' + nFotos + (nFotos === 1 ? ' foto da visita' : ' fotos da visita') : '') +
-          ', com o resumo no corpo da mensagem. Confira o assunto e envie.');
+          '. Confira o assunto e envie.');
         return;
       }
     }
