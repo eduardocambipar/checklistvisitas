@@ -1,6 +1,6 @@
 /* Service worker do Checklist Operacional — cache para uso em campo sem sinal.
    Ao publicar uma versão nova do formulário, troque o número do CACHE abaixo. */
-var CACHE = 'checklist-v4';
+var CACHE = 'checklist-v17';
 var PRE = ['./', './index.html', './manifest.webmanifest',
   './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 /* As bibliotecas de PDF agora vão embutidas no index.html: nada de CDN externo,
