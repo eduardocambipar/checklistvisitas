@@ -668,8 +668,8 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
     text-decoration:none; -webkit-appearance:none; appearance:none; outline:none;
     background:
       linear-gradient(135deg, rgba(255,255,255,.6) 0%, rgba(255,255,255,.1) 32%, rgba(255,255,255,0) 58%),
-      color-mix(in srgb, var(--lime) 62%, transparent);
-    border:1px solid color-mix(in srgb, var(--lime) 85%, transparent);
+      color-mix(in srgb, var(--lime) 82%, transparent);
+    border:1px solid var(--lime);
     backdrop-filter:blur(18px) saturate(220%);
     -webkit-backdrop-filter:blur(18px) saturate(220%);
     box-shadow:
@@ -678,7 +678,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
       inset 0 -4px 8px -5px rgba(20,21,13,.18);
     padding:6px 11px; border-radius:999px; cursor:pointer; transition:border-color .12s ease, background .12s ease, transform .12s ease;
   }
-  .anchor-nav button:hover{border-color:var(--lime-deep); background:linear-gradient(135deg, rgba(255,255,255,.65) 0%, rgba(255,255,255,.12) 32%, rgba(255,255,255,0) 58%), color-mix(in srgb, var(--lime) 78%, transparent); transform:translateY(-1px);}
+  .anchor-nav button:hover{border-color:var(--lime-deep); background:linear-gradient(135deg, rgba(255,255,255,.65) 0%, rgba(255,255,255,.12) 32%, rgba(255,255,255,0) 58%), color-mix(in srgb, var(--lime) 95%, transparent); transform:translateY(-1px);}
 
   /* ---------- scope control card ---------- */
   .scope-card{
@@ -789,10 +789,10 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
   .add-row{display:flex; align-items:center; justify-content:center; gap:10px; margin:6px 0 26px;}
   .add-btn{
     display:inline-flex; align-items:center; gap:8px; color:#000;
-    border:1px solid color-mix(in srgb, var(--lime) 85%, transparent); font-family:var(--font-body); font-weight:700; font-size:14px;
+    border:1px solid var(--lime); font-family:var(--font-body); font-weight:700; font-size:14px;
     background:
       linear-gradient(135deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,.1) 30%, rgba(255,255,255,0) 56%),
-      color-mix(in srgb, var(--lime) 62%, transparent);
+      color-mix(in srgb, var(--lime) 82%, transparent);
     backdrop-filter:blur(22px) saturate(220%);
     -webkit-backdrop-filter:blur(22px) saturate(220%);
     padding:11px 20px; border-radius:999px; cursor:pointer;
@@ -802,7 +802,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
       inset 0 -6px 10px -7px rgba(20,21,13,.2);
     transition:background .15s ease, transform .15s ease;
   }
-  .add-btn:hover{background:linear-gradient(135deg, rgba(255,255,255,.6) 0%, rgba(255,255,255,.12) 30%, rgba(255,255,255,0) 56%), color-mix(in srgb, var(--lime) 78%, transparent); transform:translateY(-2px);}
+  .add-btn:hover{background:linear-gradient(135deg, rgba(255,255,255,.6) 0%, rgba(255,255,255,.12) 30%, rgba(255,255,255,0) 56%), color-mix(in srgb, var(--lime) 95%, transparent); transform:translateY(-2px);}
   .remove-btn{
     background:none; border:none; color:var(--text-faint); font-size:12.5px; font-weight:600;
     cursor:pointer; text-decoration:underline; text-underline-offset:2px;
@@ -843,11 +843,11 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 
   .page-nav-row{display:flex; justify-content:center; margin:0 0 34px;}
   .continue-btn{
-    color:#000; border:1px solid color-mix(in srgb, var(--lime) 85%, transparent); font-weight:700;
+    color:#000; border:1px solid var(--lime); font-weight:700;
     font-size:15px; padding:13px 26px; border-radius:999px; cursor:pointer;
     background:
       linear-gradient(135deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,.1) 30%, rgba(255,255,255,0) 56%),
-      color-mix(in srgb, var(--lime) 62%, transparent);
+      color-mix(in srgb, var(--lime) 82%, transparent);
     backdrop-filter:blur(22px) saturate(220%);
     -webkit-backdrop-filter:blur(22px) saturate(220%);
     box-shadow:
@@ -856,7 +856,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
       inset 0 -6px 10px -7px rgba(20,21,13,.2);
     transition:background .15s ease, transform .15s ease;
   }
-  .continue-btn:hover{background:linear-gradient(135deg, rgba(255,255,255,.6) 0%, rgba(255,255,255,.12) 30%, rgba(255,255,255,0) 56%), color-mix(in srgb, var(--lime) 78%, transparent); transform:translateY(-2px);}
+  .continue-btn:hover{background:linear-gradient(135deg, rgba(255,255,255,.6) 0%, rgba(255,255,255,.12) 30%, rgba(255,255,255,0) 56%), color-mix(in srgb, var(--lime) 95%, transparent); transform:translateY(-2px);}
   .page-back-row{margin:0 0 18px;}
   .back-btn{
     display:inline-flex; align-items:center; gap:6px; background:none; border:none;
@@ -1063,6 +1063,168 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
   .cacamba-nome{font-size:13px; font-weight:600; color:var(--text-muted); flex:1;}
   .cacamba-item input{width:64px; text-align:center; padding:6px 4px!important;}
 
+
+  /* ==================== VIDRO LÍQUIDO (prévia) ====================
+     Mexe só no acabamento dos seis pontos que já usavam backdrop-filter.
+     As cores ficam exatamente como estão hoje: lima 62% nas pílulas,
+     vermelho sólido no limpar formulário, nada de novo no PDF ou no e-mail. */
+
+  /* --- peças de lima: adicionar, continuar, abas de seção, enviar relatório --- */
+  .add-btn, .continue-btn, .anchor-nav button, .submit-btn{
+    position:relative; isolation:isolate;
+    background:
+      radial-gradient(120px 64px at var(--mx,50%) var(--my,50%), rgba(255,255,255,.5), rgba(255,255,255,0) 70%),
+      linear-gradient(158deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,.1) 30%, rgba(255,255,255,0) 56%),
+      color-mix(in srgb, var(--lime) 82%, transparent);
+    border:1px solid var(--lime);
+    backdrop-filter:blur(22px) saturate(235%) brightness(1.06);
+    -webkit-backdrop-filter:blur(22px) saturate(235%) brightness(1.06);
+    box-shadow:
+      0 14px 28px -18px rgba(20,21,13,.42),
+      inset 0 1.5px 0 rgba(255,255,255,.95),
+      inset 0 -8px 14px -9px rgba(20,21,13,.26);
+    transition:background .16s ease, transform .16s cubic-bezier(.3,1.4,.5,1), box-shadow .16s ease;
+  }
+  /* aro refrativo: acende em cima e embaixo, apaga nas laterais */
+  .add-btn::before, .continue-btn::before, .anchor-nav button::before,
+  .submit-btn::before, .scroll-bottom-fab::before{
+    content:''; position:absolute; inset:0; border-radius:inherit; padding:1.3px;
+    background:conic-gradient(from 200deg,
+      rgba(255,255,255,.95), rgba(255,255,255,.08) 22%,
+      rgba(255,255,255,.88) 50%, rgba(255,255,255,.06) 76%, rgba(255,255,255,.95));
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;
+    mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite:exclude; pointer-events:none;
+  }
+  .add-btn:hover, .continue-btn:hover, .anchor-nav button:hover, .submit-btn:hover{
+    background:
+      radial-gradient(120px 64px at var(--mx,50%) var(--my,50%), rgba(255,255,255,.6), rgba(255,255,255,0) 70%),
+      linear-gradient(158deg, rgba(255,255,255,.6) 0%, rgba(255,255,255,.12) 30%, rgba(255,255,255,0) 56%),
+      color-mix(in srgb, var(--lime) 95%, transparent);
+    border-color:var(--lime-deep);
+    transform:none;
+  }
+  /* o vidro cede ao toque em vez de levantar */
+  .add-btn:active, .continue-btn:active, .anchor-nav button:active,
+  .submit-btn:active, .scroll-bottom-fab:active{transform:scale(.955);}
+
+  /* o enviar guarda o canto de 8px: continua sendo a ação principal, não uma pílula */
+  .submit-btn{border-radius:8px; color:var(--lime-ink);}
+
+
+  /* --- bolinha flutuante --- */
+  .scroll-bottom-fab{
+    position:fixed; isolation:isolate;
+    background:
+      radial-gradient(circle at var(--mx,30%) var(--my,22%), rgba(255,255,255,.7) 0%, rgba(255,255,255,.12) 40%, rgba(255,255,255,0) 64%),
+      color-mix(in srgb, var(--surface) 32%, transparent);
+    border:1px solid color-mix(in srgb, var(--border) 55%, transparent);
+    backdrop-filter:blur(28px) saturate(235%) brightness(1.05);
+    -webkit-backdrop-filter:blur(28px) saturate(235%) brightness(1.05);
+    box-shadow:
+      0 16px 32px -14px rgba(20,21,13,.46),
+      inset 0 1.5px 0 rgba(255,255,255,.9),
+      inset 0 -9px 14px -10px rgba(20,21,13,.28);
+  }
+  .scroll-bottom-fab:hover{transform:none;}
+
+  /* --- limpar formulário: continua vermelho, só ganha o aro e o toque --- */
+  .clear-fab{
+    background:
+      radial-gradient(circle at var(--mx,30%) var(--my,22%), rgba(255,255,255,.55) 0%, rgba(255,255,255,.1) 40%, rgba(255,255,255,0) 64%),
+      color-mix(in srgb, var(--required) 92%, transparent);
+    border-color:color-mix(in srgb, var(--required) 95%, transparent);
+    box-shadow:
+      0 16px 32px -14px rgba(150,20,20,.52),
+      inset 0 1.5px 0 rgba(255,255,255,.55),
+      inset 0 -9px 14px -10px rgba(60,0,0,.32);
+  }
+  .clear-fab::before{
+    background:conic-gradient(from 200deg,
+      rgba(255,255,255,.8), rgba(255,255,255,.06) 22%,
+      rgba(255,255,255,.7) 50%, rgba(255,255,255,.05) 76%, rgba(255,255,255,.8));
+  }
+
+  /* --- barra do topo --- */
+  .topbar{
+    background:
+      linear-gradient(158deg, rgba(255,255,255,.48) 0%, rgba(255,255,255,.07) 32%, rgba(255,255,255,0) 58%),
+      color-mix(in srgb, var(--surface) 38%, transparent);
+    backdrop-filter:blur(34px) saturate(240%) brightness(1.04);
+    -webkit-backdrop-filter:blur(34px) saturate(240%) brightness(1.04);
+    box-shadow:
+      0 14px 44px -18px rgba(20,21,13,.42),
+      inset 0 1.5px 0 rgba(255,255,255,.8),
+      inset 0 -12px 18px -14px rgba(20,21,13,.16);
+  }
+
+  /* --- no celular a barra continua opaca: o conteúdo não pode
+         aparecer por trás do logo enquanto a página rola --- */
+  @media (max-width:720px){
+    .topbar{
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.4) 0%, rgba(255,255,255,.06) 32%, rgba(255,255,255,0) 58%),
+        color-mix(in srgb, var(--surface) 98%, transparent);
+    }
+    .anchor-nav{background:color-mix(in srgb, var(--surface) 95%, transparent);}
+  }
+
+
+  /* ---------- montagem manual do e-mail ---------- */
+  .montagem{
+    margin-top:16px; border:1px solid var(--border); border-radius:var(--radius-card);
+    background:var(--surface); overflow:hidden;
+  }
+  .montagem > h3{
+    font-family:var(--font-display); font-size:15px; font-weight:700; margin:0;
+    padding:14px 18px 12px; border-bottom:1px solid var(--border);
+  }
+  .montagem > h3 span{display:block; font-family:var(--font-body); font-size:12.5px; font-weight:400; color:var(--text-muted); margin-top:3px;}
+  .passo{display:flex; gap:14px; padding:16px 18px; border-top:1px solid var(--border);}
+  .passo:first-of-type{border-top:0;}
+  .passo .num{
+    flex:none; width:24px; height:24px; border-radius:50%; background:var(--lime); color:var(--lime-ink);
+    font-family:var(--font-mono); font-size:12px; font-weight:700;
+    display:flex; align-items:center; justify-content:center; margin-top:1px;
+  }
+  .passo .corpo{flex:1; min-width:0;}
+  .passo .tit{font-weight:650; font-size:14px; margin-bottom:2px;}
+  .passo .dica{font-size:12.5px; color:var(--text-muted); margin-bottom:10px;}
+  .caixa-texto{
+    font-family:var(--font-mono); font-size:12px; line-height:1.6; white-space:pre-wrap; word-break:break-word;
+    background:var(--bg); border:1px solid var(--border); border-radius:10px;
+    padding:12px 14px; max-height:230px; overflow:auto; -webkit-user-select:text; user-select:text;
+  }
+  .caixa-img{
+    border:1px solid var(--border); border-radius:10px; background:var(--bg);
+    overflow:auto; max-height:320px; padding:8px; text-align:center;
+  }
+  .caixa-img img{max-width:100%; height:auto; display:block; margin:0 auto; border-radius:4px;}
+  .caixa-img .carregando{color:var(--text-muted); font-size:13px; padding:34px 10px;}
+  .passo .acoes{display:flex; gap:9px; flex-wrap:wrap; margin-top:10px; align-items:center;}
+  .passo .feito{font-size:12.5px; color:var(--lime-deep); font-weight:650;}
+
+  /* ---------- câmera no navegador de computador ---------- */
+  .cam-fundo{
+    position:fixed; inset:0; z-index:90; display:none;
+    align-items:center; justify-content:center; padding:20px;
+    background:rgba(10,11,6,.72); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  }
+  .cam-fundo[data-aberta="1"]{display:flex;}
+  .cam-caixa{
+    background:var(--surface); border:1px solid var(--border); border-radius:20px;
+    padding:16px; max-width:720px; width:100%; box-shadow:0 30px 70px -30px rgba(0,0,0,.6);
+  }
+  .cam-caixa h3{font-family:var(--font-display); font-size:17px; margin:0 0 10px;}
+  .cam-video{width:100%; aspect-ratio:4/3; background:#0E0F08; border-radius:14px; object-fit:cover; display:block;}
+  .cam-erro{display:none; padding:22px 16px; text-align:center; color:var(--text-muted); font-size:14px;}
+  .cam-fundo[data-erro="1"] .cam-video{display:none;}
+  .cam-fundo[data-erro="1"] .cam-erro{display:block;}
+  .cam-barra{display:flex; gap:10px; align-items:center; justify-content:space-between; margin-top:13px; flex-wrap:wrap;}
+  .cam-barra select{max-width:230px; font-size:13px;}
+  .cam-acoes{display:flex; gap:10px;}
+
 </style>
 </head>
 <body>
@@ -1108,8 +1270,8 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
   <div class="q"><div class="q-head"><span class="q-num">1.1</span><span class="q-title">Responsável pela visita <span class="req">*</span></span></div><div class="q-desc">Seu nome completo — ele assina o relatório enviado à diretoria.</div><input type="text" data-k="responsavel" placeholder="Nome completo" data-req="1"><div class="err-msg">Campo obrigatório</div></div>
   <div class="q"><div class="q-head"><span class="q-num">1.2</span><span class="q-title">Unidade Ambipar responsável</span></div><div class="seg" role="radiogroup"><label><input type="radio" name="unidade" value="CVR Itu/SP"><span>CVR Itu/SP</span></label><label><input type="radio" name="unidade" value="Outra"><span>Outra</span></label></div><div class="cond" data-cond-for="unidade" data-show-when="Outra"><input type="text" data-k="unidadeOutra" placeholder="Informe a unidade"><div class="err-msg">Campo obrigatório</div></div></div>
   <div class="q"><div class="row2">
-    <div><div class="q-head"><span class="q-num">1.3</span><span class="q-title">Cliente <span class="req">*</span></span></div><input type="text" data-k="cliente" placeholder="Ex.: Volkswagen" data-req="1"><div class="err-msg">Campo obrigatório</div></div>
-    <div><div class="q-head"><span class="q-num">1.4</span><span class="q-title">Operação / unidade do cliente <span class="req">*</span></span></div><input type="text" data-k="operacao" placeholder="Ex.: Planta Taubaté" data-req="1"><div class="err-msg">Campo obrigatório</div></div>
+    <div><div class="q-head"><span class="q-num">1.3</span><span class="q-title">Cliente <span class="req">*</span></span></div><input type="text" data-k="cliente" placeholder="Nome do cliente" data-req="1"><div class="err-msg">Campo obrigatório</div></div>
+    <div><div class="q-head"><span class="q-num">1.4</span><span class="q-title">Operação / unidade do cliente <span class="req">*</span></span></div><input type="text" data-k="operacao" placeholder="Planta, CD, filial ou unidade" data-req="1"><div class="err-msg">Campo obrigatório</div></div>
   </div></div>
   <div class="q"><div class="q-head"><span class="q-num">1.5</span><span class="q-title">Escopo do serviço</span></div><div class="q-desc">Marque tudo o que a Ambipar executa nesta operação.</div><div class="chips"><label class="chip"><input type="checkbox" data-k="escopo" value="Mão de obra"><span>Mão de obra</span></label><label class="chip"><input type="checkbox" data-k="escopo" value="Equipamentos"><span>Equipamentos</span></label><label class="chip"><input type="checkbox" data-k="escopo" value="Transporte"><span>Transporte</span></label><label class="chip"><input type="checkbox" data-k="escopo" value="Destinação"><span>Destinação</span></label><label class="chip"><input type="checkbox" data-k="escopo" value="Valorização de recicláveis"><span>Valorização de recicláveis</span></label><label class="chip"><input type="checkbox" data-k="escopo" value="Outra"><span>Outra</span></label></div></div>
   <div class="q" style="padding-bottom:2px;"><div class="row3">
@@ -1139,7 +1301,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 <div class="card">
   <div class="q"><div class="q-inline"><div class="q-head"><span class="q-num">4.1</span><span class="q-title">Foi realizado acompanhamento da operação e/ou ronda nas instalações?</span></div><div class="seg" role="radiogroup"><label><input type="radio" name="ronda" value="Sim"><span>Sim</span></label><label><input type="radio" name="ronda" value="Não"><span>Não</span></label></div></div></div>
   <div class="cond" data-cond-for="ronda" data-show-when="Sim">
-    <div class="q"><div class="q-head"><span class="q-num">4.2</span><span class="q-title">Áreas / setores visitados</span></div><input type="text" data-k="rondaAreas" placeholder="Ex.: Central de resíduos, doca 3, pátio de caçambas"><div class="err-msg">Campo obrigatório</div></div>
+    
     <div class="q"><div class="q-inline"><div class="q-head"><span class="q-num">4.3</span><span class="q-title">A operação estava ocorrendo normalmente?</span></div><div class="seg" role="radiogroup"><label><input type="radio" name="rondaNormal" value="Sim"><span>Sim</span></label><label><input type="radio" name="rondaNormal" value="Não"><span>Não</span></label><label><input type="radio" name="rondaNormal" value="Parcialmente"><span>Parcialmente</span></label></div></div><div class="cond" data-cond-for="rondaNormal" data-show-when="Não|Parcialmente"><div class="sub-label">O que estava fora do normal?</div><textarea data-k="rondaNormalObs" placeholder=""></textarea></div></div>
     <div class="q"><div class="q-inline"><div class="q-head"><span class="q-num">4.4</span><span class="q-title">Foram identificadas anormalidades na operação?</span></div><div class="seg" role="radiogroup"><label><input type="radio" name="rondaAnorm" value="Sim"><span>Sim</span></label><label><input type="radio" name="rondaAnorm" value="Não"><span>Não</span></label></div></div><div class="cond" data-cond-for="rondaAnorm" data-show-when="Sim"><div class="occ-list" data-occ="ronda-anorm"></div>
       <button type="button" class="add-inline" data-add-occ="ronda-anorm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg> Adicionar outra anormalidade</button></div></div>
@@ -1225,7 +1387,9 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
   </div>
   <div class="q"><div class="q-head"><span class="q-num">11.3</span><span class="q-title">Principais pontos a acompanhar na próxima visita</span></div><div class="q-desc">Os itens do plano de ação com prazo já entram no relatório; use este campo para o que for além deles.</div><textarea data-k="proxPontos" placeholder=""></textarea></div>
   <div class="q"><div class="q-head"><span class="q-num">11.4</span><span class="q-title">Registros fotográficos complementares <span class="photo-count" data-count="geral" hidden></span></span></div><div class="q-desc">Fotos gerais da visita. Todas as fotos do formulário aparecem no topo do e-mail.</div>
-      <div class="photo-field"><label class="upload-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg> Adicionar fotos<input type="file" accept="image/*" multiple data-photo-key="geral"></label>
+      <div class="photo-field"><div class="foto-botoes">
+        <label class="upload-btn cam-agora"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> Tirar foto agora<input type="file" accept="image/*" capture="environment" data-photo-key="geral"></label>
+        <label class="upload-btn secundario"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg> Escolher da galeria<input type="file" accept="image/*" multiple data-photo-key="geral"></label></div>
       <div class="thumbs" data-thumbs="geral"></div></div></div>
   <div class="submit-row">
     <span class="submit-status" id="submitStatus" aria-live="polite"></span>
@@ -1237,23 +1401,61 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 
   <div class="card report-panel" id="reportPanel" hidden>
     <div class="q-head" style="margin-bottom:6px;"><span class="q-title" style="font-size:18px;">Relatório pronto para a diretoria</span></div>
-    <p class="q-desc" style="max-width:none;" id="reportIntro">Copie o e-mail e cole direto no Outlook — fotos, tabelas e cores vão junto. Ou baixe o PDF para anexar.</p>
+    <p class="q-desc" style="max-width:none;" id="reportIntro">No computador, copie o e-mail e cole direto no Outlook: fotos, tabelas e cores vão junto. No celular, use <b>Copiar relatório e abrir o e-mail</b> — a imagem do relatório fica na área de transferência e é só colar no corpo da mensagem.</p>
     <div class="subject-row"><input type="text" id="subjectInput" readonly aria-label="Assunto do e-mail"><button type="button" class="ghost-btn" id="copySubjectBtn">Copiar assunto</button></div>
     <div class="report-actions" style="margin-top:12px;">
       <button type="button" class="download-btn" id="mailBtn">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Enviar por e-mail com fotos e PDF</button>
-      <button type="button" class="ghost-btn" id="emlBtn" hidden>Só baixar o e-mail (.eml)</button>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Enviar relatório por e-mail</button>
+      <button type="button" class="download-btn" id="pdfBtn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>Baixar PDF do relatório</button>
+      <button type="button" class="download-btn" id="imgBtn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Baixar imagem do relatório</button>
       <button type="button" class="ghost-btn" id="copyEmailBtn">
         Copiar e-mail formatado</button>
-      <button type="button" class="ghost-btn" id="pdfBtn" hidden>
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>Baixar PDF</button>
-      <button type="button" class="ghost-btn" id="outlookBtn">Abrir no Outlook Web</button>
-      <button type="button" class="ghost-btn" id="xlsxBtn" hidden>
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h18"/></svg>Baixar Excel</button>
-      <button type="button" class="ghost-btn" id="htmlBtn" hidden>Baixar e-mail (.html)</button>
+      <button type="button" class="ghost-btn" id="outlookBtn">Abrir o Outlook com o assunto pronto</button>
       <button type="button" class="ghost-btn" id="newBtn">Nova visita</button>
     </div>
     <div class="action-status" id="actionStatus" aria-live="polite"></div>
+
+    <div class="montagem" id="montagem">
+      <h3>Montar o e-mail à mão<span>Se o envio automático não levar os anexos, use este bloco: ele tem tudo pronto, na ordem.</span></h3>
+
+      <div class="passo">
+        <span class="num">1</span>
+        <div class="corpo">
+          <div class="tit">Baixe o PDF do relatório</div>
+          <div class="dica">No celular, "Abrir e compartilhar" chama a lista de aplicativos já com o assunto da visita: escolha o Outlook e o PDF entra como anexo. No computador, o PDF abre numa aba e você usa o compartilhar ou o salvar do próprio leitor.</div>
+          <div class="acoes">
+            <button type="button" class="download-btn" id="mPdfShare">Abrir e compartilhar o PDF</button>
+            <button type="button" class="ghost-btn" id="mPdf">Só baixar o PDF</button>
+            <span class="feito" id="mPdfOk" hidden>PDF pronto</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="passo">
+        <span class="num">2</span>
+        <div class="corpo">
+          <div class="tit">Copie a mensagem e cole no e-mail</div>
+          <div class="dica">Um toque copia o texto e a imagem juntos. Cole uma vez no corpo da mensagem e os dois entram.</div>
+          <div class="acoes" style="margin-top:0; margin-bottom:12px;">
+            <button type="button" class="download-btn" id="mCopiarTudo">Copiar texto e imagem juntos</button>
+            <span class="feito" id="mTudoOk" hidden>Copiado</span>
+          </div>
+          <div class="caixa-texto" id="mTexto"></div>
+          <div class="caixa-img" id="mImgBox" style="margin-top:10px;"><div class="carregando">Gerando a imagem do relatório…</div></div>
+          <div class="dica" style="margin:10px 0 0;">Se o aplicativo não aceitar os dois de uma vez, copie separado. No celular também dá para segurar o dedo na imagem e escolher Copiar.</div>
+          <div class="acoes">
+            <button type="button" class="ghost-btn" id="mCopiarTexto">Copiar só o texto</button>
+            <button type="button" class="ghost-btn" id="mCopiarImg">Copiar só a imagem</button>
+            <button type="button" class="ghost-btn" id="mBaixarImg">Baixar a imagem</button>
+            <span class="feito" id="mTextoOk" hidden>Texto copiado</span>
+            <span class="feito" id="mImgOk" hidden>Imagem copiada</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="report-frame"><div id="reportPreview"></div></div>
   </div>
 
@@ -1304,12 +1506,22 @@ function toast(msg){ var t = $('#toast'); t.textContent = msg; t.classList.add('
 
 /* ---------------- markup helpers ---------------- */
 function seg(name, opts){ return '<div class="seg" role="radiogroup">' + opts.map(function(o){ return '<label><input type="radio" name="'+name+'" value="'+esc(o)+'"><span>'+esc(o)+'</span></label>'; }).join('') + '</div>'; }
+/* NRs que mais aparecem em operação de resíduos: máquinas e movimentação de
+   carga, o manuseio do resíduo em si e os riscos de pátio e galpão.
+   NR-2 e NR-27 ficam de fora porque foram revogadas. */
+var NRS = ['NR-1 Gerenciamento de riscos', 'NR-6 EPI', 'NR-10 Eletricidade',
+  'NR-11 Movimentação de materiais', 'NR-12 Máquinas e equipamentos',
+  'NR-13 Caldeiras e vasos de pressão', 'NR-15 Insalubridade', 'NR-17 Ergonomia',
+  'NR-20 Inflamáveis e combustíveis', 'NR-23 Proteção contra incêndios',
+  'NR-25 Resíduos industriais', 'NR-26 Sinalização de segurança',
+  'NR-33 Espaços confinados', 'NR-35 Trabalho em altura',
+  'NR-38 Limpeza urbana e resíduos sólidos'];
 function chipsHtml(k, opts, typ, name, cls){ return '<div class="chips">' + opts.map(function(o){ return '<label class="chip '+(cls?cls(o):'')+'"><input type="'+(typ||'checkbox')+'" data-k="'+k+'"'+(name?' name="'+name+'"':'')+' value="'+esc(o)+'"><span>'+esc(o)+'</span></label>'; }).join('') + '</div>'; }
 function head(num, title, req, desc){ return '<div class="q-head"><span class="q-num">'+num+'</span><span class="q-title">'+title+(req?' <span class="req">*</span>':'')+'</span></div>' + (desc?'<div class="q-desc">'+desc+'</div>':''); }
 function photoField(key, label, num){
   return '<div class="q">' + head(num||'📷', (label||'Registro fotográfico') + ' <span class="photo-count" data-count="'+key+'" hidden></span>') +
     '<div class="photo-field"><div class="foto-botoes">' +
-      '<label class="upload-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> Tirar foto agora<input type="file" accept="image/*" capture="environment" data-photo-key="'+key+'"></label>' +
+      '<label class="upload-btn cam-agora"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> Tirar foto agora<input type="file" accept="image/*" capture="environment" data-photo-key="'+key+'"></label>' +
       '<label class="upload-btn secundario">'+ICON_UP+' Escolher da galeria<input type="file" accept="image/*" multiple data-photo-key="'+key+'"></label></div>' +
     '<div class="thumbs" data-thumbs="'+key+'"></div></div></div>';
 }
@@ -1385,6 +1597,9 @@ async function handlePhotos(input){
   var key = input.getAttribute('data-photo-key');
   var files = Array.prototype.slice.call(input.files || []);
   input.value = '';
+  await adicionarFotos(key, files);
+}
+async function adicionarFotos(key, files){
   S.photos[key] = S.photos[key] || [];
   var girou = 0;
   for(var i=0;i<files.length;i++){
@@ -1566,7 +1781,12 @@ function addEquip(presetId){
     '<div>'+head('','Identificação')+'<input type="text" data-k="ident" placeholder="TAG, placa ou nº de série">' +
       '<div class="sub-label">Material acomodado / processado</div>'+residuoChips(id)+'</div></div></div>' +
     '<div class="q">'+head('','Estado do equipamento')+rating+'</div>' +
-    '<div class="q"><div class="row2"><div>'+head('','Em conformidade com NR?')+seg(id+'-nr',['Sim','Não','N/A'])+'<input type="text" data-k="nrQual" placeholder="Qual NR? Ex.: NR-12" style="margin-top:10px"></div>' +
+    '<div class="q"><div class="row2"><div>'+head('','Em conformidade com NR?')+seg(id+'-nr',['Sim','Não','N/A'])+
+      '<div class="sub-label" style="margin-top:10px">NR aplicável a este equipamento</div>'+
+      '<select data-k="nrQual"><option value="">Selecione a NR</option>'+
+        NRS.map(function(n){ return '<option value="'+esc(n)+'">'+esc(n)+'</option>'; }).join('')+
+        '<option value="Outra">Outra NR não listada</option></select>'+
+      '<input type="text" data-k="nrOutra" placeholder="Qual NR?" style="margin-top:8px" hidden></div>' +
     '<div>'+head('','Manutenção programada?')+seg(id+'-manutProg',['Sim','Não','N/A'])+'</div></div></div>' +
     '<div class="q"><div class="q-inline">'+head('','Foi identificado problema ou necessidade de manutenção?')+seg(id+'-prob',['Sim','Não'])+'</div>' +
       '<div class="cond" data-cond-for="'+id+'-prob" data-show-when="Sim"><div class="sub-label">Problema identificado</div><textarea data-k="probDesc" placeholder="O que foi observado"></textarea>' +
@@ -1716,13 +1936,13 @@ function buildPayload(){
     }).filter(function(c){ return c.nome; }),
     proc: { r: radio('proc'), quais: v('procQuais'), envolvidos: pickedNames('proc').concat(splitNames(v('procOutros'))), photos: photosOf('proc') },
     dss: { r: radio('dss'), tipo: radio('dssTipo'), tema: v('dssTema'), participantes: pickedNames('dss').concat(splitNames(v('dssOutros'))), photos: photosOf('dss') },
-    ronda: { r: radio('ronda'), areas: v('rondaAreas'), normal: radio('rondaNormal'), normalObs: v('rondaNormalObs'),
+    ronda: { r: radio('ronda'), normal: radio('rondaNormal'), normalObs: v('rondaNormalObs'),
              anorm: radio('rondaAnorm'), melhoria: radio('rondaMelhoria'), orient: radio('rondaOrient'), orientDesc: v('rondaOrientDesc'), photos: photosOf('ronda') },
     equipVerif: radio('equipVerif'),
 
     equips: radio('equipVerif') !== 'Sim' ? [] : $$('#equipContainer > .equip').map(function(b){
       var id = b.getAttribute('data-id'), tipo = v('tipo', b);
-      return { key:id, tipo: tipo === 'Outro' ? (v('tipoOutro', b) || 'Outro') : tipo, ident: v('ident', b), estado: $('[data-estado-box]', b).hasAttribute('data-touched') ? +$('[data-estado-box] input', b).value : '', nr: radio(id+'-nr'), nrQual: v('nrQual', b),
+      return { key:id, tipo: tipo === 'Outro' ? (v('tipoOutro', b) || 'Outro') : tipo, ident: v('ident', b), estado: $('[data-estado-box]', b).hasAttribute('data-touched') ? +$('[data-estado-box] input', b).value : '', nr: radio(id+'-nr'), nrQual: v('nrQual', b) === 'Outra' ? (v('nrOutra', b) || 'Outra') : v('nrQual', b),
                manutProg: radio(id+'-manutProg'), prob: radio(id+'-prob'), probDesc: v('probDesc', b), crit: radio(id+'-crit'), solic: radio(id+'-solic'), os: v('os', b), obs: v('obs', b), prazo: v('prazoEquip', b),
                residuos: checked('residuos', b).filter(function(x){ return x !== 'Não se aplica'; }).concat(v('residuoOutro', b) ? [v('residuoOutro', b)] : []),
                dimensao: v('dimensao', b) === 'Outra' ? (v('dimensaoOutra', b) || 'Outra') : v('dimensao', b),
@@ -1770,8 +1990,8 @@ function validate(){
     if(!visivel(el) || el.hasAttribute('data-cap') || el.hasAttribute('data-residuo-sel')) return;
     var k = el.getAttribute('data-k') || '';
     if(k === 'procOutros' || k === 'dssOutros' || k === 'prazoEquip' || k === 'residuoOutro' || k === 'dimensaoOutra' || k === 'obs'
-       || k === 'segPontos' || k === 'eqPontos' || k === 'proxPontos') return;  // campos opcionais
-    if(k === 'nrQual'){ var b1 = el.closest('.equip'); if(radio(b1.getAttribute('data-id') + '-nr') !== 'Sim') return; }
+       || k === 'segPontos' || k === 'eqPontos' || k === 'proxPontos'
+       || k === 'nrOutra' || k === 'nrQual') return;  // campos opcionais
     if(k === 'os'){ var b2 = el.closest('.equip'); if(radio(b2.getAttribute('data-id') + '-solic') !== 'Sim') return; }
     if(!String(el.value).trim()) marcar(el);
   });
@@ -2009,7 +2229,7 @@ function renderReport(p, opts){
   var det = '';
   if(p.dss.r === 'Sim') det += note(p.dss.tipo || 'DSS / treinamento', p.dss.tema + (p.dss.participantes.length ? ' (' + p.dss.participantes.length + ' participantes)' : ''));
   if(p.proc.r === 'Sim') det += note('Procedimentos repassados', p.proc.quais);
-  if(p.ronda.r === 'Sim') det += note('Operação', [p.ronda.areas ? 'Áreas: ' + p.ronda.areas : '', p.ronda.normalObs, p.ronda.orientDesc ? 'Orientação: ' + p.ronda.orientDesc : ''].filter(Boolean).join('\n'));
+  if(p.ronda.r === 'Sim') det += note('Operação', [p.ronda.normalObs, p.ronda.orientDesc ? 'Orientação: ' + p.ronda.orientDesc : ''].filter(Boolean).join('\n'));
   if(p.cli.r === 'Sim') det += note('Cliente', [p.cli.participantes, p.cli.acompDesc].filter(Boolean).join('\n'));
   det += note('Segurança', p.seg.pontos);
   det += note('Equipe', [p.eq.pontos, p.eq.trein === 'Sim' && p.eq.treinDesc ? 'Treinamento: ' + p.eq.treinDesc : '', p.eq.espec === 'Sim' ? p.eq.especDesc : ''].filter(Boolean).join('\n'));
@@ -2189,7 +2409,6 @@ function renderCompacto(p){
   if(p.proc.r === 'Sim' && p.proc.quais) paras.push(par(lead('Procedimentos repassados.') + nl(p.proc.quais)));
   if(p.ronda.r === 'Sim'){
     var r = [];
-    if(p.ronda.areas) r.push('Áreas percorridas: ' + esc(p.ronda.areas) + '.');
     if(p.ronda.normal) r.push('Operação ' + (p.ronda.normal === 'Sim' ? 'ocorrendo normalmente' : p.ronda.normal.toLowerCase() + ' dentro do normal') + (p.ronda.normalObs ? ': ' + nl(p.ronda.normalObs) : '.'));
     if(p.ronda.orientDesc) r.push('Orientação imediata: ' + nl(p.ronda.orientDesc));
     if(r.length) paras.push(par(lead('Operação e ronda.') + r.join(' ')));
@@ -2316,7 +2535,7 @@ function linhasPlanilha(p){
   var obs = [['Assunto', 'Texto']].concat([
     ['Procedimentos repassados', p.proc.quais], ['Colaboradores envolvidos', (p.proc.envolvidos||[]).join(', ')],
     [(p.dss.tipo || 'DSS') + ' — tema', p.dss.tema], ['Participantes do DSS', (p.dss.participantes||[]).join(', ')],
-    ['Áreas percorridas', p.ronda.areas], ['Situação da operação', p.ronda.normalObs], ['Orientação imediata', p.ronda.orientDesc],
+    ['Situação da operação', p.ronda.normalObs], ['Orientação imediata', p.ronda.orientDesc],
     ['Participantes do alinhamento com o cliente', p.cli.participantes], ['Acompanhamento após a visita', p.cli.acompDesc],
     ['Segurança — pontos discutidos', p.seg.pontos], ['Natureza dos problemas de equipe', (p.eq.natureza||[]).join(', ')],
     ['Gestão de equipe — pontos discutidos', p.eq.pontos], ['Necessidades de treinamento', p.eq.treinDesc], ['Alinhamento específico', p.eq.especDesc]
@@ -2649,8 +2868,33 @@ async function buildPdfBlob(){
 
   /* ---------- cartão com fluxo de itens em várias páginas ---------- */
   function cartao(titulo, sub, itens){ return { titulo: titulo, sub: sub, itens: itens, pos: 0 }; }
+  async function tiraDeFotos(y, h){
+    /* Miniatura com proporção fixa: dividir a largura pelo número de fotos
+       esticava duas fotos na folha inteira. Cabem quantas couberem. */
+    var GAPT = 2.6, CAPT = 4.2;
+    var ch = h - CAPT, cw = ch * 1.34;
+    var cabem = Math.max(1, Math.floor((CW + GAPT) / (cw + GAPT)));
+    var n = Math.min(fotos.length, cabem);
+    for(var i = 0; i < n; i++){
+      var x = M + i * (cw + GAPT), ph = fotos[i];
+      var rec = await recortaFoto(ph.full || ph.src, Math.round(cw * 9), Math.round(ch * 9));
+      if(rec){ try{ D.addImage(rec, 'JPEG', x, y, cw, ch); }catch(e){} }
+      else { fill('#EDEFE3'); D.rect(x, y, cw, ch, 'F'); }
+      F(5.4, false); tint(MUTED);
+      txt(parte(limpa(ph.caption || ph.label), cw)[0] || '', x, y + ch + 3);
+    }
+    if(fotos.length > n){
+      F(5.4, false); tint(FAINT);
+      txt('+' + (fotos.length - n) + ' nas folhas de registro', M + CW, y + ch + 3, { align: 'right' });
+    }
+  }
   function desenhaFaixa(colunas, y, hDisp){
     var PADC = 3.2, GAP = 4;
+    /* Na continuação, só entram os cartões que ainda têm conteúdo: antes os
+       esgotados vinham como caixa vazia com título, desperdiçando a folha.
+       A largura é redividida entre os que sobraram. */
+    colunas = colunas.filter(function(col){ return col.c.pos < col.c.itens.length; });
+    if(!colunas.length) return false;
     var tot = colunas.reduce(function(a, c){ return a + c.p; }, 0), x = M, sobra = false;
     colunas.forEach(function(col, idx){
       var w = (CW - GAP * (colunas.length - 1)) * col.p / tot;
@@ -2789,38 +3033,48 @@ async function buildPdfBlob(){
   function cartaoPlano(){
     var itens = [];
     if(acts.length){
+      /* Resumo: só o que a diretoria precisa bater o olho. Providência e prazo
+         vão para a folha de detalhamento, que só é emitida quando há o que detalhar. */
       itens = itens.concat(tabelaItens(
-        [{ n: 'Criticidade', p: 15 }, { n: 'O que foi identificado', p: 33 }, { n: 'Providência', p: 24 }, { n: 'Responsável', p: 13 }, { n: 'Prazo', p: 15 }],
+        [{ n: 'Criticidade', p: 20 }, { n: 'O que foi identificado', p: 55 }, { n: 'Responsável', p: 25 }],
         acts.map(function(a){
           return [{ t: 'dot', v: a.crit || dash, cor: CRITC[a.crit] || MUTED },
                   { t: 'txt', v: a.desc, sub: a.tipo },
-                  { t: 'txt', v: a.prov || 'A definir', cor: a.prov ? INK : FAINT },
-                  { t: 'txt', v: a.resp || dash, cor: a.resp ? INK : FAINT },
-                  { t: 'txt', v: fmtDate(a.prazo) || dash, cor: a.prazo ? INK : FAINT }];
+                  { t: 'txt', v: a.resp || dash, cor: a.resp ? INK : FAINT }];
         })
       ));
     } else itens.push(iTexto('Nenhuma pendência registrada nesta visita.', 7.4, FAINT));
-    return cartao('Plano de ação', acts.length ? 'do mais crítico ao menos crítico' : '', itens);
+    return cartao('Plano de ação', acts.length ? 'resumo — detalhamento na folha seguinte' : '', itens);
   }
   function cartaoChecklist(){
     var checks = [
-      ck('EPIs e uniformes', p.epiVerif), ck('Procedimentos', p.proc.r), ck('DSS / treinamento', p.dss.r),
+      ck('EPIs e uniformes', p.epiVerif), ck('Procedimentos', p.proc.r), ck('DSS', p.dss.r),
       ck('Ronda', p.ronda.r), p.ronda.r === 'Sim' ? ck('Operação normal', p.ronda.normal, 'Não|Parcialmente') : null,
-      ck('Equipamentos', p.equipVerif), ck('Alinhamento com cliente', p.cli.r),
+      ck('Equipamentos', p.equipVerif), ck('Cliente', p.cli.r),
       p.cli.r === 'Sim' ? ck('Reclamações', p.cli.recl, 'Sim') : null,
-      ck('Condições inseguras', p.seg.inseg, 'Sim'), ck('Desvios', p.seg.desvio, 'Sim'),
-      ck('Alinhamento liderança', p.eq.lider), ck('Alinhamento operação', p.eq.oper),
-      ck('Problemas de equipe', p.eq.prob, 'Sim'), ck('Treinamento necessário', p.eq.trein, 'Sim')
+      ck('Cond. inseguras', p.seg.inseg, 'Sim'), ck('Desvios', p.seg.desvio, 'Sim'),
+      ck('Liderança', p.eq.lider), ck('Operação', p.eq.oper),
+      ck('Problemas de equipe', p.eq.prob, 'Sim'), ck('Treinamento', p.eq.trein, 'Sim')
     ].filter(Boolean);
-    var S = 7, LHc = LH(S) + 1.6;
-    var itens = checks.map(function(r, i){
+    /* Duas colunas: o checklist ocupava metade da altura do cartão sozinho.
+       Pareado, sobra folha para as tabelas e o texto cresce no ajuste automático. */
+    var S = 7, LHc = LH(S) + 1.6, GAPc = 3;
+    var pares = [];
+    for(var pi = 0; pi < checks.length; pi += 2) pares.push([checks[pi], checks[pi + 1] || null]);
+    var itens = pares.map(function(par, i){
       return {
         alt: function(){ return LHc; },
         des: function(x, y, w){
-          F(S, false); tint(MUTED); txt(r[0], x, y + LHc * 0.68);
-          F(S, r[3] ? true : false); tint(r[3] ? RED : INK);
-          txt(r[2], x + w, y + LHc * 0.68, { align: 'right' });
-          if(i < checks.length - 1){ draw(LINHA); D.setLineWidth(0.12); D.line(x, y + LHc, x + w, y + LHc); }
+          var cw = (w - GAPc) / 2;
+          par.forEach(function(r, j){
+            if(!r) return;
+            var cx = x + j * (cw + GAPc);
+            var val = r[2] === 'Não se aplica' ? 'N/A' : r[2];
+            F(S, false); tint(MUTED); txt(r[0], cx, y + LHc * 0.68);
+            F(S, r[3] ? true : false); tint(r[3] ? RED : INK);
+            txt(val, cx + cw, y + LHc * 0.68, { align: 'right' });
+          });
+          if(i < pares.length - 1){ draw(LINHA); D.setLineWidth(0.12); D.line(x, y + LHc, x + w, y + LHc); }
           return LHc;
         }
       };
@@ -2834,7 +3088,6 @@ async function buildPdfBlob(){
     if(p.proc.r === 'Sim' && p.proc.quais) itens.push(iParagrafo('Procedimentos repassados.', p.proc.quais));
     if(p.ronda.r === 'Sim'){
       var r = [];
-      if(p.ronda.areas) r.push('Áreas percorridas: ' + p.ronda.areas + '.');
       if(p.ronda.normal) r.push('Operação ' + (p.ronda.normal === 'Sim' ? 'ocorrendo normalmente.' : p.ronda.normal.toLowerCase() + ' dentro do normal.') + (p.ronda.normalObs ? ' ' + p.ronda.normalObs : ''));
       if(p.ronda.orientDesc) r.push('Orientação imediata: ' + p.ronda.orientDesc);
       if(r.length) itens.push(iParagrafo('Operação e ronda.', r.join(' ')));
@@ -2872,7 +3125,9 @@ async function buildPdfBlob(){
   /* ---------- página 1 ---------- */
   var yTopo = cabecalho();
   var hRest = H - yTopo - 7.5;
-  var faixa1 = [{ p: 30, c: cartaoMaoDeObra() }, { p: 30, c: cartaoEquipamentos() }, { p: 40, c: cartaoPlano() }];
+  /* Equipamentos é o bloco mais consultado da visita: fica com a maior coluna.
+     O plano cede espaço porque já virou resumo de três colunas. */
+  var faixa1 = [{ p: 23, c: cartaoMaoDeObra() }, { p: 43, c: cartaoEquipamentos() }, { p: 34, c: cartaoPlano() }];
   var faixa2 = [{ p: 30, c: cartaoChecklist() }, { p: 45, c: cartaoObs() }, { p: 25, c: cartaoProx() }];
   function precisa(cols, w){
     var tot = cols.reduce(function(a, c){ return a + c.p; }, 0), m = 0;
@@ -2884,17 +3139,36 @@ async function buildPdfBlob(){
     return m;
   }
   var h1, h2, hA, hB, coube = false;
-  [1, 0.97, 0.94, 0.91, 0.88, 0.85, 0.82, 0.79, 0.76].some(function(e){
+  /* A escala sobe quando sobra folha: o relatório cresce para ocupar a página
+     inteira em vez de deixar o rodapé dos cartões em branco. Pega a maior que couber. */
+  [1.34, 1.28, 1.22, 1.16, 1.11, 1.06, 1, 0.97, 0.94, 0.91, 0.88, 0.85, 0.82, 0.79, 0.76].some(function(e){
     ESC = e; h1 = precisa(faixa1); h2 = precisa(faixa2);
     if(h1 + h2 + 3 <= hRest){ coube = true; return true; }
     return false;
   });
+  /* A faixa de baixo (checklist, observações, próxima visita) fica no tamanho
+     que precisa, com teto de 34% da folha. O que sobra vai para equipamentos,
+     mão de obra e plano de ação, que é onde está a informação operacional. */
+  var TETO2 = hRest * 0.34;
   if(coube){
-    var folga = hRest - h1 - h2 - 3;
-    hA = h1 + folga * (h1 / (h1 + h2)); hB = hRest - hA - 3;
-  } else { hA = Math.max(30, Math.min(h1, hRest * 0.52 - 1.5)); hB = hRest - hA - 3; }
-  var sobra1 = desenhaFaixa(faixa1, yTopo, hA);
-  var sobra2 = desenhaFaixa(faixa2, yTopo + hA + 3, hB);
+    hB = Math.min(h2 + (hRest - h1 - h2 - 3) * 0.25, TETO2);
+    hA = hRest - hB - 3;
+  } else {
+    hB = Math.min(h2, TETO2); hA = hRest - hB - 3;
+  }
+  /* Fileira única de miniaturas entre as duas faixas: dá o contexto visual
+     na mesma folha do resumo, sem substituir as páginas de fotos do fim. */
+  var TIRA = fotos.length ? 25 : 0;
+  if(TIRA){ hA = Math.max(30, hA - TIRA - 3); }
+  var yF1 = yTopo + (TIRA ? TIRA + 3 : 0);
+  if(TIRA) await tiraDeFotos(yTopo, TIRA);
+  var sobra1 = desenhaFaixa(faixa1, yF1, hA);
+  /* O plano não ganha folha de continuação em formato resumido: o que não coube
+     aqui aparece completo, com providência e prazo, na folha de detalhamento. */
+  var colPlano = faixa1[2].c;
+  if(acts.length && colPlano.pos < colPlano.itens.length) colPlano.pos = colPlano.itens.length;
+  sobra1 = faixa1.some(function(col){ return col.c.pos < col.c.itens.length; });
+  var sobra2 = desenhaFaixa(faixa2, yF1 + hA + 3, hB);
   var guarda = 0;
   while((sobra1 || sobra2) && guarda++ < 6){
     D.addPage(); fill(LIME); D.rect(0, 0, W, 2.2, 'F');
@@ -2910,7 +3184,38 @@ async function buildPdfBlob(){
     else { sobra2 = desenhaFaixa(faixa2, yc, disp); }
   }
 
+  /* ---------- detalhamento do plano de ação ---------- */
   ESC = 1;
+  var comDetalhe = acts;
+  if(comDetalhe.length){
+    D.addPage(); fill(LIME); D.rect(0, 0, W, 2.2, 'F');
+    F(5.6, false); tint(FAINT); txt('PLANO DE AÇÃO — DETALHAMENTO', M, 9);
+    F(11, true); tint(INK);
+    txt(limpa(p.id.cliente) + ' – ' + limpa(p.id.operacao) + '  |  ' + fmtDate(p.id.data) + '  |  ' +
+        comDetalhe.length + (comDetalhe.length === 1 ? ' item' : ' itens'), M, 14.2);
+    var colDet = { titulo: '', pos: 0, itens: tabelaItens(
+      [{ n: 'Criticidade', p: 12 }, { n: 'O que foi identificado', p: 27 }, { n: 'Ação imediata', p: 20 },
+       { n: 'Providência', p: 22 }, { n: 'Responsável', p: 11 }, { n: 'Prazo', p: 8 }],
+      comDetalhe.map(function(a){
+        return [{ t: 'dot', v: a.crit || dash, cor: CRITC[a.crit] || MUTED },
+                { t: 'txt', v: a.desc, sub: a.tipo },
+                { t: 'txt', v: a.acao || dash, cor: a.acao ? INK : FAINT },
+                { t: 'txt', v: a.prov || 'A definir', cor: a.prov ? INK : FAINT },
+                { t: 'txt', v: a.resp || dash, cor: a.resp ? INK : FAINT },
+                { t: 'txt', v: fmtDate(a.prazo) || dash, cor: a.prazo ? INK : FAINT }];
+      })) };
+    var faixaDet = [{ p: 100, c: colDet }], guardaD = 0, sobraD = true;
+    var yD = 18;
+    while(sobraD && guardaD++ < 8){
+      if(guardaD > 1){
+        D.addPage(); fill(LIME); D.rect(0, 0, W, 2.2, 'F');
+        F(8, true); tint(INK);
+        txt(limpa(p.id.cliente) + '  |  plano de ação (continuação)', M, 12); yD = 16;
+      }
+      sobraD = desenhaFaixa(faixaDet, yD, H - yD - 9);
+    }
+  }
+
   /* ---------- páginas de fotos ---------- */
   if(fotos.length){
     setStatus('Montando o PDF… preparando as fotos');
@@ -3070,6 +3375,7 @@ async function showReport(payload){
   $('#reportPreview').innerHTML = html;
   $('#subjectInput').value = current.subject;
   $('#reportPanel').hidden = false;
+  try{ mPreparaBloco(); }catch(e){ console.error(e); }
   setStatus('');
   $('#reportPanel').scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' });
 }
@@ -3165,9 +3471,6 @@ $('#mainForm').addEventListener('submit', async function(ev){
 });
 
 $('#copyEmailBtn').addEventListener('click', copyEmail);
-$('#pdfBtn').addEventListener('click', makePdf);
-$('#xlsxBtn').addEventListener('click', baixarPlanilha);
-$('#emlBtn').addEventListener('click', makeEml);
 function resumoEmail(){
   var p = current.payload, acts = collectActions(p), L = [];
   L.push(p.id.cliente + ' — ' + p.id.operacao);
@@ -3203,6 +3506,60 @@ function urlMailto(){
     (CONFIG.emailCc ? '&cc=' + encodeURIComponent(CONFIG.emailCc) : '') +
     '&body=' + encodeURIComponent(resumoCurto());
 }
+/* Copia a imagem do relatório para a área de transferência e abre o e-mail.
+   É o caminho que funciona em qualquer celular: o aplicativo de e-mail abre com
+   assunto e destinatários prontos, e a pessoa cola a imagem dentro do corpo.
+   A ClipboardItem precisa nascer no mesmo gesto do toque, por isso recebe a
+   promessa da imagem em vez do blob já pronto — exigência do Safari. */
+function copiarImagemRelatorio(){
+  if(!current) return;
+  var btn = $('#copyImgBtn');
+  btn.disabled = true;
+  setStatus('Gerando a imagem do relatório...');
+  var promessa = imagemRelatorio().then(function(b){
+    if(!b) throw new Error('sem imagem');
+    return b;
+  });
+
+  function concluir(copiou){
+    promessa.then(function(){
+      setStatus(copiou
+        ? 'Imagem copiada. O e-mail vai abrir com assunto e destinatários prontos: toque dentro do corpo da mensagem, segure e escolha Colar para a imagem do relatório entrar no texto.'
+        : 'Este navegador não deixa copiar imagem automaticamente. Use "Baixar imagem do relatório" e insira a imagem no corpo da mensagem pelo próprio e-mail.');
+      if(copiou){ try{ window.location.href = urlMailto(); }catch(e){} }
+    }).catch(function(){
+      setStatus('Não foi possível gerar a imagem do relatório. Recarregue o formulário e tente de novo — o rascunho da visita continua salvo.');
+    }).then(function(){ btn.disabled = false; });
+  }
+
+  if(window.ClipboardItem && navigator.clipboard && navigator.clipboard.write){
+    try{
+      navigator.clipboard.write([ new ClipboardItem({ 'image/png': promessa }) ])
+        .then(function(){ concluir(true); })
+        .catch(function(){
+          // alguns navegadores recusam a promessa: tenta de novo com o blob pronto
+          promessa.then(function(b){
+            return navigator.clipboard.write([ new ClipboardItem({ 'image/png': b }) ]);
+          }).then(function(){ concluir(true); }).catch(function(){ concluir(false); });
+        });
+      return;
+    }catch(e){ /* ClipboardItem não aceitou a promessa */ }
+  }
+  concluir(false);
+}
+
+async function baixarImagemRelatorio(){
+  if(!current) return;
+  var btn = $('#imgBtn'); btn.disabled = true;
+  try{
+    setStatus('Gerando a imagem do relatório...');
+    var b = await imagemRelatorio();
+    if(!b){ setStatus('Não foi possível gerar a imagem do relatório. Recarregue o formulário e tente de novo.'); return; }
+    await saveFile(fileBase() + '.png', b);
+    setStatus('Imagem salva. No celular ela vai para as suas fotos: abra o e-mail e insira a imagem no corpo da mensagem.');
+  } finally { btn.disabled = false; }
+}
+
 async function enviarEmail(){
   if(!current) return;
   var btn = $('#mailBtn'), st = $('#actionStatus');
@@ -3252,7 +3609,7 @@ async function enviarEmail(){
         var nFotos = Math.max(0, lote.length - (png ? 1 : 0) - (pdf ? 1 : 0));
         setStatus('Escolha o Outlook na lista. Vão juntos: a imagem do relatório, o PDF' +
           (nFotos ? ' e ' + nFotos + (nFotos === 1 ? ' foto da visita' : ' fotos da visita') : '') +
-          '. Para deixar o relatório no corpo da mensagem, toque e segure a imagem anexada, copie e cole no texto antes de enviar.');
+          '. Se o Outlook não aparecer na lista, feche e use "Baixar PDF" e "Baixar imagem do relatório", depois anexe os dois no aplicativo.');
         return;
       }
     }
@@ -3266,21 +3623,33 @@ async function enviarEmail(){
       st.innerHTML = '<b style="color:#B42318;">Atenção: o PDF não pôde ser gerado</b> — o e-mail <b>' + esc(nome) + '</b> baixou com as fotos, mas sem o relatório em PDF. ' +
         'Recarregue o formulário e repita o envio para incluí-lo.';
     } else {
-      st.innerHTML = 'E-mail gerado. Abra o arquivo <b>' + esc(nome) + '</b> que acabou de baixar: o Outlook abre a mensagem já com assunto, data, fotos e PDF, faltando só clicar em Enviar. ' +
-        'Prefere uma mensagem simples, sem anexos? <a href="' + url.replace(/"/g, '&quot;') + '" style="color:inherit;">abrir agora</a>.';
+      st.innerHTML = celular
+        ? 'Este aparelho não abriu a folha de compartilhamento, então o e-mail baixou como arquivo <b>' + esc(nome) + '</b>. ' +
+          'Celular não abre .eml como rascunho: use "Baixar PDF" e "Baixar imagem do relatório" e anexe os dois no aplicativo de e-mail.'
+        : 'E-mail gerado. Abra o arquivo <b>' + esc(nome) + '</b> que acabou de baixar: o Outlook abre a mensagem já com assunto, data, fotos e PDF, faltando só clicar em Enviar. ' +
+          'Prefere uma mensagem simples, sem anexos? <a href="' + url.replace(/"/g, '&quot;') + '" style="color:inherit;">abrir agora</a>.';
     }
   }catch(e){ console.error(e); setStatus('Não foi possível montar o e-mail.'); }
   finally{ btn.disabled = false; }
 }
-$('#mailBtn').addEventListener('click', enviarEmail);
 $('#outlookBtn').addEventListener('click', function(){
   if(!current) return;
-  var url = 'https://outlook.office.com/mail/deeplink/compose?to=' + encodeURIComponent(CONFIG.emailPara || '') +
-    '&subject=' + encodeURIComponent(current.subject) + '&body=' + encodeURIComponent(resumoEmail());
-  window.open(url, '_blank', 'noopener');
-  setStatus('Outlook Web aberto com o resumo em texto. Fotos e PDF só vão pelo botão com anexos.');
+  /* O endereço precisa do índice da conta (/mail/0/), senão o Outlook Web tenta
+     subir sem sessão e devolve erro 401 na inicialização. O corpo vai cortado
+     porque endereço muito longo é recusado pelo navegador. */
+  var corpo = resumoEmail();
+  if(corpo.length > 1400) corpo = corpo.slice(0, 1380) + '\n\n[resumo cortado — veja o PDF em anexo]';
+  var qs = 'to=' + encodeURIComponent(CONFIG.emailPara || '') +
+    '&subject=' + encodeURIComponent(current.subject) + '&body=' + encodeURIComponent(corpo);
+  var janela = window.open('https://outlook.office.com/mail/0/deeplink/compose?' + qs, '_blank', 'noopener');
+  if(!janela){
+    window.location.href = 'mailto:' + encodeURIComponent(CONFIG.emailPara || '') +
+      '?subject=' + encodeURIComponent(current.subject) + '&body=' + encodeURIComponent(corpo);
+    setStatus('O navegador bloqueou a janela do Outlook Web, então abri o aplicativo de e-mail. Anexe o PDF e a imagem que você baixou.');
+    return;
+  }
+  setStatus('Outlook aberto com assunto e resumo prontos. Anexe o PDF e a imagem do relatório que você baixou — o navegador não consegue anexar sozinho. Se der erro 401, entre na sua conta do Outlook Web nesta mesma aba e tente de novo.');
 });
-$('#htmlBtn').addEventListener('click', saveHtml);
 $('#copySubjectBtn').addEventListener('click', async function(){
   var inp = $('#subjectInput'); try{ await navigator.clipboard.writeText(inp.value); }catch(e){ inp.select(); try{ document.execCommand('copy'); }catch(_){} }
   toast('Assunto copiado.');
@@ -3298,7 +3667,154 @@ function limparFormulario(){
   window.scrollTo({ top: 0, behavior: reduced() ? 'auto' : 'smooth' });
 }
 $('#newBtn').addEventListener('click', limparFormulario);
+document.addEventListener('change', function(e){
+  var sl = e.target.closest ? e.target.closest('select[data-k="nrQual"]') : null;
+  if(!sl) return;
+  var txt = sl.parentElement.querySelector('input[data-k="nrOutra"]');
+  if(txt){ txt.hidden = sl.value !== 'Outra'; if(txt.hidden) txt.value = ''; }
+});
 $('#clearBtn').addEventListener('click', limparFormulario);
+/* ---------- bloco de montagem manual ---------- */
+var mImgBlob = null, mImgUrl = null;
+
+function mFeito(id){
+  var el = $(id); if(!el) return;
+  el.hidden = false;
+  clearTimeout(el.__t); el.__t = setTimeout(function(){ el.hidden = true; }, 6000);
+}
+
+function mPreparaBloco(){
+  if(!current) return;
+  $('#mTexto').textContent = 'Assunto: ' + current.subject + '\n\n' + resumoEmail();
+  $('#mPdfOk').hidden = true; $('#mTextoOk').hidden = true; $('#mImgOk').hidden = true; $('#mTudoOk').hidden = true;
+  // a imagem é pesada: gera em segundo plano para o bloco já aparecer utilizável
+  var cx = $('#mImgBox');
+  cx.innerHTML = '<div class="carregando">Gerando a imagem do relatório…</div>';
+  if(mImgUrl){ URL.revokeObjectURL(mImgUrl); mImgUrl = null; }
+  mImgBlob = null;
+  imagemRelatorio().then(function(b){
+    if(!b) throw new Error('sem imagem');
+    mImgBlob = b; mImgUrl = URL.createObjectURL(b);
+    var im = new Image();
+    im.alt = 'Resumo do relatório de visita';
+    im.src = mImgUrl;
+    cx.innerHTML = ''; cx.appendChild(im);
+  }).catch(function(e){
+    console.error(e);
+    cx.innerHTML = '<div class="carregando">Não foi possível gerar a imagem. Recarregue o formulário e envie de novo — o rascunho continua salvo.</div>';
+  });
+}
+
+$('#mPdf').addEventListener('click', async function(){
+  await makePdf();
+  mFeito('#mPdfOk');
+});
+
+/* Compartilhar só o PDF é o envio com a maior chance de o Outlook aparecer:
+   um arquivo, um tipo só. O assunto da visita viaja em title e text, que a
+   maioria dos aplicativos de e-mail usa como assunto e corpo da mensagem. */
+$('#mPdfShare').addEventListener('click', async function(){
+  if(!current) return;
+  var btn = this; btn.disabled = true;
+  try{
+    setStatus('Gerando o PDF…');
+    var blob = await buildPdfBlob();
+    if(!blob){ setStatus('Não foi possível gerar o PDF.'); return; }
+    var arq = new File([blob], fileBase() + '.pdf', { type: 'application/pdf' });
+
+    if(navigator.canShare && navigator.share && navigator.canShare({ files: [arq] })){
+      try{
+        await navigator.share({ files: [arq], title: current.subject, text: current.subject });
+        mFeito('#mPdfOk');
+        setStatus('Escolha o Outlook na lista: o PDF vai como anexo e o assunto da visita costuma vir preenchido. Depois volte aqui e use o passo 2 para colar o texto e a imagem no corpo.');
+        return;
+      }catch(e){
+        if(e && e.name === 'AbortError'){ setStatus('Compartilhamento cancelado. O PDF continua disponível em "Só baixar o PDF".'); return; }
+      }
+    }
+
+    // sem compartilhamento do sistema: abre o PDF numa aba, onde o leitor tem
+    // os próprios botões de compartilhar, imprimir e salvar
+    var url = URL.createObjectURL(blob);
+    var aba = window.open(url, '_blank');
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 60000);
+    if(aba){
+      mFeito('#mPdfOk');
+      setStatus('PDF aberto em outra aba. Use o botão de compartilhar ou salvar do leitor para levá-lo ao Outlook.');
+    } else {
+      await saveFile(fileBase() + '.pdf', blob);
+      mFeito('#mPdfOk');
+      setStatus('O navegador bloqueou a nova aba, então o PDF foi baixado. Anexe o arquivo no Outlook.');
+    }
+  }catch(e){
+    console.error(e);
+    setStatus('Não foi possível preparar o PDF.');
+  }finally{ btn.disabled = false; }
+});
+
+$('#mCopiarTexto').addEventListener('click', async function(){
+  var t = $('#mTexto').textContent;
+  try{
+    await navigator.clipboard.writeText(t);
+    mFeito('#mTextoOk');
+  }catch(e){
+    // sem permissão de área de transferência: seleciona para a pessoa copiar à mão
+    var r = document.createRange(); r.selectNodeContents($('#mTexto'));
+    var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    toast('Selecionei o texto: use copiar do seu aparelho.');
+  }
+});
+
+$('#mCopiarImg').addEventListener('click', function(){
+  if(!mImgBlob){ toast('A imagem ainda está sendo gerada. Tente em alguns segundos.'); return; }
+  if(!(window.ClipboardItem && navigator.clipboard && navigator.clipboard.write)){
+    toast('Este navegador não copia imagem pelo botão. Segure o dedo na imagem e escolha Copiar.');
+    return;
+  }
+  navigator.clipboard.write([ new ClipboardItem({ 'image/png': mImgBlob }) ])
+    .then(function(){ mFeito('#mImgOk'); })
+    .catch(function(){ toast('O navegador recusou a cópia. Segure o dedo na imagem e escolha Copiar.'); });
+});
+
+$('#mBaixarImg').addEventListener('click', baixarImagemRelatorio);
+
+/* Texto e imagem numa tacada: vão como text/html, que é o formato que o Outlook
+   usa ao colar. A imagem viaja embutida em base64 dentro do próprio HTML. */
+$('#mCopiarTudo').addEventListener('click', async function(){
+  if(!current) return;
+  var btn = this; btn.disabled = true;
+  try{
+    if(!mImgBlob){ toast('A imagem ainda está sendo gerada. Tente em alguns segundos.'); return; }
+    if(!(window.ClipboardItem && navigator.clipboard && navigator.clipboard.write)){
+      toast('Este navegador não copia os dois juntos. Use "Copiar só o texto" e depois a imagem.');
+      return;
+    }
+    var texto = $('#mTexto').textContent;
+    var dataUrl = await new Promise(function(res, rej){
+      var fr = new FileReader(); fr.onload = function(){ res(fr.result); }; fr.onerror = rej;
+      fr.readAsDataURL(mImgBlob);
+    });
+    var html = '<div style="font-family:Segoe UI,Arial,sans-serif;font-size:14px;color:#14150D;">' +
+      esc(texto).replace(/\n/g, '<br>') +
+      '<br><br><img src="' + dataUrl + '" alt="Resumo do relatório de visita" style="max-width:100%;height:auto;">' +
+      '</div>';
+    await navigator.clipboard.write([ new ClipboardItem({
+      'text/html': new Blob([html], { type: 'text/html' }),
+      'text/plain': new Blob([texto], { type: 'text/plain' })
+    }) ]);
+    mFeito('#mTudoOk');
+    setStatus('Texto e imagem copiados juntos. Abra a mensagem no Outlook, toque no corpo e cole uma vez só. O PDF entra como anexo à parte.');
+  }catch(e){
+    console.error(e);
+    toast('Não deu para copiar os dois juntos. Use os botões separados abaixo.');
+  }finally{ btn.disabled = false; }
+});
+
+$('#mailBtn').addEventListener('click', enviarEmail);
+$('#pdfBtn').addEventListener('click', makePdf);
+// a câmera do computador vive fora deste fechamento e precisa destas duas funções
+window.__fotoApi = { add: adicionarFotos, aviso: toast };
+$('#imgBtn').addEventListener('click', baixarImagemRelatorio);
 
 
 /* ---------------- rascunho automático (IndexedDB, no próprio aparelho) ---------------- */
@@ -3429,19 +3945,130 @@ async function hasClaude(){ for(var i=0;i<25;i++){ if(window.claude && typeof wi
   if(!inClaude){
     // Fora do Claude (ex.: hospedado na intranet): download nativo do navegador.
     downloads = { save: function(o){ var blob = o.data instanceof Blob ? o.data : new Blob([o.data]); var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = o.filename; document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1500); return Promise.resolve({status:'saved'}); } };
-    $('#pdfBtn').hidden = false; $('#htmlBtn').hidden = false; $('#emlBtn').hidden = false; $('#xlsxBtn').hidden = false;
-    $('#reportIntro').textContent = 'Baixe o e-mail completo: ele abre no Outlook como mensagem nova, já com as fotos originais, o PDF e o arquivo de controle anexados. Também dá para copiar o e-mail ou baixar só o PDF.';
+    $('#reportIntro').textContent = 'Use "Enviar relatório por e-mail": no computador ele baixa a mensagem pronta com fotos e PDF anexados, e no celular abre o compartilhamento com os arquivos. Os outros botões servem se você preferir montar a mensagem à mão.';
     return;
   }
   try{ downloads = await claude.use('downloads'); }catch(e){}
-  if(downloads){ $('#pdfBtn').hidden = false; $('#htmlBtn').hidden = false; $('#xlsxBtn').hidden = false; }
-  else { $('#reportIntro').textContent = 'Copie o e-mail e cole direto no Outlook — fotos, tabelas e cores vão junto.'; }
+  if(!downloads){ $('#reportIntro').textContent = 'Copie o e-mail e cole direto no Outlook — fotos, tabelas e cores vão junto.'; }
   try{ db = await claude.use('db'); }catch(e){}
   try{ assets = await claude.use('assets'); }catch(e){}
   loadHistory();
 })();
 })();
 
+</script>
+
+<div class="cam-fundo" id="camFundo" role="dialog" aria-modal="true" aria-labelledby="camTitulo">
+  <div class="cam-caixa">
+    <h3 id="camTitulo">Tirar foto</h3>
+    <video class="cam-video" id="camVideo" playsinline muted></video>
+    <p class="cam-erro" id="camErro"></p>
+    <div class="cam-barra">
+      <select id="camLista" aria-label="Câmera" hidden></select>
+      <div class="cam-acoes">
+        <button type="button" class="upload-btn secundario" id="camFechar">Cancelar</button>
+        <button type="button" class="add-btn" id="camTirar">Capturar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* brilho especular acompanhando o dedo/mouse nas peças de vidro */
+(function(){
+  var sel = '.add-btn, .continue-btn, .anchor-nav button, .submit-btn, .scroll-bottom-fab';
+  document.addEventListener('pointermove', function(e){
+    var el = e.target.closest && e.target.closest(sel); if(!el) return;
+    var r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+    el.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+  }, {passive:true});
+  document.addEventListener('pointerleave', function(e){
+    var el = e.target.closest && e.target.closest(sel); if(!el) return;
+    el.style.removeProperty('--mx'); el.style.removeProperty('--my');
+  }, true);
+})();
+
+/* Câmera no navegador de computador.
+   No celular o próprio input com capture="environment" abre a câmera do sistema,
+   que dá foto melhor; aqui só cobrimos o PC, onde capture é ignorado. */
+(function(){
+  var temToque = matchMedia('(pointer: coarse)').matches ||
+                 /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  var fundo = document.getElementById('camFundo');
+  if(!fundo) return;
+  var video = document.getElementById('camVideo'), erro = document.getElementById('camErro');
+  var lista = document.getElementById('camLista'), btnTirar = document.getElementById('camTirar');
+  var fluxo = null, chaveAtual = null;
+
+  function suportaCamera(){ return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia); }
+  function parar(){
+    if(fluxo){ fluxo.getTracks().forEach(function(t){ t.stop(); }); fluxo = null; }
+    video.srcObject = null;
+  }
+  function fechar(){ parar(); fundo.dataset.aberta = '0'; chaveAtual = null; }
+
+  function ligar(deviceId){
+    parar();
+    fundo.dataset.erro = '0'; btnTirar.disabled = false;
+    var pedido = deviceId ? { deviceId: { exact: deviceId }, width: { ideal: 1920 } }
+                          : { facingMode: 'environment', width: { ideal: 1920 } };
+    navigator.mediaDevices.getUserMedia({ video: pedido, audio: false }).then(function(f){
+      fluxo = f; video.srcObject = f; return video.play();
+    }).then(function(){
+      return navigator.mediaDevices.enumerateDevices();
+    }).then(function(ds){
+      var cams = ds.filter(function(d){ return d.kind === 'videoinput'; });
+      lista.hidden = cams.length < 2;
+      if(cams.length > 1 && lista.options.length !== cams.length){
+        lista.innerHTML = cams.map(function(d, i){
+          return '<option value="' + d.deviceId + '">' + (d.label || ('Câmera ' + (i + 1))) + '</option>';
+        }).join('');
+        var atual = fluxo.getVideoTracks()[0].getSettings().deviceId;
+        if(atual) lista.value = atual;
+      }
+    }).catch(function(e){
+      fundo.dataset.erro = '1'; btnTirar.disabled = true; lista.hidden = true;
+      erro.textContent = (e && e.name === 'NotAllowedError')
+        ? 'Permissão de câmera negada. Libere o acesso na barra de endereço do navegador e tente de novo.'
+        : (e && e.name === 'NotFoundError')
+          ? 'Nenhuma câmera encontrada neste computador. Use "Escolher da galeria".'
+          : 'Não foi possível abrir a câmera. Use "Escolher da galeria".';
+    });
+  }
+
+  // no PC o clique em "Tirar foto agora" abre o visor em vez do seletor de arquivos
+  document.addEventListener('click', function(e){
+    var lab = e.target.closest && e.target.closest('label.cam-agora');
+    if(!lab || temToque || !suportaCamera()) return;
+    var inp = lab.querySelector('input[data-photo-key]'); if(!inp) return;
+    e.preventDefault();
+    chaveAtual = inp.getAttribute('data-photo-key');
+    fundo.dataset.aberta = '1';
+    ligar();
+  }, true);
+
+  lista.addEventListener('change', function(){ ligar(lista.value); });
+  document.getElementById('camFechar').addEventListener('click', fechar);
+  fundo.addEventListener('click', function(e){ if(e.target === fundo) fechar(); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && fundo.dataset.aberta === '1') fechar();
+  });
+
+  btnTirar.addEventListener('click', function(){
+    if(!fluxo || !chaveAtual) return;
+    var chave = chaveAtual;
+    var cv = document.createElement('canvas');
+    cv.width = video.videoWidth; cv.height = video.videoHeight;
+    cv.getContext('2d').drawImage(video, 0, 0);
+    cv.toBlob(function(b){
+      var api = window.__fotoApi;
+      if(!b || !api){ if(api) api.aviso('Não foi possível capturar a foto.'); return; }
+      api.add(chave, [new File([b], 'foto_' + Date.now() + '.jpg', { type: 'image/jpeg' })]);
+      fechar();
+    }, 'image/jpeg', 0.92);
+  });
+})();
 </script>
 </body>
 </html>
