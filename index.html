@@ -1444,7 +1444,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
         <span class="num">3</span>
         <div class="corpo">
           <div class="tit">Copie a mensagem e cole no e-mail</div>
-          <div class="dica">Um toque copia o texto e a imagem juntos. Cole uma vez no corpo da mensagem e os dois entram.</div>
+          <div class="dica">Um toque copia o texto e a imagem juntos. Cole uma vez no corpo da mensagem e os dois entram — o plano de ação vai dentro da imagem.</div>
           <div class="acoes" style="margin-top:0; margin-bottom:12px;">
             <button type="button" class="download-btn" id="mCopiarTudo">Copiar texto e imagem juntos</button>
             <span class="feito" id="mTudoOk" hidden>Copiado</span>
@@ -2744,12 +2744,23 @@ async function buildPdfBlob(){
       }
     };
   }
-  function pill(s, bg, fg, x, y, size){
+  function pill(s, bg, fg, x, y, size, maxW){
     size = size || 6.2; F(size, true);
-    var pw = larg(s) + 3.4, ph = size * ESC * 0.3528 + 2.0 * ESC;
-    fill(bg); D.roundedRect(x, y, pw, ph, ph / 2, ph / 2, 'F');
-    tint(fg); txt(s, x + 1.7, y + ph / 2 + size * ESC * 0.125);
-    return pw;
+    var uma = larg(s) + 3.4;
+    if(!maxW || uma <= maxW){
+      var ph = size * ESC * 0.3528 + 2.0 * ESC;
+      fill(bg); D.roundedRect(x, y, uma, ph, ph / 2, ph / 2, 'F');
+      tint(fg); txt(s, x + 1.7, y + ph / 2 + size * ESC * 0.125);
+      return uma;
+    }
+    /* Texto maior que a coluna: quebra em linhas dentro de um retângulo de canto
+       curto. Sem isto a tarja crescia além do cartão e saía cortada na folha. */
+    var ls = parte(s, maxW - 3.4), lh = LH(size);
+    var ph2 = ls.length * lh + 1.6 * ESC;
+    fill(bg); D.roundedRect(x, y, maxW, ph2, 1.4, 1.4, 'F');
+    tint(fg);
+    ls.forEach(function(l, k){ txt(l, x + 1.7, y + 0.8 * ESC + lh * (k + 0.76)); });
+    return maxW;
   }
   function chip(s, x, y, size){
     size = size || 6.2; F(size, true);
@@ -2814,7 +2825,7 @@ async function buildPdfBlob(){
     }
     function altCel(cel, w){
       if(!cel) return 0;
-      var h = 0, reserva = cel.t === 'dot' ? 3.2 : 0;
+      var h = cel.t === 'pill' ? 2.0 * ESC : 0, reserva = cel.t === 'dot' ? 3.2 : 0;
       if(cel.t === 'chips'){ return iChips(cel.v, SS).alt(w - PAD); }
       F(S, false);
       h += parte(limpa(cel.v), Math.max(6, w - PAD - reserva)).length * LHR;
@@ -2846,7 +2857,7 @@ async function buildPdfBlob(){
             if(cel){
               var wc = ws[i] - PAD, yy = y;
               if(cel.t === 'pill'){
-                pill(limpa(cel.v), cel.bg, cel.fg, cx, yy, S - 0.6);
+                pill(limpa(cel.v), cel.bg, cel.fg, cx, yy, S - 0.6, wc);
               } else if(cel.t === 'dot'){
                 fill(cel.cor); D.circle(cx + 1.1, yy + LHR * 0.48, 1.0, 'F');
                 F(S, true); tint(cel.cor);
@@ -3482,14 +3493,14 @@ $('#mainForm').addEventListener('submit', async function(ev){
 });
 
 $('#copyEmailBtn').addEventListener('click', copyEmail);
-function resumoEmail(){
+function resumoEmail(semPlano){
   var p = current.payload, acts = collectActions(p), L = [];
   L.push(p.id.cliente + ' — ' + p.id.operacao);
   L.push('Visita de ' + fmtDate(p.id.data) + ', das ' + (p.id.inicio || '?') + ' às ' + (p.id.termino || '?') + '. Responsável: ' + p.id.responsavel + '.');
   L.push('');
   L.push('Resumo: ' + acts.length + ' itens no plano de ação, ' + p.colabs.length + ' colaboradores, ' + p.equips.length + ' equipamentos.');
   if(p.prox.data) L.push('Próxima visita: ' + fmtDate(p.prox.data) + '.');
-  if(acts.length){
+  if(acts.length && !semPlano){
     L.push(''); L.push('Plano de ação:');
     acts.forEach(function(a){ L.push('- [' + (a.crit || 'sem criticidade') + '] ' + a.desc + (a.prov ? ' | ' + a.prov : '') + (a.resp ? ' | ' + a.resp : '') + (a.prazo ? ' | até ' + fmtDate(a.prazo) : '')); });
   }
@@ -3691,7 +3702,7 @@ function mFeito(id){
 
 function mPreparaBloco(){
   if(!current) return;
-  mTextoPlano = 'Assunto: ' + current.subject + '\n\n' + resumoEmail();
+  mTextoPlano = resumoEmail(true);
   $('#mTexto').innerHTML = resumoColorido(mTextoPlano);
   $('#mPdfOk').hidden = true; $('#mTextoOk').hidden = true; $('#mImgOk').hidden = true; $('#mTudoOk').hidden = true;
   // a imagem é pesada: gera em segundo plano para o bloco já aparecer utilizável
